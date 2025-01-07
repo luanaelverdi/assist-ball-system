@@ -5,5 +5,7 @@ export type User ={
     email: string;
     password: string;
     category: string;
-    user_type: string;
+    user_type: UserType;
 }   
+
+export type UserType = 'dt' | 'player';
