@@ -3,6 +3,7 @@ import path from "path";
 import swaggerUI from 'swagger-ui-express';
 import { swaggerDocs, swaggerSpec } from "./helpers/swagger";
 import cors from 'cors';
+import authRouter from "./presentation/routes/authRouter";
 
 class Server {
     private app: Application;
@@ -32,6 +33,8 @@ class Server {
       // test: '/api/test',
       // pdf: '/api/Pdf',
       docs: '/docs',
+      auth: '/api/auth',
+      usuario: '/api/usuario'
     };
   
     constructor() {
@@ -58,8 +61,8 @@ class Server {
     }
   
     routes() {
-      //this.app.use(this.pathRoutes.usuario, usuarioRouter);
-    
+      //this.app.use(this.pathRoutes.user, usuarioRouter);
+      this.app.use(this.pathRoutes.auth, authRouter);
       // this.app.use(this.pathRoutes.test, function (_, res) {
       //   res.json(true);
       // });
