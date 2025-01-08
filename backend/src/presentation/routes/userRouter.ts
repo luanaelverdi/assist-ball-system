@@ -23,19 +23,19 @@ const router: Router = Router();
  *               dni:
  *                 type: number
  *                 example: 12345678
- *               full_name:
+ *               fullname_user:
  *                 type: string
  *                 example: Juan Perez
- *               email:
+ *               email_user:
  *                 type: string
  *                 example: juanperez@gmail.com
- *               password:
+ *               pass_user:
  *                 type: string
  *                 example: 12345678
- *               category:
+ *               category_user:
  *                 type: string
  *                 example: admin
- *               user_type:
+ *               type_user:
  *                 type: string
  *                 example: admin
  *     responses:
@@ -50,7 +50,7 @@ const router: Router = Router();
  *                   type: string
  *                   example: OK
  */
-router.post('/', ValidarAutorizacion.User, userController.add);
+router.post('/', userController.add);
 
 /**
  * @openapi
@@ -78,13 +78,13 @@ router.post('/', ValidarAutorizacion.User, userController.add);
  *               properties:
  *                 id_user:
  *                   type: number
- *                 full_name:
+ *                 fullname_user:
  *                   type: string
- *                 email:
+ *                 email_user:
  *                   type: string
- *                 category:
+ *                 category_user:
  *                   type: string
- *                 user_type:
+ *                 type_user:
  *                   type: string
  */
 router.get('/:id', ValidarAutorizacion.User, userController.getByID);
@@ -115,13 +115,13 @@ router.get('/:id', ValidarAutorizacion.User, userController.getByID);
  *               properties:
  *                 id_user:
  *                   type: number
- *                 full_name:
+ *                 fullname_user:
  *                   type: string
- *                 email:
+ *                 email_user:
  *                   type: string
- *                 category:
+ *                 category_user:
  *                   type: string
- *                 user_type:
+ *                 type_user:
  *                   type: string
  */
 router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.User, userController.searchUserWithEmail);
@@ -152,13 +152,13 @@ router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.User, userControlle
  *               properties:
  *                 id_user:
  *                   type: number
- *                 full_name:
+ *                 fullname_user:
  *                   type: string
- *                 email:
+ *                 email_user:
  *                   type: string
- *                 category:
+ *                 category_user:
  *                   type: string
- *                 user_type:
+ *                 type_user:
  *                   type: string
  */
 router.get('/searchUserByType/:type', ValidarAutorizacion.User, userController.searchUserByType);

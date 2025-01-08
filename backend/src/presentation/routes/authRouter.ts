@@ -37,13 +37,13 @@ const router: Router = Router();
  *                      properties:
  *                          id_user:
  *                              type: number
- *                          full_name:
+ *                          fullname_user:
  *                              type: string
- *                          email:
+ *                          email_user:
  *                              type: string
- *                          user_type:
+ *                          type_user:
  *                              type: string
- *                          category:
+ *                          category_user:
  *                              type: string
  *                  token:
  *                      type: string   

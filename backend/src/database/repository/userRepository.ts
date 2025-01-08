@@ -1,21 +1,21 @@
 import ErrorBaseDeDatos from "../../errors/ErrorBaseDeDatos";
 import ErrorGenerico from "../../errors/ErrorGenerico";
 import { BodyModificarUsuarioAdmin } from "../../services/userService";
-import { User, PublicUser } from "../models/User";
+import { Users, PublicUsers } from "../models/User";
 import Postgres from "../Postgres";
 
-export const getAll = async (): Promise<Array<User>> => {
-  const query: Array<User> = await Postgres.query()`
+export const getAll = async (): Promise<Array<Users>> => {
+  const query: Array<Users> = await Postgres.query()`
     SELECT  
       id_user,
-      dni,
-      fullname,
-      email,
-      category,
-      user_type,
-      user_state,
+      dni_user,
+      fullname_user,
+      email_user,
+      category_user,
+      type_user,
+      state_user,
     FROM 
-      user
+      users
     ORDER BY
       id_user
     DESC;
@@ -23,9 +23,9 @@ export const getAll = async (): Promise<Array<User>> => {
   return query;
 };
 
-export const searchUserWithEmail = async (email_user: string): Promise<User | null> => {
+export const searchUserWithEmail = async (email: string): Promise<Users | null> => {
   try {
-    const query: Array<User> = await Postgres.query()`SELECT * FROM user WHERE email = ${email_user};`;
+    const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE email_user = ${email};`;
     return query[0];
   } catch (error) {
     if (error instanceof ErrorGenerico) throw error;
@@ -36,50 +36,50 @@ export const searchUserWithEmail = async (email_user: string): Promise<User | nu
   }
 };
 
-export const searchUserByType = async (type: string): Promise<Array<User>> => {
-  const query: Array<User> = await Postgres.query()`SELECT * FROM user WHERE user_type = ${type} AND user_state = 'alta';`;
+export const searchUserByType = async (type: string): Promise<Array<Users>> => {
+  const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE type_user = ${type} AND state_user = 'alta';`;
   return query;
 };
 
-export const getByID = async (id: number): Promise<User | null> => {
-  const query: Array<User> = await Postgres.query()`SELECT * FROM user WHERE id_user = ${id};`;
+export const getByID = async (id: number): Promise<Users | null> => {
+  const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE id_user = ${id};`;
   return query[0];
 };
 
 export const getPasswordUser = async (id: number): Promise<string> => {
-  const query: Array<any> = await Postgres.query()`SELECT password FROM user WHERE id_user = ${id};`;
+  const query: Array<any> = await Postgres.query()`SELECT pass_user FROM user WHERE id_user = ${id};`;
   return query[0];
 };
 
 export const add = async (body: {
-  dni: number,
-  fullname: string,
-  email: string,
-  password: string,
-  category: string,
-  user_type: string
+  dni_user: number,
+  fullname_user: string,
+  email_user: string,
+  pass_user: string,
+  category_user: string,
+  type_user: string
 }) => {
   try {
     const query = await Postgres.query()`
       INSERT INTO 
-        user (
-          dni, 
-          fullname,
-          email, 
-          password,
-          category,
-          user_type,
-          user_state,
-          fecha_alta,
-          fecha_baja
+        users (
+          dni_user, 
+          fullname_user,
+          email_user, 
+          pass_user,
+          category_user,
+          type_user,
+          state_user,
+          fecha_alta_user,
+          fecha_baja_user
         ) 
       VALUES (
-        ${body.dni}, 
-        ${body.fullname}, 
-        ${body.email}, 
-        ${body.password}, 
-        ${body.category},
-        ${body.user_type},
+        ${body.dni_user}, 
+        ${body.fullname_user}, 
+        ${body.email_user}, 
+        ${body.pass_user}, 
+        ${body.category_user},
+        ${body.type_user},
         'alta',
         CURRENT_DATE,
         null
@@ -99,11 +99,11 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
   try {
     await Postgres.query().begin(async sql => {
       await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
-      if (body.dni) await sql`UPDATE user SET dni = ${body.dni} WHERE id_user = ${id};`;
-      if (body.fullname) await sql`UPDATE user SET fullname = ${body.fullname} WHERE id_user = ${id};`;
-      if (body.email) await sql`UPDATE user SET email = ${body.email} WHERE id_user = ${id};`;
-      if (body.password) await sql`UPDATE user SET password = ${body.password} WHERE id_user = ${id};`;
-      if (body.user_type) await sql`UPDATE user SET user_type = ${body.user_type} WHERE id_user = ${id};`;
+      if (body.dni_user) await sql`UPDATE users SET dni_user = ${body.dni_user} WHERE id_user = ${id};`;
+      if (body.fullname_user) await sql`UPDATE users SET fullname_user = ${body.fullname_user} WHERE id_user = ${id};`;
+      if (body.email_user) await sql`UPDATE users SET email_user = ${body.email_user} WHERE id_user = ${id};`;
+      if (body.pass_user) await sql`UPDATE users SET pass_user = ${body.pass_user} WHERE id_user = ${id};`;
+      if (body.type_user) await sql`UPDATE users SET type_user = ${body.type_user} WHERE id_user = ${id};`;
     });
   } catch (error) {
     console.error(error);
@@ -114,7 +114,7 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
 
 export const modifyName = async (id: number, name: string) => {
   try {
-    await Postgres.query()`UPDATE user SET fullname = ${name} WHERE id_user = ${id};`;
+    await Postgres.query()`UPDATE users SET fullname_user = ${name} WHERE id_user = ${id};`;
   } catch (error) {
     console.error(error);
     if (error instanceof ErrorGenerico) throw error;
@@ -124,7 +124,7 @@ export const modifyName = async (id: number, name: string) => {
 
 export const modifyPassword = async (id: number, pass: string) => {
   try {
-    await Postgres.query()`UPDATE user SET password = ${pass} WHERE id_user = ${id};`;
+    await Postgres.query()`UPDATE users SET pass_user = ${pass} WHERE id_user = ${id};`;
   } catch (error) {
     console.error(error);
     if (error instanceof ErrorGenerico) throw error;
@@ -134,7 +134,7 @@ export const modifyPassword = async (id: number, pass: string) => {
 
 export const modifyEmail = async (id: number, email: string) => {
   try {
-    await Postgres.query()`UPDATE user SET email = ${email} WHERE id_user = ${id};`;
+    await Postgres.query()`UPDATE users SET email_user = ${email} WHERE id_user = ${id};`;
   } catch (error) {
     console.error(error);
     if (error instanceof ErrorGenerico) throw error;
@@ -144,7 +144,7 @@ export const modifyEmail = async (id: number, email: string) => {
 
 export const modifyDNI = async (id: number, dni: string) => {
   try {
-    await Postgres.query()`UPDATE user SET dni = ${dni} WHERE id_user = ${id};`;
+    await Postgres.query()`UPDATE users SET dni_user = ${dni} WHERE id_user = ${id};`;
   } catch (error) {
     console.error(error);
     if (error instanceof ErrorGenerico) throw error;
@@ -154,7 +154,7 @@ export const modifyDNI = async (id: number, dni: string) => {
 
 export const modifyCategory = async (id: number, cat: string) => {
   try {
-    await Postgres.query()`UPDATE user SET category = ${cat} WHERE id_user = ${id};`;
+    await Postgres.query()`UPDATE users SET category_user = ${cat} WHERE id_user = ${id};`;
   } catch (error) {
     console.error(error);
     if (error instanceof ErrorGenerico) throw error;
@@ -166,10 +166,10 @@ export const deleteUser = async (_id: number) => {
   try {
     await Postgres.query()`
       UPDATE 
-        user 
+        users 
       SET 
-        user_state = 'baja',
-        fecha_baja= CURRENT_DATE
+        state_user = 'baja',
+        fecha_baja_user= CURRENT_DATE
       WHERE 
         id_user = ${_id};`;
   } catch (error) {

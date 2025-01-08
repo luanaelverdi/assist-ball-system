@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
-import { User, PublicUser } from "../database/models/User";
+import { Users, PublicUsers } from "../database/models/User";
 import { Request } from 'express';
 import ErrorNoAutorizado from '../errors/ErrorNoAutorizado';
 
 export default class JWT {
-    public static generar(user: PublicUser): string {
+    public static generar(user: PublicUsers): string {
         try {
             const payload = { user };
             const token = jwt.sign(payload, process.env.JWT_KEY!, { expiresIn: '24h' });
@@ -15,7 +15,7 @@ export default class JWT {
     }
     
 
-    public static validar(req: Request): PublicUser {
+    public static validar(req: Request): PublicUsers {
         const authHeader = req.headers['authorization'];
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             throw new ErrorNoAutorizado("Token no enviado o formato incorrecto.");
@@ -26,13 +26,13 @@ export default class JWT {
     }
     
 
-    public static verificarToken(token: string): PublicUser {
+    public static verificarToken(token: string): PublicUsers {
         if (!process.env.JWT_KEY) {
             throw new Error("Clave JWT no configurada.");
         }
     
         try {
-            const decoded = jwt.verify(token, process.env.JWT_KEY) as { user: PublicUser };
+            const decoded = jwt.verify(token, process.env.JWT_KEY) as { user: PublicUsers };
             return decoded.user;
         } catch (error) {
             throw new ErrorNoAutorizado("Token inválido o expirado.");
