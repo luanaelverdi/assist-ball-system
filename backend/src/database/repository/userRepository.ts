@@ -191,6 +191,6 @@ export const userRepository = {
   modifyPassword,
   modifyEmail,
   modifyDNI,
-  modifyCategory, 
+  modifyCategory,
   deleteUser
 };

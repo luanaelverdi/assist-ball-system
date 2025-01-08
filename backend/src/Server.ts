@@ -1,10 +1,10 @@
 import express, { Application } from "express";
 import path from "path";
-import swaggerUI from 'swagger-ui-express';
-import { swaggerDocs, swaggerSpec } from "./helpers/swagger";
-import cors from 'cors';
-import authRouter from "./presentation/routes/authRouter";
 import userRouter from "./presentation/routes/userRouter";
+import authRouter from "./presentation/routes/authRouter";
+import { swaggerDocs, swaggerSpec } from "./helpers/swagger";
+import swaggerUI from 'swagger-ui-express';
+import cors from 'cors';
 
 class Server {
   private app: Application;
@@ -35,7 +35,7 @@ class Server {
     // pdf: '/api/Pdf',
     docs: '/docs',
     auth: '/api/auth',
-    user: '/api/usuario'
+    user: '/api/user'
   };
 
   constructor() {
@@ -47,19 +47,19 @@ class Server {
     this.middlewares();
     this.routes();
   }
-  
+
   middlewares() {
     this.app.use(express.json({ limit: 10428800 }));
     this.app.use(
       cors({
         origin:
-        process.env.PRODUCTION === 'true'
-        ? [process.env.FRONTEND_URL!]
-        : process.env.DEV_FRONTEND_URL,
+          process.env.PRODUCTION === 'true'
+            ? [process.env.FRONTEND_URL!]
+            : process.env.DEV_FRONTEND_URL,
       })
     );
     this.app.use(express.json());
-    
+
   }
 
   routes() {

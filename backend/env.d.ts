@@ -1,4 +1,4 @@
-//import { UsuarioPublico } from "./src/database/models/Usuario"
+import { PublicUser } from "./src/database/models/User"
 
 declare global {
   namespace NodeJS {
@@ -8,19 +8,18 @@ declare global {
       POSTGRES_DB_NAME: string,
       POSTGRES_USERNAME: string,
       POSTGRES_PASSWORD: string,
-      JWT_KEY: string,
-      FRONTEND_URL: string,
-      TRACCAR_URL : string
+      JWT_KEY: string
+      /*  JWT_EXPIRATION: string,*/
     }
   }
 }
 
-/*declare global {
+declare global {
   namespace Express {
-      interface Request {
-          usuario: UsuarioPublico
-      }
+    interface Request {
+      usuario: PublicUser
+    }
   }
-}*/
+}
 
-export {}
+export { }

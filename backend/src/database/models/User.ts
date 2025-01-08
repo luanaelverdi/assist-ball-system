@@ -1,4 +1,4 @@
-export type User ={
+export type User = {
     id_user: number;
     dni: number;
     full_name: string;
@@ -9,7 +9,7 @@ export type User ={
     user_state: UserState;
     fecha_alta: Date;
     fecha_baja: Date;
-}   
+}
 
 export type PublicUser = {
     id_user: number;
@@ -19,8 +19,8 @@ export type PublicUser = {
     category: string;
     user_type: UserType;
     user_state: UserState;
-    fecha_alta_usuario: Date;
-    fecha_baja_usuario: Date;
+    fecha_alta: Date;
+    fecha_baja: Date;
 }
 
 export type UserType = 'dt' | 'player' | 'admin';

@@ -27,8 +27,8 @@ const login = async (body: { email: string, password: string }) => {
         category: user.category,
         user_type: user.user_type,
         user_state: user.user_state,
-        fecha_alta_usuario: user.fecha_alta,
-        fecha_baja_usuario: user.fecha_baja
+        fecha_alta: user.fecha_alta,
+        fecha_baja: user.fecha_baja
     }
     const token = await JWT.generar(publicUser);
     return { user: publicUser, token };

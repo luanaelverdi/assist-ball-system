@@ -6,12 +6,11 @@ import Postgres from './database/Postgres';
 dotenv.config();
 
 const app = new Server();
-
 app.listen();
 
 Postgres.init().then(async () => {
-   // await Parametros.Iniciar();
+    // await Parametros.Iniciar();
     //await Parametros.Actualizar();
-   // await Helpers.Execute();
+    // await Helpers.Execute();
     //await Scheduler.iniciar();
 }).catch((err) => console.error(err));
