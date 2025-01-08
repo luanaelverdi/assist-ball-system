@@ -14,22 +14,22 @@ const login = async (body: { email: string, password: string }) => {
     if (!regex.test(email)) throw new ErrorArgumentoInvalido("Debes ingresar un correo electrónico válido.");
     if (!password) throw new ErrorArgumentoInvalido("Debes ingresar una contraseña.");
 
-    const user = await userRepository.buscarUsuarioConEmail(email);
+    const user = await userRepository.searchUserwithEmail(email);
     if (!user) throw new ErrorRecursoNoEncontrado("Credenciales incorrectas.");
     if (!await Password.validar(password, user.password)) throw new ErrorArgumentoInvalido("Credenciales incorrectas.");
-
-    const publicUser: UsuarioPublico = {
-        id_user: user.id_user;
+    if (!await Password.validar(password,password)) throw new ErrorArgumentoInvalido("Credenciales incorrectas.");
+    
+    const publicUser: PublicUser = {
+        id_user: user.id_user,
         dni: user.dni,
-        full_name: user.full_name;
-        email: user.email;
-        category: user.category;
-        user_type: user.user_type;
-        user_state: user.user_state;
-        fecha_alta_usuario: user.fecha_alta_usuario;
-        fecha_baja_usuario: user.fecha_baja_usuario;
+        full_name: user.full_name,
+        email: user.email,
+        category: user.category,
+        user_type: user.user_type,
+        user_state: user.user_state,
+        fecha_alta_usuario: user.fecha_alta,
+        fecha_baja_usuario: user.fecha_baja
     }
-
     const token = await JWT.generar(publicUser);
     return { user: publicUser, token };
 };

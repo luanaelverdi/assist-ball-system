@@ -26,7 +26,7 @@ export default class Postgres {
     private static connect () {
         this.db = postgres({
             host: process.env.POSTGRES_URL,
-            port: process.env.POSTGRES_PORT,
+            port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : undefined, // Convertir a número
             database: process.env.POSTGRES_DB_NAME,
             username: process.env.POSTGRES_USERNAME,
             password: process.env.POSTGRES_PASSWORD,

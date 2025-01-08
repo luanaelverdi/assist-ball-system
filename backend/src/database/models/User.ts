@@ -23,5 +23,5 @@ export type PublicUser = {
     fecha_baja_usuario: Date;
 }
 
-export type UserType = 'dt' | 'player';
+export type UserType = 'dt' | 'player' | 'admin';
 export type UserState = 'alta' | 'baja';

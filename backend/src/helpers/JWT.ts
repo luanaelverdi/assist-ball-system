@@ -4,32 +4,39 @@ import { Request } from 'express';
 import ErrorNoAutorizado from '../errors/ErrorNoAutorizado';
 
 export default class JWT {
-    public static generar (user: PublicUser) {
-        return new Promise((resolve, reject) => {
+    public static generar(user: PublicUser): string {
+        try {
             const payload = { user };
-            jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '24h' }, (err, token) => {
-                if (err) reject('No se pudo generar el token.');
-                resolve(token);
-            });
-        });
-    }
-
-    public static validar (req: Request) {
-        try {
-            const token = req.headers['authorization']?.split(" ");
-            if (!token) throw new ErrorNoAutorizado("Token no enviado.");
-            return this.verificarToken(token[1]);
+            const token = jwt.sign(payload, process.env.JWT_KEY!, { expiresIn: '24h' });
+            return token;
         } catch (error) {
-            throw error;
+            throw new Error("No se pudo generar el token.");
         }
     }
+    
 
-    public static verificarToken (token: string): PublicUser {
+    public static validar(req: Request): PublicUser {
+        const authHeader = req.headers['authorization'];
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            throw new ErrorNoAutorizado("Token no enviado o formato incorrecto.");
+        }
+    
+        const token = authHeader.split(" ")[1]; // Extrae el token después de 'Bearer '
+        return this.verificarToken(token);
+    }
+    
+
+    public static verificarToken(token: string): PublicUser {
+        if (!process.env.JWT_KEY) {
+            throw new Error("Clave JWT no configurada.");
+        }
+    
         try {
-            const { user } = jwt.verify(token, process.env.JWT_KEY) as any;
-            return user;
+            const decoded = jwt.verify(token, process.env.JWT_KEY) as { user: PublicUser };
+            return decoded.user;
         } catch (error) {
-            throw new ErrorNoAutorizado("Token inválido.");
+            throw new ErrorNoAutorizado("Token inválido o expirado.");
         }
     }
+    
 }
