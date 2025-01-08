@@ -1,7 +1,7 @@
 export type User = {
     id_user: number;
     dni: number;
-    full_name: string;
+    fullname: string;
     email: string;
     password: string;
     category: string;
@@ -14,7 +14,7 @@ export type User = {
 export type PublicUser = {
     id_user: number;
     dni: number;
-    full_name: string;
+    fullname: string;
     email: string;
     category: string;
     user_type: UserType;

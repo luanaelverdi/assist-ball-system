@@ -91,7 +91,7 @@ router.get('/:id', ValidarAutorizacion.User, userController.getByID);
 
 /**
  * @openapi
- * /api/user/searchUserwithEmail/{mail}:
+ * /api/user/searchUserWithEmail/{mail}:
  *   get:
  *     security:
  *       - tokenAutorizacion: []
@@ -124,7 +124,7 @@ router.get('/:id', ValidarAutorizacion.User, userController.getByID);
  *                 user_type:
  *                   type: string
  */
-router.get('/searchUserwithEmail/:mail', ValidarAutorizacion.User, userController.searchUserwithEmail);
+router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.User, userController.searchUserWithEmail);
 
 /**
  * @openapi

@@ -14,7 +14,7 @@ const login = async (body: { email: string, password: string }) => {
     if (!regex.test(email)) throw new ErrorArgumentoInvalido("Debes ingresar un correo electrónico válido.");
     if (!password) throw new ErrorArgumentoInvalido("Debes ingresar una contraseña.");
 
-    const user = await userRepository.searchUserwithEmail(email);
+    const user = await userRepository.searchUserWithEmail(email);
     if (!user) throw new ErrorRecursoNoEncontrado("Credenciales incorrectas.");
     if (!await Password.validar(password, user.password)) throw new ErrorArgumentoInvalido("Credenciales incorrectas.");
     if (!await Password.validar(password,password)) throw new ErrorArgumentoInvalido("Credenciales incorrectas.");
@@ -22,7 +22,7 @@ const login = async (body: { email: string, password: string }) => {
     const publicUser: PublicUser = {
         id_user: user.id_user,
         dni: user.dni,
-        full_name: user.full_name,
+        fullname: user.fullname,
         email: user.email,
         category: user.category,
         user_type: user.user_type,

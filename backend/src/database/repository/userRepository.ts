@@ -9,7 +9,7 @@ export const getAll = async (): Promise<Array<User>> => {
     SELECT  
       id_user,
       dni,
-      full_name,
+      fullname,
       email,
       category,
       user_type,
@@ -23,9 +23,9 @@ export const getAll = async (): Promise<Array<User>> => {
   return query;
 };
 
-export const searchUserwithEmail = async (email: string): Promise<User | null> => {
+export const searchUserWithEmail = async (email_user: string): Promise<User | null> => {
   try {
-    const query: Array<User> = await Postgres.query()`SELECT * FROM user WHERE email = ${email};`;
+    const query: Array<User> = await Postgres.query()`SELECT * FROM user WHERE email = ${email_user};`;
     return query[0];
   } catch (error) {
     if (error instanceof ErrorGenerico) throw error;
@@ -53,7 +53,7 @@ export const getPasswordUser = async (id: number): Promise<string> => {
 
 export const add = async (body: {
   dni: number,
-  full_name: string,
+  fullname: string,
   email: string,
   password: string,
   category: string,
@@ -64,7 +64,7 @@ export const add = async (body: {
       INSERT INTO 
         user (
           dni, 
-          full_name,
+          fullname,
           email, 
           password,
           category,
@@ -75,14 +75,14 @@ export const add = async (body: {
         ) 
       VALUES (
         ${body.dni}, 
-        ${body.full_name}, 
+        ${body.fullname}, 
         ${body.email}, 
         ${body.password}, 
         ${body.category},
         ${body.user_type},
         'alta',
         CURRENT_DATE,
-        null,
+        null
       )
       RETURNING *
     ;`;
@@ -100,7 +100,7 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
     await Postgres.query().begin(async sql => {
       await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
       if (body.dni) await sql`UPDATE user SET dni = ${body.dni} WHERE id_user = ${id};`;
-      if (body.full_name) await sql`UPDATE user SET full_name = ${body.full_name} WHERE id_user = ${id};`;
+      if (body.fullname) await sql`UPDATE user SET fullname = ${body.fullname} WHERE id_user = ${id};`;
       if (body.email) await sql`UPDATE user SET email = ${body.email} WHERE id_user = ${id};`;
       if (body.password) await sql`UPDATE user SET password = ${body.password} WHERE id_user = ${id};`;
       if (body.user_type) await sql`UPDATE user SET user_type = ${body.user_type} WHERE id_user = ${id};`;
@@ -114,7 +114,7 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
 
 export const modifyName = async (id: number, name: string) => {
   try {
-    await Postgres.query()`UPDATE user SET full_name = ${name} WHERE id_user = ${id};`;
+    await Postgres.query()`UPDATE user SET fullname = ${name} WHERE id_user = ${id};`;
   } catch (error) {
     console.error(error);
     if (error instanceof ErrorGenerico) throw error;
@@ -182,7 +182,7 @@ export const deleteUser = async (_id: number) => {
 export const userRepository = {
   getAll,
   getByID,
-  searchUserwithEmail,
+  searchUserWithEmail,
   searchUserByType,
   getPasswordUser,
   add,

@@ -18,14 +18,14 @@ const getAll = async (query: {
   const users = await userRepository.getAll();
 
   const results = users.filter(user => {
-    return (!query.search || user.full_name.toLowerCase().includes(query.search.toLowerCase()));
+    return (!query.search || user.fullname.toLowerCase().includes(query.search.toLowerCase()));
   });
 
   return results;
 };
 
-export const searchUserwithEmail = async (email: string) => {
-  const users = await userRepository.searchUserwithEmail(email);
+export const searchUserWithEmail = async (email: string) => {
+  const users = await userRepository.searchUserWithEmail(email);
   return users;
 };
 
@@ -46,14 +46,14 @@ export const getPasswordUser = async (id: number) => {
 
 const add = async (id_user: number, body: {
   dni: number;
-  full_name: string;
+  fullname: string;
   email: string;
   password: string;
   category: string;
   user_type: UserType;
 }): Promise<void> => {
   // Validaciones de entrada
-  userValidator.validateName(body.full_name);
+  userValidator.validateName(body.fullname);
   userValidator.validatePassword(body.password);
   userValidator.validateEmail(body.email);
   userValidator.validateType(body.user_type);
@@ -79,7 +79,7 @@ const add = async (id_user: number, body: {
       const insertedUser = await sql`
         INSERT INTO user (
           dni,
-          full_name, 
+          fullname, 
           email, 
           password,
           category,
@@ -90,7 +90,7 @@ const add = async (id_user: number, body: {
         )
         VALUES (
           ${body.dni},
-          ${body.full_name},
+          ${body.fullname},
           ${body.email},
           ${body.password},
           ${body.category},
@@ -121,7 +121,7 @@ export const deleteUser = async (id: number) => {
 
 export type BodyModificarUsuarioAdmin = {
   dni: number | null;
-  full_name: string | null;
+  fullname: string | null;
   email: string | null;
   password: string | null;
   user_type: UserType | null;
@@ -130,7 +130,7 @@ export type BodyModificarUsuarioAdmin = {
 
 const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
   if (body.dni) userValidator.validateDNI(body.dni);
-  if (body.full_name) userValidator.validateName(body.full_name);
+  if (body.fullname) userValidator.validateName(body.fullname);
   if (body.password) userValidator.validatePassword(body.password);
   if (body.password) body.password = Password.hash(body.password);
   if (body.email) userValidator.validateEmail(body.email);
@@ -185,7 +185,7 @@ export const modifyEmail = async (user: PublicUser, body: { email: string }) => 
 
 export const userService = {
   getAll, 
-  searchUserwithEmail,
+  searchUserWithEmail,
   searchUserByType,
   getByID,
   getPasswordUser,

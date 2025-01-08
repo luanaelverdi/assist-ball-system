@@ -23,9 +23,9 @@ const getAll = async (req: Request, res: Response) => {
   }
 };
 
-const searchUserwithEmail = async (req: Request, res: Response) => {
+const searchUserWithEmail = async (req: Request, res: Response) => {
   try {
-    const usuarios = await userService.searchUserwithEmail(req.params.mail);
+    const usuarios = await userService.searchUserWithEmail(req.params.mail);
     ResponseOk(res, responses.OK, usuarios);
   } catch (error: any) {
     console.error(error);
@@ -70,7 +70,7 @@ const add = async (req: Request, res: Response) => {
     }
     const body = {
       dni: req.body.dni,
-      full_name: req.body.full_name,
+      fullname: req.body.fullname,
       email: req.body.email,
       password: req.body.password,
       category: req.body.category,
@@ -99,7 +99,7 @@ const modify = async (req: Request, res: Response) => {
   try {
     const response = await userService.modify(req.user?.id_user ?? 0, {
       dni: req.body.dni ?? null,
-      full_name: req.body.full_name ?? null,
+      fullname: req.body.full_name ?? null,
       email: req.body.email_usuario ?? null,
       password: req.body.password ?? null,
       category: req.body.category ?? null,
@@ -172,7 +172,7 @@ export const userController = {
   searchUserByType,
   getPasswordUser,
   getByID,
-  searchUserwithEmail,
+  searchUserWithEmail,
   deleteUser,
   add,
   modify,
