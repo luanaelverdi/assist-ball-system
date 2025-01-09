@@ -1,6 +1,4 @@
-import Postgres from "../database/Postgres";
 import { assistanceRepository } from "../database/repository/assistenceRepository";
-import ErrorRecursoNoEncontrado from "../errors/ErrorRecursoNoEncontrado";
 
 const fetch = require('node-fetch');
 

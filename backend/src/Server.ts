@@ -6,6 +6,7 @@ import { swaggerDocs, swaggerSpec } from "./helpers/swagger";
 import swaggerUI from 'swagger-ui-express';
 import cors from 'cors';
 import assistanceRouter from "./presentation/routes/assistanceRouter";
+import notificationRouter from "./presentation/routes/notificationRouter";
 
 class Server {
   private app: Application;
@@ -37,7 +38,8 @@ class Server {
     docs: '/docs',
     auth: '/api/auth',
     user: '/api/user',
-    assistance: '/api/assistance'
+    assistance: '/api/assistance',
+    notification: '/api/notification'
   };
 
   constructor() {
@@ -68,6 +70,7 @@ class Server {
     this.app.use(this.pathRoutes.user, userRouter);
     this.app.use(this.pathRoutes.auth, authRouter);
     this.app.use(this.pathRoutes.assistance, assistanceRouter);
+    this.app.use(this.pathRoutes.notification, notificationRouter);
     // this.app.use(this.pathRoutes.test, function (_, res) {
     //   res.json(true);
     // });
