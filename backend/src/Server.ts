@@ -5,6 +5,7 @@ import authRouter from "./presentation/routes/authRouter";
 import { swaggerDocs, swaggerSpec } from "./helpers/swagger";
 import swaggerUI from 'swagger-ui-express';
 import cors from 'cors';
+import assistanceRouter from "./presentation/routes/assistanceRouter";
 
 class Server {
   private app: Application;
@@ -35,7 +36,8 @@ class Server {
     // pdf: '/api/Pdf',
     docs: '/docs',
     auth: '/api/auth',
-    user: '/api/user'
+    user: '/api/user',
+    assistance: '/api/assistance'
   };
 
   constructor() {
@@ -65,6 +67,7 @@ class Server {
   routes() {
     this.app.use(this.pathRoutes.user, userRouter);
     this.app.use(this.pathRoutes.auth, authRouter);
+    this.app.use(this.pathRoutes.assistance, assistanceRouter);
     // this.app.use(this.pathRoutes.test, function (_, res) {
     //   res.json(true);
     // });
