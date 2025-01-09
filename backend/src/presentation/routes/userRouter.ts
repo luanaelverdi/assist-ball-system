@@ -166,7 +166,7 @@ router.get('/searchUserByType/:type', ValidarAutorizacion.User, userController.s
 /**
  * @openapi
  * /api/user/delete/{id}:
- *   delete:
+ *   post:
  *     security:
  *       - tokenAutorizacion: []
  *     tags:
@@ -191,8 +191,55 @@ router.get('/searchUserByType/:type', ValidarAutorizacion.User, userController.s
  *                   type: string
  *                   example: OK
  */
-router.delete('/delete/:id', ValidarAutorizacion.User, userController.deleteUser);
+router.post('/delete/:id', ValidarAutorizacion.User, userController.deleteUser);
 
-// Resto del código sigue un patrón similar
+/**
+* @openapi
+* /api/user/modify/{id}:
+*   post:
+*     security:
+*      - tokenAutorizacion: []
+*     tags:
+ *       - Usuario
+*     summary: Modificar un usuario existente. Solo para administradores.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: number
+*         description: La ID del usuario a modificar.
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*          schema:
+*           properties:
+*              fullname_user:
+*                  type: string
+*              pass_user:
+*                  type: string
+*              email_user:
+*                  type: string
+*              type_user:
+*                  type: string
+*              dni_user:
+*                  type: number
+*              category_user:
+*                  type: string
+*     responses:
+*       200:
+*         description: Usuario Modifiado
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 status:
+*                   type: string
+*                   example: OK
+*/
+
+router.post('/modify/:id', ValidarAutorizacion.User, userController.modify);
 
 export default router;
