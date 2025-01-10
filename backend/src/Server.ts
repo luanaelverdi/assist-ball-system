@@ -7,6 +7,7 @@ import swaggerUI from 'swagger-ui-express';
 import cors from 'cors';
 import assistanceRouter from "./presentation/routes/assistanceRouter";
 import notificationRouter from "./presentation/routes/notificationRouter";
+import dtPlayersRouter from "./presentation/routes/dtPlayersRouter";
 
 class Server {
   private app: Application;
@@ -39,7 +40,8 @@ class Server {
     auth: '/api/auth',
     user: '/api/user',
     assistance: '/api/assistance',
-    notification: '/api/notification'
+    notification: '/api/notification',
+    dtPlayers: '/api/dtPlayers'
   };
 
   constructor() {
@@ -71,6 +73,7 @@ class Server {
     this.app.use(this.pathRoutes.auth, authRouter);
     this.app.use(this.pathRoutes.assistance, assistanceRouter);
     this.app.use(this.pathRoutes.notification, notificationRouter);
+    this.app.use(this.pathRoutes.dtPlayers, dtPlayersRouter);
     // this.app.use(this.pathRoutes.test, function (_, res) {
     //   res.json(true);
     // });
