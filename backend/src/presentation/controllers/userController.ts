@@ -35,7 +35,8 @@ const searchUserWithEmail = async (req: Request, res: Response) => {
 
 const searchUserByType = async (req: Request, res: Response) => {
   try {
-    const usuarios = await userService.searchUserByType(req.params.tipo);
+    const usuarios = await userService.searchUserByType(req.params.type);
+    console.log(req.params.type + "TYPE");
     ResponseOk(res, responses.OK, usuarios);
   } catch (error: any) {
     console.error(error);

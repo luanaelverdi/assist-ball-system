@@ -140,7 +140,7 @@ router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.User, userControlle
  *         name: type
  *         required: true
  *         schema:
- *           type: string
+ *           type_user: string
  *         description: Tipo de usuario
  *     responses:
  *       200:

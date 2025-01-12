@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { UserType } from "../database/models/User";
+import { TypeUser } from "../database/models/User";
 import JWT from "../helpers/JWT";
 import { ResponseError } from "../helpers/ControllerResponse";
 import { authService } from "../services/authService";
@@ -7,7 +7,7 @@ import responses from "../static/responses";
 import ErrorNoAutorizado from "../errors/ErrorNoAutorizado";
 
 class Autorizacion {
-    private async validarAutorizacion(req: Request, res: Response, next: NextFunction, permiso: UserType) {
+    private async validarAutorizacion(req: Request, res: Response, next: NextFunction, permiso: TypeUser) {
         try {
             const user = JWT.validar(req);
             await this.validarPermiso(user.id_user, permiso);
@@ -19,7 +19,7 @@ class Autorizacion {
         }
     }
 
-    private async validarPermiso(id_usuario: number, permisoRequerido: UserType) {
+    private async validarPermiso(id_usuario: number, permisoRequerido: TypeUser) {
         const permisoUsuario = await authService.obtenerRol(id_usuario);
         const poseePermiso = this.calcularPermiso(permisoUsuario, permisoRequerido);
 
@@ -28,7 +28,7 @@ class Autorizacion {
         }
     }
 
-    private calcularPermiso(permisoUsuario: UserType, permisoRequerido: UserType) {
+    private calcularPermiso(permisoUsuario: TypeUser, permisoRequerido: TypeUser) {
         return permisoUsuario === 'admin' || permisoUsuario === permisoRequerido;
     }
 

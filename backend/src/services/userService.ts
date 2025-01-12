@@ -1,5 +1,5 @@
 
-import { UserType, PublicUsers } from "../database/models/User";
+import { TypeUser, PublicUsers } from "../database/models/User";
 import Postgres from "../database/Postgres";
 import { userRepository } from "../database/repository/userRepository";
 import ErrorNoDisponible from "../errors/ErrorNoDisponible";
@@ -50,7 +50,7 @@ const add = async (body: {
   email: string;
   pass: string;
   category: string;
-  type: UserType;
+  type: TypeUser;
 }) => {
   // Validaciones de entrada
   userValidator.validateName(body.fullname);
@@ -112,7 +112,7 @@ export type BodyModificarUsuarioAdmin = {
   fullname: string | null;
   email: string | null;
   pass: string | null;
-  type: UserType | null;
+  type: TypeUser | null;
   category: string | null;
 };
 

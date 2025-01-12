@@ -36,9 +36,10 @@ export const searchUserWithEmail = async (email: string): Promise<Users | null> 
   }
 };
 
-export const searchUserByType = async (type: string): Promise<Array<Users>> => {
+export const searchUserByType = async (type: string): Promise<Users | null> => {
+  console.log(type + "TYPE");
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE type_user = ${type} AND state_user = 'alta';`;
-  return query;
+  return query[0];
 };
 
 export const getByID = async (id: number): Promise<Users | null> => {
