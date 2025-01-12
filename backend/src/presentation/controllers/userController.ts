@@ -65,19 +65,16 @@ const getPasswordUser = async (req: Request, res: Response) => {
 
 const add = async (req: Request, res: Response) => {
   try {
-    if (!req.user || !req.user.id_user) {
-      throw new Error('Usuario no autenticado o ID no proporcionado.');
-    }
+  
     const body = {
-      dni_user: req.body.dni_user,
-      fullname_user: req.body.fullname_user,
-      email_user: req.body.email_user,
-      pass_user: req.body.pass_user,
-      category_user: req.body.category_user,
-      type_user: req.body.type_user,
+      dni: req.body.dni_user,
+      fullname: req.body.fullname_user,
+      email: req.body.email_user,
+      pass: req.body.pass_user,
+      category: req.body.category_user,
+      type: req.body.type_user,
     };
-
-    const response = await userService.add(req.user.id_user, body);
+    const response = await userService.add(body);
 
     ResponseOk(res, responses.CREATED, response);
   } catch (error: any) {
@@ -97,13 +94,13 @@ const deleteUser = async (req: Request, res: Response) => {
 
 const modify = async (req: Request, res: Response) => {
   try {
-    const response = await userService.modify(req.user?.id_user ?? 0, {
-      dni_user: req.body.dni_user ?? null,
-      fullname_user: req.body.fullname_user ?? null,
-      email_user: req.body.email_user ?? null,
-      pass_user: req.body.pass_user ?? null,
-      category_user: req.body.category_user ?? null,
-      type_user: req.body.type_user ?? null
+    const response = await userService.modify(req.user.id_user, {
+      dni: req.body.dni_user ?? null,
+      fullname: req.body.fullname_user ?? null,
+      email: req.body.email_user ?? null,
+      pass: req.body.pass_user ?? null,
+      category: req.body.category_user ?? null,
+      type: req.body.type_user ?? null
     });
     ResponseOk(res, responses.OK, response);
   } catch (error) {

@@ -20,7 +20,7 @@ const router: Router = Router();
  *           schema:
  *             type: object
  *             properties:
- *               dni:
+ *               dni_user:
  *                 type: number
  *                 example: 12345678
  *               fullname_user:

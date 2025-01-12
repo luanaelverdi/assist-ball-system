@@ -1,4 +1,4 @@
-import { PublicUser } from "./src/database/models/User"
+import { PublicUsers } from "./src/database/models/User"
 
 declare global {
   namespace NodeJS {
@@ -17,7 +17,7 @@ declare global {
 declare global {
   namespace Express {
     interface Request {
-      usuario: PublicUser
+      user: PublicUsers
     }
   }
 }

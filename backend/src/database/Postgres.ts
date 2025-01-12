@@ -3,11 +3,11 @@ import postgres from "postgres";
 export default class Postgres {
     public static db: postgres.Sql<{}>;
 
-    public static async init() {
+    public static async init () {
         try {
             console.log('🟨 | Conectandose a la base de datos...');
             this.connect();
-            //await this.db`SELECT 1`;
+            await this.db`SELECT 1`;
             console.log('🟩 | Base de datos Postgres conectada.');
         } catch (error) {
             console.error('🟥 | Error: ', error);
@@ -19,14 +19,14 @@ export default class Postgres {
         }
     }
 
-    public static query(): postgres.Sql<{}> {
+    public static query (): postgres.Sql<{}> {
         return this.db;
     }
 
-    private static connect() {
+    private static connect () {
         this.db = postgres({
             host: process.env.POSTGRES_URL,
-            port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : undefined, // Convertir a número
+            port: process.env.POSTGRES_PORT,
             database: process.env.POSTGRES_DB_NAME,
             username: process.env.POSTGRES_USERNAME,
             password: process.env.POSTGRES_PASSWORD,

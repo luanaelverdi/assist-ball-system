@@ -24,8 +24,8 @@ const getAll = async (query: {
   return results;
 };
 
-export const searchUserWithEmail = async (email: string) => {
-  const users = await userRepository.searchUserWithEmail(email);
+export const searchUserWithEmail = async (mail: string) => {
+  const users = await userRepository.searchUserWithEmail(mail);
   return users;
 };
 
@@ -44,70 +44,58 @@ export const getPasswordUser = async (id: number) => {
   return users;
 };
 
-const add = async (id_user: number, body: {
-  dni_user: number;
-  fullname_user: string;
-  email_user: string;
-  pass_user: string;
-  category_user: string;
-  type_user: UserType;
-}): Promise<void> => {
+const add = async (body: {
+  dni: number;
+  fullname: string;
+  email: string;
+  pass: string;
+  category: string;
+  type: UserType;
+}) => {
   // Validaciones de entrada
-  userValidator.validateName(body.fullname_user);
-  userValidator.validatePassword(body.pass_user);
-  userValidator.validateEmail(body.email_user);
-  userValidator.validateType(body.type_user);
-  userValidator.validateDNI(body.dni_user);
-  userValidator.validateCategory(body.category_user);
+  userValidator.validateName(body.fullname);
+  userValidator.validatePassword(body.pass);
+  userValidator.validateEmail(body.email);
+  userValidator.validateType(body.type);
+  userValidator.validateDNI(body.dni);
+  userValidator.validateCategory(body.category);
+  body.pass = Password.hash(body.pass);
 
-  // Encriptar contraseña
-  body.pass_user = Password.hash(body.pass_user);
+  console.log(body.pass + "PASS HASH");
 
-  // Verificar si el email ya existe (fuera de la transacción)
-  const existingUser = await Postgres.query()`
-    SELECT 1 FROM users WHERE email_user = ${body.email_user};
-  `;
-  if (existingUser.length > 0) {
-    throw new ErrorArgumentoInvalido("Ese correo ya está siendo utilizado.");
-  }
-
-  // Iniciar transacción
   await Postgres.query().begin(async sql => {
-    try {
-      await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
-      
-      const insertedUser = await sql`
-        INSERT INTO users (
-          dni_user,
-          fullname_user, 
-          email_user, 
-          pass_user,
-          category_user,
-          type_user,
-          state_user,
-          fecha_alta_user,
-          fecha_baja_user
-        )
-        VALUES (
-          ${body.dni_user},
-          ${body.fullname_user},
-          ${body.email_user},
-          ${body.pass_user},
-          ${body.category_user},
-          ${body.type_user},
-          'alta',
-          CURRENT_DATE,
-          null
-        )
-        RETURNING *;
-      `;
-      
-      console.log("Usuario creado:", insertedUser);
-    } catch (error) {
-      console.error("Error durante la transacción:", error);
-      if (error instanceof ErrorGenerico) throw error;
-      throw new ErrorNoDisponible("Ha ocurrido un error con TRACCAR.");
-    }
+    await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
+    const usuarioConEmail = await sql`SELECT * FROM users WHERE email_user = ${body.email}`;
+    if (usuarioConEmail[0]) throw new ErrorArgumentoInvalido("Ese correo ya está siendo utilizado.");
+
+    const qUsuario = await sql`
+      INSERT INTO users (
+        dni_user,
+        fullname_user, 
+        email_user, 
+        pass_user,
+        category_user,
+        type_user,
+        state_user,
+        fecha_alta_user,
+        fecha_baja_user
+      )
+        
+      VALUES (
+        ${body.dni},
+        ${body.fullname},
+        ${body.email},
+        ${body.pass},
+        ${body.category},
+        ${body.type},
+        'alta',
+        CURRENT_DATE,
+        null
+      )
+      RETURNING *;
+    `;
+
+    console.log("Usuario creado:", qUsuario);
   });
 };
 
@@ -120,28 +108,28 @@ export const deleteUser = async (id: number) => {
 }
 
 export type BodyModificarUsuarioAdmin = {
-  dni_user: number | null;
-  fullname_user: string | null;
-  email_user: string | null;
-  pass_user: string | null;
-  type_user: UserType | null;
-  category_user: string | null;
+  dni: number | null;
+  fullname: string | null;
+  email: string | null;
+  pass: string | null;
+  type: UserType | null;
+  category: string | null;
 };
 
 const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
-  if (body.dni_user) userValidator.validateDNI(body.dni_user);
-  if (body.fullname_user) userValidator.validateName(body.fullname_user);
-  if (body.pass_user) userValidator.validatePassword(body.pass_user);
-  if (body.pass_user) body.pass_user = Password.hash(body.pass_user);
-  if (body.email_user) userValidator.validateEmail(body.email_user);
-  if (body.type_user) userValidator.validateType(body.type_user);
-  if (body.category_user) userValidator.validateCategory(body.category_user);
+  if (body.dni) userValidator.validateDNI(body.dni);
+  if (body.fullname) userValidator.validateName(body.fullname);
+  if (body.pass) userValidator.validatePassword(body.pass);
+  //if (body.pass) body.pass = Password.hash(body.pass);
+  if (body.email) userValidator.validateEmail(body.email);
+  if (body.type) userValidator.validateType(body.type);
+  if (body.category) userValidator.validateCategory(body.category);
 
   const user = await userRepository.getByID(id);
   if (!user) throw new ErrorRecursoNoEncontrado("No se ha encontrado al usuario.");
 
   const userWithEmail = await Postgres.query()`
-    SELECT * FROM users WHERE email_user = ${body.email_user} AND id_user != ${user.id_user};
+    SELECT * FROM users WHERE email_user = ${body.email} AND id_user != ${user.id_user};
   `;
   if (userWithEmail[0]) throw new ErrorArgumentoInvalido("Ese correo ya está siendo utilizado.");
 
@@ -166,7 +154,7 @@ export const modifyPassword = async (user: PublicUsers, body: { pass: string }) 
   userValidator.validatePassword(body.pass);
   const existeUsuario = await userRepository.getByID(user.id_user);
   if (!existeUsuario) throw new ErrorRecursoNoEncontrado("Usuario no encontrado.");
-  body.pass = Password.hash(body.pass);
+  //body.pass = Password.hash(body.pass);
   await userRepository.modifyPassword(user.id_user, body.pass);
 
 }
@@ -184,7 +172,7 @@ export const modifyEmail = async (user: PublicUsers, body: { email: string }) =>
 }
 
 export const userService = {
-  getAll, 
+  getAll,
   searchUserWithEmail,
   searchUserByType,
   getByID,

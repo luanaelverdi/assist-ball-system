@@ -13,7 +13,7 @@ export const getAll = async (): Promise<Array<Users>> => {
       email_user,
       category_user,
       type_user,
-      state_user,
+      state_user
     FROM 
       users
     ORDER BY
@@ -52,12 +52,12 @@ export const getPasswordUser = async (id: number): Promise<string> => {
 };
 
 export const add = async (body: {
-  dni_user: number,
-  fullname_user: string,
-  email_user: string,
-  pass_user: string,
-  category_user: string,
-  type_user: string
+  dni: number,
+  fullname: string,
+  email: string,
+  pass: string,
+  category: string,
+  type: string
 }) => {
   try {
     const query = await Postgres.query()`
@@ -74,12 +74,12 @@ export const add = async (body: {
           fecha_baja_user
         ) 
       VALUES (
-        ${body.dni_user}, 
-        ${body.fullname_user}, 
-        ${body.email_user}, 
-        ${body.pass_user}, 
-        ${body.category_user},
-        ${body.type_user},
+        ${body.dni}, 
+        ${body.fullname}, 
+        ${body.email}, 
+        ${body.pass}, 
+        ${body.category},
+        ${body.type},
         'alta',
         CURRENT_DATE,
         null
@@ -99,11 +99,11 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
   try {
     await Postgres.query().begin(async sql => {
       await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
-      if (body.dni_user) await sql`UPDATE users SET dni_user = ${body.dni_user} WHERE id_user = ${id};`;
-      if (body.fullname_user) await sql`UPDATE users SET fullname_user = ${body.fullname_user} WHERE id_user = ${id};`;
-      if (body.email_user) await sql`UPDATE users SET email_user = ${body.email_user} WHERE id_user = ${id};`;
-      if (body.pass_user) await sql`UPDATE users SET pass_user = ${body.pass_user} WHERE id_user = ${id};`;
-      if (body.type_user) await sql`UPDATE users SET type_user = ${body.type_user} WHERE id_user = ${id};`;
+      if (body.dni) await sql`UPDATE users SET dni_user = ${body.dni} WHERE id_user = ${id};`;
+      if (body.fullname) await sql`UPDATE users SET fullname_user = ${body.fullname} WHERE id_user = ${id};`;
+      if (body.email) await sql`UPDATE users SET email_user = ${body.email} WHERE id_user = ${id};`;
+      if (body.pass) await sql`UPDATE users SET pass_user = ${body.pass} WHERE id_user = ${id};`;
+      if (body.type) await sql`UPDATE users SET type_user = ${body.type} WHERE id_user = ${id};`;
     });
   } catch (error) {
     console.error(error);

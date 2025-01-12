@@ -56,15 +56,17 @@ class Server {
 
   middlewares() {
     this.app.use(express.json({ limit: 10428800 }));
-    this.app.use(
-      cors({
-        origin:
-          process.env.PRODUCTION === 'true'
-            ? [process.env.FRONTEND_URL!]
-            : process.env.DEV_FRONTEND_URL,
-      })
-    );
+    // this.app.use(
+    //   cors({
+    //     origin:
+    //       process.env.PRODUCTION === 'true'
+    //         ? [process.env.FRONTEND_URL!]
+    //         : process.env.DEV_FRONTEND_URL,
+    //   })
+    // );
     this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+
 
   }
 
