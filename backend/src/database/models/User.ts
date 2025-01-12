@@ -1,27 +1,27 @@
-export type User ={
+export type Users = {
     id_user: number;
-    dni: number;
-    full_name: string;
-    email: string;
-    password: string;
-    category: string;
-    user_type: UserType;
-    user_state: UserState;
-    fecha_alta: Date;
-    fecha_baja: Date;
-}   
-
-export type PublicUser = {
-    id_user: number;
-    dni: number;
-    full_name: string;
-    email: string;
-    category: string;
-    user_type: UserType;
-    user_state: UserState;
-    fecha_alta_usuario: Date;
-    fecha_baja_usuario: Date;
+    dni_user: number;
+    fullname_user: string;
+    email_user: string;
+    pass_user: string;
+    category_user: string;
+    type_user: TypeUser;
+    state_user: StateUser;
+    fecha_alta_user: Date;
+    fecha_baja_user: Date;
 }
 
-export type UserType = 'dt' | 'player';
-export type UserState = 'alta' | 'baja';
+export type PublicUsers = {
+    id_user: number;
+    dni_user: number;
+    fullname_user: string;
+    email_user: string;
+    category_user: string;
+    type_user: TypeUser;
+    state_user: StateUser;
+    fecha_alta_user: Date;
+    fecha_baja_user: Date;
+}
+
+export type TypeUser = 'dt' | 'player' | 'admin';
+export type StateUser = 'alta' | 'baja';

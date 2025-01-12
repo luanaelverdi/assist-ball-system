@@ -1,35 +1,94 @@
+// import jwt from 'jsonwebtoken';
+// import { Users, PublicUsers } from "../database/models/User";
+// import { Request } from 'express';
+// import ErrorNoAutorizado from '../errors/ErrorNoAutorizado';
+
+// export default class JWT {
+//     public static generar (user: PublicUsers) {
+//         return new Promise((resolve, reject) => {
+//             const payload = { user };
+//             jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '24h' }, (err, token) => {
+//                 if (err) reject('No se pudo generar el token.');
+//                 resolve(token);
+//             });
+//         });
+//     }
+
+//     public static validar (req: Request) {
+//         try {
+//             const token = req.headers['authorization']?.split(" ");
+//             if (!token) throw new ErrorNoAutorizado("Token no enviado.");
+//             return this.verificarToken(token[1]);
+//         } catch (error) {
+//             throw error;
+//         }
+//     }
+
+//     public static verificarToken (token: string): PublicUsers {
+//         try {
+//             const { user } = jwt.verify(token, process.env.JWT_KEY) as any;
+//             return user;
+//         } catch (error) {
+//             throw new ErrorNoAutorizado("Token inválido.");
+//         }
+//     }
+// }
+
 import jwt from 'jsonwebtoken';
-import { User, PublicUser } from "../database/models/User";
+import { Users, PublicUsers } from "../database/models/User";
 import { Request } from 'express';
 import ErrorNoAutorizado from '../errors/ErrorNoAutorizado';
 
 export default class JWT {
-    public static generar (user: PublicUser) {
+    private static readonly EXPIRATION = '24h';
+
+    // Generar un token JWT
+    public static generar(user: PublicUsers): Promise<string> {
+        if (!process.env.JWT_KEY) {
+            throw new Error('La clave secreta JWT no está configurada.');
+        }
+        const payload = { user };
         return new Promise((resolve, reject) => {
-            const payload = { user };
-            jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '24h' }, (err, token) => {
-                if (err) reject('No se pudo generar el token.');
-                resolve(token);
+            jwt.sign(payload, process.env.JWT_KEY!, { expiresIn: this.EXPIRATION }, (err, token) => {
+                if (err) {
+                    return reject('No se pudo generar el token.');
+                }
+                resolve(token!);
             });
         });
     }
 
-    public static validar (req: Request) {
+    // Validar un token desde la cabecera de la solicitud
+    public static validar(req: Request): PublicUsers {
         try {
-            const token = req.headers['authorization']?.split(" ");
-            if (!token) throw new ErrorNoAutorizado("Token no enviado.");
-            return this.verificarToken(token[1]);
+            const authHeader = req.headers['authorization'];
+            if (!authHeader) {
+                throw new ErrorNoAutorizado('Token no enviado.');
+            }
+
+            const parts = authHeader.split(' ');
+            if (parts.length !== 2 || parts[0] !== 'Bearer') {
+                throw new ErrorNoAutorizado('Formato de token no válido.');
+            }
+
+            const token = parts[1];
+            return this.verificarToken(token);
         } catch (error) {
             throw error;
         }
     }
 
-    public static verificarToken (token: string): PublicUser {
+    // Verificar el token JWT
+    public static verificarToken(token: string): PublicUsers {
         try {
-            const { user } = jwt.verify(token, process.env.JWT_KEY) as any;
+            if (!process.env.JWT_KEY) {
+                throw new Error('La clave secreta JWT no está configurada.');
+            }
+
+            const { user } = jwt.verify(token, process.env.JWT_KEY!) as any;
             return user;
         } catch (error) {
-            throw new ErrorNoAutorizado("Token inválido.");
+            throw new ErrorNoAutorizado('Token inválido.');
         }
     }
 }
