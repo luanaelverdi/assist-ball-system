@@ -12,7 +12,7 @@ import { userValidator } from "../validations/userValidator";
 
 const fetch = require('node-fetch');
 
-const getAll = async (query: {
+export const getAll = async (query: {
   search: string | null
 }) => {
   const users = await userRepository.getAll();
@@ -24,18 +24,33 @@ const getAll = async (query: {
   return results;
 };
 
-export const searchUserWithEmail = async (mail: string) => {
-  const users = await userRepository.searchUserWithEmail(mail);
+export const getByID = async (id: number) => {
+  const users = await userRepository.getByID(id);
+  if (!users) throw new ErrorRecursoNoEncontrado("El id de usuario no existe.");
   return users;
 };
 
-export const getByID = async (id: number) => {
-  const users = await userRepository.getByID(id);
+export const searchUserWithEmail = async (mail: string) => {
+  const users = await userRepository.searchUserWithEmail(mail);
+  if (!users) throw new ErrorRecursoNoEncontrado("El correo ingresado no existe.");
   return users;
 };
 
 export const searchUserByType = async (type: string) => {
+  userValidator.validateType(type);
   const users = await userRepository.searchUserByType(type);
+  return users;
+};
+
+export const searchUserByDNI = async (dni: number) => {
+  const users = await userRepository.searchUserByDNI(dni);
+  if (!users) throw new ErrorRecursoNoEncontrado("El dni ingresado no existe.");
+  return users;
+};
+
+export const searchUserByName = async (name: string) => {
+  const users = await userRepository.searchUserByName(name);
+  if (!users) throw new ErrorRecursoNoEncontrado("El nombre ingresado no existe.");
   return users;
 };
 
@@ -63,10 +78,10 @@ const add = async (body: {
 
   console.log(body.pass + "PASS HASH");
 
+  await userValidator.validarEmailRepetido(body.email, null);
+
   await Postgres.query().begin(async sql => {
     await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
-    const usuarioConEmail = await sql`SELECT * FROM users WHERE email_user = ${body.email}`;
-    if (usuarioConEmail[0]) throw new ErrorArgumentoInvalido("Ese correo ya está siendo utilizado.");
 
     const qUsuario = await sql`
       INSERT INTO users (
@@ -120,10 +135,11 @@ const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
   if (body.dni) userValidator.validateDNI(body.dni);
   if (body.fullname) userValidator.validateName(body.fullname);
   if (body.pass) userValidator.validatePassword(body.pass);
-  //if (body.pass) body.pass = Password.hash(body.pass);
+  if (body.pass) body.pass = Password.hash(body.pass);
   if (body.email) userValidator.validateEmail(body.email);
   if (body.type) userValidator.validateType(body.type);
   if (body.category) userValidator.validateCategory(body.category);
+  if (body.email) await userValidator.validarEmailRepetido(body.email, id);
 
   const user = await userRepository.getByID(id);
   if (!user) throw new ErrorRecursoNoEncontrado("No se ha encontrado al usuario.");
@@ -141,7 +157,6 @@ type BodyModificarNombre = {
 }
 
 export const modifyName = async (user: PublicUsers, body: BodyModificarNombre) => {
-  if (!body.nombre) throw new ErrorArgumentoInvalido("Se debe proporcionar el nuevo nombre.");
   userValidator.validateName(body.nombre);
   const existeUsuario = await userRepository.getByID(user.id_user);
   if (!existeUsuario) throw new ErrorRecursoNoEncontrado("Usuario no encontrado.");
@@ -150,17 +165,15 @@ export const modifyName = async (user: PublicUsers, body: BodyModificarNombre) =
 }
 
 export const modifyPassword = async (user: PublicUsers, body: { pass: string }) => {
-  if (!body.pass) throw new ErrorArgumentoInvalido("Se debe proporcionar la nueva contraseña.");
   userValidator.validatePassword(body.pass);
   const existeUsuario = await userRepository.getByID(user.id_user);
   if (!existeUsuario) throw new ErrorRecursoNoEncontrado("Usuario no encontrado.");
-  //body.pass = Password.hash(body.pass);
+  body.pass = Password.hash(body.pass);
   await userRepository.modifyPassword(user.id_user, body.pass);
 
 }
 
 export const modifyEmail = async (user: PublicUsers, body: { email: string }) => {
-  if (!body.email) throw new ErrorArgumentoInvalido("Se debe proporcionar el nuevo correo.");
   userValidator.validateEmail(body.email);
   const existeUsuario = await userRepository.getByID(user.id_user);
   if (!existeUsuario) throw new ErrorRecursoNoEncontrado("Usuario no encontrado.");
@@ -170,6 +183,15 @@ export const modifyEmail = async (user: PublicUsers, body: { email: string }) =>
   if (userWithEmail[0]) throw new ErrorArgumentoInvalido("Ese correo ya está siendo utilizado.");
   await userRepository.modifyEmail(user.id_user, body.email);
 }
+
+export const modifyDNI = async (user: PublicUsers, body: { dni: number }) => {
+  userValidator.validateDNI(body.dni);
+  const existeUsuario = await userRepository.getByID(user.id_user);
+  if (!existeUsuario) throw new ErrorRecursoNoEncontrado("Usuario no encontrado.");
+  await userRepository.modifyDNI(user.id_user, body.dni);
+}
+
+
 
 export const userService = {
   getAll,
@@ -182,5 +204,8 @@ export const userService = {
   modifyName,
   modifyPassword,
   modifyEmail,
-  deleteUser
+  deleteUser,
+  modifyDNI,
+  searchUserByDNI,
+  searchUserByName
 };

@@ -42,6 +42,40 @@ router.post('/', ValidarAutorizacion.User, assistanceController.add);
 
 /**
  * @openapi
+ * /api/assistance/getAll:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Asistencia
+ *     summary: Devuelve todas las asistencias
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 users:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id_asistencia:
+ *                         type: number
+ *                       fecha_asistencia:
+ *                         type: string
+ *                       hora_asistencia:
+ *                         type: string
+ */
+router.get('/', ValidarAutorizacion.User, assistanceController.getAll);
+
+/**
+ * @openapi
  * /api/assistance/{id}:
  *   get:
  *     security:

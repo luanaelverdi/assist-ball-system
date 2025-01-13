@@ -2,7 +2,7 @@ import { assistanceRepository } from "../database/repository/assistenceRepositor
 
 const fetch = require('node-fetch');
 
-const getAll = async (query: {
+export const getAll = async (query: {
     search: string | null
 }) => {
     const assis = await assistanceRepository.getAll();

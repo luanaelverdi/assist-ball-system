@@ -64,9 +64,37 @@ const getPasswordUser = async (req: Request, res: Response) => {
   }
 };
 
+const searchUserByDNI = async (req: Request, res: Response) => {
+  try {
+    const usuarios = await userService.searchUserByDNI(Number(req.params.dni));
+    ResponseOk(res, responses.OK, usuarios);
+  } catch (error: any) {
+    console.error(error);
+    ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
+  }
+};
+const searchUserByName = async (req: Request, res: Response) => {
+  try {
+    const usuarios = await userService.searchUserByName(req.params.name);
+    ResponseOk(res, responses.OK, usuarios);
+  } catch (error: any) {
+    console.error(error);
+    ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
+  }
+};
+const modifyDNI = async (req: Request, res: Response) => {
+  try {
+    const usuarios = await userService.modifyDNI(req.user, req.body);
+    ResponseOk(res, responses.OK, usuarios);
+  } catch (error: any) {
+    console.error(error);
+    ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
+  }
+};
+
 const add = async (req: Request, res: Response) => {
   try {
-  
+
     const body = {
       dni: req.body.dni_user,
       fullname: req.body.fullname_user,
@@ -178,5 +206,8 @@ export const userController = {
   modifyPassword,
   modifyPasswordWithToken,
   modifyEmail,
-  getDatosWithToken
+  getDatosWithToken,
+  searchUserByDNI,
+  searchUserByName,
+  modifyDNI
 };

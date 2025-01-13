@@ -54,6 +54,50 @@ router.post('/', userController.add);
 
 /**
  * @openapi
+ * /api/user/getAll:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve todos los usuarios
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 users:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id_user:
+ *                         type: number
+ *                       fullname_user:
+ *                         type: string
+ *                       email_user:
+ *                         type: string
+ *                       category_user:
+ *                         type: string
+ *                       type_user:     
+ *                         type: string
+ *                       state_user:
+ *                         type: string
+ *                       fecha_alta_user:
+ *                         type: string
+ *                       fecha_baja_user:    
+ *                         type: string
+ */
+router.get('/', ValidarAutorizacion.User, userController.getAll);
+
+/**
+ * @openapi
  * /api/user/{id}:
  *   get:
  *     security:
@@ -163,15 +207,90 @@ router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.User, userControlle
  */
 router.get('/searchUserByType/:type', ValidarAutorizacion.User, userController.searchUserByType);
 
+
 /**
  * @openapi
- * /api/user/delete/{id}:
- *   post:
+ * /api/user/searchUserByDNI/{dni}:
+*   get:
+*     security:
+*      - tokenAutorizacion: []
+*     tags:
+*       - Usuario
+*     summary: Trae un usuario por dni
+*     parameters:
+*       - in: path
+*         name: dni
+*         required: true
+*         schema:
+*           type: number
+*         description: DNI del usuario
+*     responses:
+*       200:
+*         description: OK
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 id_user:
+*                   type: number
+*                 fullname_user:
+*                   type: string
+*                 email_user:
+*                   type: string
+*                 category_user:
+*                   type: string
+*                 type_user:
+*                   type: string
+*/
+router.get('/searchUserByDNI/:dni', ValidarAutorizacion.User, userController.searchUserByDNI);
+
+/**
+ * @openapi
+ * /api/user/searchUserByName/{name}:
+ *   get:
+*     security:
+*      - tokenAutorizacion: []
+*     tags:
+*       - Usuario
+*     summary: Trae un usuario por nombre
+*     parameters:
+*       - in: path
+*         name: name
+*         required: true
+*         schema:
+*           type: string
+*         description: Nombre del usuario
+*     responses:
+*       200:
+*         description: OK
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 id_user:
+*                   type: number
+*                 fullname_user:
+*                   type: string
+*                 email_user:
+*                   type: string
+*                 category_user:
+*                   type: string
+*                 type_user:
+*                   type: string
+*/
+router.get('/searchUserByName/:name', ValidarAutorizacion.User, userController.searchUserByName);
+
+/**
+ * @openapi
+ * /api/user/getPasswordUser/{id}:
+ *   get:
  *     security:
  *       - tokenAutorizacion: []
  *     tags:
  *       - Usuario
- *     summary: Elimina un usuario por ID
+ *     summary: Devuelve el password del usuario
  *     parameters:
  *       - in: path
  *         name: id
@@ -181,7 +300,36 @@ router.get('/searchUserByType/:type', ValidarAutorizacion.User, userController.s
  *         description: ID del usuario
  *     responses:
  *       200:
- *         description: Usuario eliminado
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 pass_user:
+ *                   type: string
+ */
+router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getPasswordUser);
+
+/**
+ * @openapi
+ * /api/user/getDatosWithToken/{id}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve el usuario con sus datos
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: OK
  *         content:
  *           application/json:
  *             schema:
@@ -190,8 +338,24 @@ router.get('/searchUserByType/:type', ValidarAutorizacion.User, userController.s
  *                 status:
  *                   type: string
  *                   example: OK
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id_user:
+ *                       type: number
+ *                     fullname_user:
+ *                       type: string
+ *                     email_user:
+ *                       type: string
+ *                     type_user:
+ *                       type: string
+ *                     category_user:
+ *                       type: string
+ *                 token_user:      
+ *                   type: string 
+ *        
  */
-router.post('/delete/:id', ValidarAutorizacion.User, userController.deleteUser);
+router.get('/getDatosWithToken/:id', ValidarAutorizacion.User, userController.getDatosWithToken);
 
 /**
 * @openapi
@@ -201,7 +365,7 @@ router.post('/delete/:id', ValidarAutorizacion.User, userController.deleteUser);
 *      - tokenAutorizacion: []
 *     tags:
  *       - Usuario
-*     summary: Modificar un usuario existente. Solo para administradores.
+*     summary: Modificar un usuario existente
 *     parameters:
 *       - in: path
 *         name: id
@@ -241,5 +405,193 @@ router.post('/delete/:id', ValidarAutorizacion.User, userController.deleteUser);
 */
 
 router.post('/modify/:id', ValidarAutorizacion.User, userController.modify);
+
+/**
+* @openapi
+* /api/user/modifyDNI/{dni}:
+*   post:
+*     security:
+*      - tokenAutorizacion: []
+*     tags:
+*       - Usuario
+*     summary: Modificar el dni de un usuario existente
+*     parameters:
+*       - in: path
+*         name: dni
+*         required: true
+*         schema:
+*           type: number
+*         description: La ID del usuario a modificar.
+*     requestBody:
+*       required: true
+*       content:
+*         application/json: 
+*           schema:
+*             type: object
+*             properties:
+*               dni_user:
+*                 type: number
+*     responses:
+*       200:
+*         description: Usuario Modificado
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 status:
+*                   type: string
+*                   example: OK
+*/
+router.post('/modifyDNI/:dni', ValidarAutorizacion.User, userController.modifyDNI);
+
+/**
+ * @openapi
+ * /api/user/modifyName/{id}:
+*   post:
+*     security:
+*      - tokenAutorizacion: []
+*     tags:
+*       - Usuario
+*     summary: Modificar el nombre de un usuario existente
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: number
+*         description: La ID del usuario a modificar.
+*     requestBody:
+*       required: true
+*       content:
+*         application/json: 
+*           schema:
+*             type: object
+*             properties:
+*               nombre_user:
+*                 type: string
+*     responses:
+*       200:
+*         description: Usuario Modificado
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 status:
+*                   type: string
+*                   example: OK
+*/
+router.post('/modifyName/:id', ValidarAutorizacion.User, userController.modifyName);
+
+/**
+ * @openapi
+ * /api/user/modifyPassword/{id}:
+*   post:
+*     security:
+*      - tokenAutorizacion: []
+*     tags:
+*       - Usuario
+*     summary: Modificar el password de un usuario existente
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: number
+*         description: La ID del usuario a modificar.
+*     requestBody:
+*       required: true
+*       content:
+*         application/json: 
+*           schema:
+*             type: object
+*             properties:
+*               pass_user:
+*                 type: string
+*     responses:
+*       200:
+*         description: Usuario Modificado
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 status:
+*                   type: string
+*                   example: OK
+*/
+router.post('/modifyPassword/:id', ValidarAutorizacion.User, userController.modifyPassword);
+
+/**
+ * @openapi
+ * /api/user/modifyEmail/{id}:
+*   post:
+*     security:
+*      - tokenAutorizacion: []
+*     tags:
+*       - Usuario
+*     summary: Modificar el email de un usuario existente
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: number
+*         description: La ID del usuario a modificar.
+*     requestBody:
+*       required: true
+*       content:
+*         application/json: 
+*           schema:
+*             type: object
+*             properties:
+*               email_user:
+*                 type: string
+*     responses:
+*       200:
+*         description: Usuario Modificado
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 status:
+*                   type: string
+*                   example: OK
+*/
+router.post('/modifyEmail/:id', ValidarAutorizacion.User, userController.modifyEmail);
+
+/**
+ * @openapi
+ * /api/user/delete/{id}:
+ *   post:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Elimina un usuario por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ */
+router.post('/delete/:id', ValidarAutorizacion.User, userController.deleteUser);
+
+
 
 export default router;

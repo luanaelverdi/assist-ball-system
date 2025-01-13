@@ -1,3 +1,4 @@
+import ErrorArgumentoInvalido from "../../errors/ErrorArgumentoInvalido";
 import ErrorBaseDeDatos from "../../errors/ErrorBaseDeDatos";
 import ErrorGenerico from "../../errors/ErrorGenerico";
 import { BodyModificarUsuarioAdmin } from "../../services/userService";
@@ -36,18 +37,33 @@ export const searchUserWithEmail = async (email: string): Promise<Users | null> 
   }
 };
 
-export const searchUserByType = async (type: string): Promise<Users | null> => {
-  console.log(type + "TYPE");
+export const searchUserByType = async (type: string): Promise<Users[]> => {
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE type_user = ${type} AND state_user = 'alta';`;
+  return query;
+
+};
+
+export const searchUserByDNI = async (dni: number): Promise<Users | null> => {
+  const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE dni_user = ${dni} AND state_user = 'alta';`;
   return query[0];
+
+};
+
+export const searchUserByName = async (name: string): Promise<Users | null> => {
+  const name_ = name.toLowerCase();
+  const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE fullname_user = ${name_} AND state_user = 'alta';`;
+  return query[0];
+
 };
 
 export const getByID = async (id: number): Promise<Users | null> => {
+  if (isNaN(id)) throw new ErrorArgumentoInvalido("Debe ingresar un número.");
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE id_user = ${id};`;
   return query[0];
 };
 
 export const getPasswordUser = async (id: number): Promise<string> => {
+  if (isNaN(id)) throw new ErrorArgumentoInvalido("Debe ingresar un número.");
   const query: Array<any> = await Postgres.query()`SELECT pass_user FROM user WHERE id_user = ${id};`;
   return query[0];
 };
@@ -76,7 +92,7 @@ export const add = async (body: {
         ) 
       VALUES (
         ${body.dni}, 
-        ${body.fullname}, 
+        ${body.fullname.toLowerCase()}, 
         ${body.email}, 
         ${body.pass}, 
         ${body.category},
@@ -143,7 +159,7 @@ export const modifyEmail = async (id: number, email: string) => {
   }
 }
 
-export const modifyDNI = async (id: number, dni: string) => {
+export const modifyDNI = async (id: number, dni: number) => {
   try {
     await Postgres.query()`UPDATE users SET dni_user = ${dni} WHERE id_user = ${id};`;
   } catch (error) {
@@ -185,6 +201,8 @@ export const userRepository = {
   getByID,
   searchUserWithEmail,
   searchUserByType,
+  searchUserByDNI,
+  searchUserByName,
   getPasswordUser,
   add,
   modify,

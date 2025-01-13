@@ -1,0 +1,14 @@
+.button {
+  font-size: 2rem;
+  color: var(--button-view-color);
+}
+
+.button:hover {
+  font-size: 2rem;
+  color: var(--secondary-light-color);
+}
+
+.button:active {
+  font-size: 2rem;
+  color: var(--secondary-light-color);
+}
