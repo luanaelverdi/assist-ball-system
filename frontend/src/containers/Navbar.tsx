@@ -9,7 +9,7 @@ import { Avatar } from '../containers/Avatar'
 export const Navbar = ({
   handleGoToPath,
   handleLogout
-}: { handleGoToPath: (path: string) => void; handleLogout: () => void}) => {
+}: { handleGoToPath: (path: string) => void; handleLogout: () => void }) => {
   const dimensions = useWindowDimensions()
   const currentUser = useContext(UserContext) as UserContextType
 
@@ -17,7 +17,7 @@ export const Navbar = ({
     return (
       <nav>
         <ButtonIcon handleOnClick={() => handleGoToPath('/')}>
-          <img src='/logo.png' /> 
+          <img src='/logo.png' />
         </ButtonIcon>
         <div>
           <Avatar user={currentUser.user} />
@@ -34,7 +34,7 @@ export const Navbar = ({
   return (
     <nav>
       <ButtonIcon handleOnClick={() => handleGoToPath('/')}>
-        <img src='/logo.png' /> 
+        <img src='/logo.png' />
       </ButtonIcon>
       <Avatar user={currentUser.user} />
     </nav>
