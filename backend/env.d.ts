@@ -8,8 +8,9 @@ declare global {
       POSTGRES_DB_NAME: string,
       POSTGRES_USERNAME: string,
       POSTGRES_PASSWORD: string,
-      JWT_KEY: string
-      /*  JWT_EXPIRATION: string,*/
+      JWT_KEY: string,
+      FRONTEND_URL: string
+      
     }
   }
 }
