@@ -5,6 +5,7 @@ export interface Users extends Record<string, unknown> {
     password_user: string;
     type_user: string;
     category_user: string;
+    state_user: string;
     fecha_alta_user: Date;
     fecha_baja_user: Date | null;
 }

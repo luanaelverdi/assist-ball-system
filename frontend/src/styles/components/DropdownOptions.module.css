@@ -1,0 +1,26 @@
+.options-dropdown {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-options-dropdown-color);
+  border: 1px solid var(--secondary-options-dropdown-color);
+  border-radius: 4px;
+  box-shadow: 0 0 8px var(--secondary-light-color);
+  z-index: 10;
+}
+
+.options-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary-light-color);
+}
+
+.options-dropdown button:hover {
+  background-color: var(--secondary-options-dropdown-color);
+}

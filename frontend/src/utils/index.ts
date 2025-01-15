@@ -1,5 +1,13 @@
 import Swal, { SweetAlertIcon } from 'sweetalert2'
 
+const debounce = (func: (...args: any[]) => void, delay: number) => {
+  let timeoutId: NodeJS.Timeout
+  return (...args: any[]) => {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => func(...args), delay)
+  }
+}
+
 const firePopup = (text: string, type: 'success' | 'error' | 'info', onClose?: () => void) => {
   const config: { icon: SweetAlertIcon; title: string } = {
     icon: 'success',
@@ -30,5 +38,6 @@ const firePopup = (text: string, type: 'success' | 'error' | 'info', onClose?: (
 
 
 export {
-  firePopup
+  firePopup,
+  debounce
 }

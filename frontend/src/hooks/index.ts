@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { request } from '../libraries/axios-lib'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { debounce } from '../utils';
 
 export interface FetchData<T> {
     data: T | null;
@@ -97,5 +98,28 @@ export const useMutate = <T>({
   }
 
   return { mutate, data, status, error, clear }
+}
+
+export const useSearchBar = (fetch: (endpoint: string) => void) => {
+  const [ searchParams, setSearchParams ] = useSearchParams()
+
+  const debouncedFetch = useCallback(
+    debounce((searchValue: string) => {
+      fetch(`?search=${encodeURIComponent(searchValue)}`)
+    }, 2000),
+    []
+  )
+
+  useEffect(() => {
+    const searchTerm = searchParams.get('search') || ''
+    debouncedFetch(searchTerm)
+  }, [ searchParams, debouncedFetch ])
+
+  const handleSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const searchTerm = e.target.value
+    setSearchParams({ search: searchTerm })
+  }
+
+  return { handleSearch }
 }
 
