@@ -56,14 +56,14 @@ export const EditUserForm = ({
       <h2>Editar Usuario</h2>
       <form onSubmit={handleConfirmEdition} className='form'>
         <TextField
-          name="fullname_user"
+          name="nombre_usuario"
           label="Nombre del usuario"
           value={editedUser.fullname_user}
           onChange={handleInputChange}
           required
         />
         <TextField
-          name="email_user"
+          name="email_usuario"
           label="Email del usuario"
           value={editedUser.email_user}
           onChange={handleInputChange}
@@ -71,29 +71,15 @@ export const EditUserForm = ({
         />
         <Select 
           label='Rol del usuario'
-          name='type_user'
+          name='tipo_usuario'
           value={editedUser.type_user}
           onChange={(e) => handleSelectChange(e, 'text')}
           required
         >
           <option value="operador">DT</option>
-          <option value="administrador">Administrador</option>
-          <option value="supervisor">Player</option>
+          <option value="administrador">Player</option>
+          
         </Select>
-        <TextField
-          name="dni_user"
-          label="DNI del usuario"
-          value={editedUser.dni_user}
-          onChange={handleInputChange}
-          required
-        />
-        <TextField
-          name="category_user"
-          label="Categoria del usuario"
-          value={editedUser.category_user}
-          onChange={handleInputChange}
-          required
-        />
         {editUser.status === 'LOADING' && (
           <Spinner style={{ width: '2rem', height: '2rem' }}/>
         )}

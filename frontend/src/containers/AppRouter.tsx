@@ -1,28 +1,20 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Layout } from './Layout'
-import { Homepage } from '../views/Homepage'
 import { LoginPage } from '../views/LoginPage'
+import { HomePage } from '../views/HomePage';
+import { useState } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
-//import { UsersPage } from '../views/UsersPage'
-//import { RegisterPage } from '../views/RegisterPage'
-//import { SendMailPasswordPage } from '../views/SendMailPasswordPage'
-//import { ModifyPassword } from '../views/ModifyPasswordPage'
-
-
+import { Layout } from './Layout';
+import { RegisterPage } from '../views/RegisterPage';
 
 const adminRoutes = [
   {
     path: '/',
-    element: <ProtectedRoute element={<Homepage />} />,
-  }
-]
-
-const playerRoutes = [
-  
-]
-
-const dtRoutes = [
- 
+    element: <ProtectedRoute element={<HomePage />} />,
+  },
+  {
+    path: '/registro-usuario',
+    element: <ProtectedRoute element={<RegisterPage />} />,
+  },
 ]
 
 const router = createBrowserRouter([
@@ -35,7 +27,6 @@ const router = createBrowserRouter([
     children: [
       ...adminRoutes
     ]
-  },
-])
+  }]);
 
 export const AppRouter = () => <RouterProvider router={router} />

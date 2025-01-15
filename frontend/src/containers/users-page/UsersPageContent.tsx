@@ -17,9 +17,9 @@ interface UsersPageContentProps {
 }
 
 const readableRoleByRole = {
-  dt: 'Dt',
-  player: 'Player',
-  administrador: 'Administrador'
+  administrador: 'Administrador',
+  Dt: 'DT',
+  jugador: 'Jugador'
 }
 
 const clickOptions = [
@@ -35,20 +35,20 @@ export const UsersPageContent = ({
 }: UsersPageContentProps) => {
   const navigate = useNavigate()
 
-  const [currentUser, setCurrentUser] = useState<Users | null>(null)
-  const [modalContent, setModalContent] = useState<{ id: number; type: string } | null>(null)
-  const [showOptions, setShowOptions] = useState(false)
+  const [ currentUser, setCurrentUser ] = useState<Users | null>(null)
+  const [ modalContent, setModalContent ] = useState<{ id: number; type: string} | null>(null)
+  const [ showOptions, setShowOptions ] = useState(false)
 
   const toggleOptions = (id: number) => {
     setCurrentUser(users?.find(x => x.id_user === id) ?? null)
     setShowOptions(!showOptions)
   }
-
-  const [searchParams] = useSearchParams()
+  
+  const [ searchParams ] = useSearchParams()
 
   const deleteUser = useMutate({
     onSuccess: () => {
-      firePopup('El usuario ha sido dado de baja correctamente.', 'success')
+      firePopup( 'El usuario ha sido dado de baja correctamente.', 'success')
       setModalContent(null)
     },
     onError: () => {
@@ -95,15 +95,15 @@ export const UsersPageContent = ({
 
   const handleOptionClick = (id: number, action: string) => {
     switch (action) {
-      case 'eliminar':
-        handleOpenModalDelete(id)
-        break
-      case 'modificar':
-        handleOpenModalModify(id)
-        break
-      case 'ver detalle':
-        navigate(`/gestion-usuarios/${id}`)
-        break
+    case 'eliminar':
+      handleOpenModalDelete(id)
+      break
+    case 'modificar':
+      handleOpenModalModify(id)
+      break
+    case 'ver detalle':
+      navigate(`/gestion-usuarios/${id}`)
+      break
     }
     setShowOptions(false)
   }
@@ -114,16 +114,16 @@ export const UsersPageContent = ({
   return (
     <>
       <div className="users-page-content">
-        <input
+        <input 
           type="text"
           className='search-input'
-          value={searchParams.get('search') ?? ''}
+          value={searchParams.get('search') ?? ''} 
           placeholder="BUSCADOR"
-          onChange={handleSearch}
+          onChange={handleSearch} 
         />
         <button className="create-btn" onClick={handleCreateUser} >+ Crear nuevo usuario</button>
         <PaginatedTable<Users>
-          columns={['ID', 'Nombre', 'Email', 'Rol', 'Estado', 'Opciones',]}
+          columns={[ 'ID', 'Nombre', 'Email', 'Rol', 'Estado', 'Opciones', ]}
           rowsPerPage={20}
           data={users}
           renderRow={(user) => (
@@ -131,11 +131,11 @@ export const UsersPageContent = ({
               <td className="user-id">{user.id_user}</td>
               <td>{user.fullname_user}</td>
               <td>{user.email_user}</td>
-              <td>{readableRoleByRole[user.type_user as keyof typeof readableRoleByRole]}</td>
+              <td>{readableRoleByRole[user.tipo_usuario as keyof typeof readableRoleByRole]}</td>
               <td>{user.state_user}</td>
               <td style={{ textAlign: 'center' }}>
                 <button onClick={() => toggleOptions(user.id_user)} className='user-options-button'>
-                  <OptionsIcon />
+                  <OptionsIcon /> 
                 </button>
                 {showOptions && currentUser?.id_usuario === user.id_usuario && (
                   <DropdownOptions
@@ -150,7 +150,7 @@ export const UsersPageContent = ({
       </div>
       {modalContent !== null && modalContent.type === 'MODIFY' && currentUser !== null && (
         <Modal isActive={modalContent.type === 'MODIFY'}>
-          <EditUserForm
+          <EditUserForm 
             onClose={handleCloseModal}
             user={currentUser}
             key={currentUser?.id_user}

@@ -1,6 +1,6 @@
 import { TextField } from '../../components/TextField'
 import { useDataFetching, useMutate } from '../../hooks'
-import { CreateUsers, Users } from '../../shared'
+import { CreateUser, Users } from '../../shared'
 import { useFormState } from '../../hooks/useFormState'
 import { Select } from '../../components/Select'
 import Spinner from '../../components/Spinner'
@@ -10,7 +10,7 @@ import { useState } from 'react'
 
 export const RegisterUserForm = () => {
   const navigate = useNavigate()
-  const [ error, setError ] = useState('')
+  const [error, setError] = useState('')
 
   function validarEmail(email: string) {
     const regex = /^[^\s@]+@[^\s@]+\.com$/
@@ -24,7 +24,7 @@ export const RegisterUserForm = () => {
 
   const registerClient = useMutate({
     onSuccess: () => {
-      firePopup( 'El usuario ha sido creado correctamente.', 'success')
+      firePopup('El usuario ha sido creado correctamente.', 'success')
       navigate('/gestion-usuarios')
     },
     onError: () => {
@@ -32,23 +32,24 @@ export const RegisterUserForm = () => {
     }
   })
 
-  const { state: newUser, ...formHandlers } = useFormState<CreateUsers>({
-    email: '',
-    password: '',
-    type: ''
+  const { state: newUser, ...formHandlers } = useFormState<CreateUser>({
+    fullname_user: '',
+    email_user: '',
+    password_user: '',
+    type_user: '',
+    category_user: ''
   }, registerClient.clear)
 
-
-  const handleRegisterUser:React.FormEventHandler<HTMLFormElement> = async (e) => {
+  const handleRegisterUser: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
 
-    if (!validarEmail(newUser.email)) {
+    if (!validarEmail(newUser.email_user)) {
       setError('Por favor, ingresa un email válido.')
       return
     }
 
-    if (!validarContraseña(newUser.password)) {
-      setError('La contraseña debe tener por lo menos 6 letras y 2 números.')
+    if (!validarContraseña(newUser.password_user)) {
+      setError('La contraseña debe tener por lo menos 8 digitos.')
       return
     }
 
@@ -64,28 +65,33 @@ export const RegisterUserForm = () => {
     <div className="form-section">
       <h3>Usuario a registrar</h3>
       <form onSubmit={handleRegisterUser} className='form'>
-        <TextField 
-          name="email" 
-          label="Email del usuario" 
-          value={newUser.email}
-          onChange={formHandlers.handleInputChange} 
+        <TextField
+          name="nombre"
+          label="Nombre del usuario"
+          value={newUser.fullname_user}
+          onChange={formHandlers.handleInputChange}
           required />
-        <TextField 
-          name="password" 
-          label="Contraseña del usuario" 
-          value={newUser.password}
-          onChange={formHandlers.handleInputChange} 
+        <TextField
+          name="email"
+          label="Email del usuario"
+          value={newUser.email_user}
+          onChange={formHandlers.handleInputChange}
+          required />
+        <TextField
+          name="contraseña"
+          label="Contraseña del usuario"
+          value={newUser.password_user}
+          onChange={formHandlers.handleInputChange}
           required />
         <Select
           label='Rol del usuario'
           name='tipo'
           onChange={(e) => formHandlers.handleSelectChange(e, 'text')}
-          value={newUser.type}
+          value={newUser.type_user}
           required>
           <option value="">Selecciona un rol</option>
           <option value="operador">DT</option>
-          <option value="administrador">Administrador</option>
-          <option value="supervisor">Player</option>
+          <option value="administrador">Jugador</option>
         </Select>
         {registerClient.status === 'LOADING' && (
           <Spinner style={{ width: '2rem', height: '2rem' }} />

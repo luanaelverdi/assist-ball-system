@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import {Users, UsersWithData } from '../shared'
+import { Users, UsersWithData } from '../shared'
 import { request } from '../libraries/axios-lib'
 
 export interface UserContextType {
@@ -29,7 +29,6 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   return (
     <UserContext.Provider value={{
       user: !isLoggedIn ? null : user?.user ?? null,
-
       onLogout: () => { setUser(null) },
       onLogin: fetchUserData
     }}>

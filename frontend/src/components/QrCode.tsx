@@ -1,12 +1,12 @@
 import { QRCodeCanvas } from 'qrcode.react'
 import styles from '../styles/components/QrCode.module.css'
-import { IoPrintSharp as PrintIcon } from 'react-icons/io5';
+import { IoPrintSharp as PrintIcon } from 'react-icons/io5'
 
 export const QrCode = ({
   value,
   code,
   handleClose,
-  entity = 'player'
+  entity = 'producto'
 }: { value: string; code: string; handleClose: () => void; entity?: string; }) => {
   const downloadQRCode = () => {
     const qrCodeEl = document.getElementById('qrCodeElement') as HTMLCanvasElement

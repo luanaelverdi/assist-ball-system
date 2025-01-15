@@ -1,11 +1,10 @@
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useMutate } from '../hooks'
 import '../styles/views/login-page.css'
-import Spinner from '../components/Spinner'
 import { MdOutlineRemoveRedEye } from 'react-icons/md'
 import { FaEyeSlash } from 'react-icons/fa'
 import { useContext, useState } from 'react'
 import { UserContext, UserContextType } from '../hooks/UserContext'
+import { useMutate } from '../hooks'
 
 export const LoginPage = () => {
   const [ params ] = useSearchParams()
@@ -66,9 +65,6 @@ export const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <div className="logo">
-        <img src="/logoLogin.png" alt="Fast & Secureious Logo" />
-      </div>
       <form className="login-form" onSubmit={handleLogin} >
         <input 
           type="text"
@@ -85,9 +81,7 @@ export const LoginPage = () => {
             {isExpanded ? <FaEyeSlash /> : <MdOutlineRemoveRedEye />}
           </button>
         </div>
-        {login.status === 'LOADING' && (
-          <Spinner />
-        )}
+
         {login.status === 'ERROR' && (
           <span className='error'>{login.error}</span>
         )}
