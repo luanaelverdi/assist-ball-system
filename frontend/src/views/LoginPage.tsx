@@ -38,7 +38,7 @@ export const LoginPage = () => {
     const form = e.target as HTMLFormElement
     const values = {
       email: form.email.value,
-      contraseña: form.password.value,
+      password: form.password.value,
     }
 
     if (!validarEmail(values.email)) {
@@ -66,6 +66,7 @@ export const LoginPage = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin} >
+        <h1>Iniciar sesión</h1>
         <input 
           type="text"
           placeholder="Ingrese su email" 

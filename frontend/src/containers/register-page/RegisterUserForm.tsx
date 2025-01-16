@@ -33,11 +33,12 @@ export const RegisterUserForm = () => {
   })
 
   const { state: newUser, ...formHandlers } = useFormState<CreateUser>({
+    dni_user: 0,
     fullname_user: '',
     email_user: '',
     password_user: '',
-    type_user: '',
-    category_user: ''
+    category_user: '',
+    type_user: ''
   }, registerClient.clear)
 
   const handleRegisterUser: React.FormEventHandler<HTMLFormElement> = async (e) => {
@@ -65,34 +66,46 @@ export const RegisterUserForm = () => {
     <div className="form-section">
       <h3>Usuario a registrar</h3>
       <form onSubmit={handleRegisterUser} className='form'>
+        <TextField 
+          name="dni_user"
+          label="DNI del usuario"
+          value={newUser.dni_user}
+          onChange={formHandlers.handleInputChange}
+          required />
         <TextField
-          name="nombre"
+          name="fullname_user"
           label="Nombre del usuario"
           value={newUser.fullname_user}
           onChange={formHandlers.handleInputChange}
           required />
         <TextField
-          name="email"
+          name="email_user"
           label="Email del usuario"
           value={newUser.email_user}
           onChange={formHandlers.handleInputChange}
           required />
         <TextField
-          name="contraseña"
+          name="password_user"
           label="Contraseña del usuario"
           value={newUser.password_user}
           onChange={formHandlers.handleInputChange}
           required />
         <Select
           label='Rol del usuario'
-          name='tipo'
+          name='type_user'
           onChange={(e) => formHandlers.handleSelectChange(e, 'text')}
           value={newUser.type_user}
           required>
           <option value="">Selecciona un rol</option>
-          <option value="operador">DT</option>
-          <option value="administrador">Jugador</option>
+          <option value="dt">DT</option>
+          <option value="player">Jugador</option>
         </Select>
+        <TextField
+          name="category_user"
+          label="Categoría del usuario"
+          value={newUser.category_user}
+          onChange={formHandlers.handleInputChange}
+          required />
         {registerClient.status === 'LOADING' && (
           <Spinner style={{ width: '2rem', height: '2rem' }} />
         )}

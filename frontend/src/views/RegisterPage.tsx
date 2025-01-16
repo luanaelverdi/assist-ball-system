@@ -6,9 +6,9 @@ import { RegisterPageContent } from '../containers/register-page/RegisterPageCon
 export const RegisterPage = () => {
   return (
     //<ViewWithHeader
-      //icon={<CreateUserIcon />} 
-      //title="Registro">
-      <RegisterPageContent />
+    //icon={<CreateUserIcon />} 
+    //title="Registro">
+    <RegisterPageContent />
     //</ViewWithHeader>
   )
 }

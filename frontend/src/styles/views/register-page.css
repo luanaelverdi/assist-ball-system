@@ -8,7 +8,7 @@
 }
 
 .form-section {
-  background-color: var(--primary-color);
+  background-color: rgb(167, 78, 78);
   padding: 15px;
   border-radius: 8px;
   box-shadow: var(--shadow-card);
@@ -21,7 +21,7 @@
 }
 
 .form-section h3 {
-  color: var(--secondary-light-color);
+  color: rgb(99, 23, 23);
   font-size: 1.8rem;
   margin-bottom: 10px;
 }
@@ -30,7 +30,7 @@
   width: 100%;
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid var(--primary-color);
+  border: 1px solid black;
 }
 
 .register-actions {

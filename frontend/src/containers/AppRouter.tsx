@@ -5,6 +5,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
 import { Layout } from './Layout';
 import { RegisterPage } from '../views/RegisterPage';
+import { UsersPage } from '../views/UsersPage';
+import { PlayersPage } from '../views/dt/PlayersPage';
 
 const adminRoutes = [
   {
@@ -15,6 +17,28 @@ const adminRoutes = [
     path: '/registro-usuario',
     element: <ProtectedRoute element={<RegisterPage />} />,
   },
+  {
+    path: '/gestion-usuarios',
+    element: <ProtectedRoute element={<UsersPage />} />
+  }
+]
+
+const dtRoutes = [
+  {
+    path: '/jugadores',
+    element: <ProtectedRoute element={<PlayersPage />} />
+  },
+  {
+    path: '/asistencias',
+    element: <h1>Asistencias</h1>
+  }
+]
+
+const playerRoutes = [
+  {
+    path: '/asistencias',
+    element: <h1>Asistencias</h1>
+  }
 ]
 
 const router = createBrowserRouter([
@@ -25,7 +49,9 @@ const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
-      ...adminRoutes
+      ...adminRoutes,
+      ...dtRoutes,
+      ...playerRoutes
     ]
   }]);
 

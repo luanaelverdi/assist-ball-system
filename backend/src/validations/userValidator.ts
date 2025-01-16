@@ -6,7 +6,7 @@ const validateName = (name: string) => {
 };
 
 const validatePassword = (pass: string) => {
-    if (!pass || pass.length <= 8) throw new ErrorArgumentoInvalido("La longitud de la contraseña no puede ser menor a 8 dígitos.");
+    if (!pass || pass.length < 8) throw new ErrorArgumentoInvalido("La longitud de la contraseña no puede ser menor a 8 dígitos.");
 };
 
 const validateEmail = (email: string) => {
