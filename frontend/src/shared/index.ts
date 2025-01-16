@@ -1,5 +1,6 @@
 export interface Users extends Record<string, unknown> {
     id_user: number;
+    dni_user: number;
     fullname_user: string;
     email_user: string;
     password_user: string;
@@ -11,11 +12,12 @@ export interface Users extends Record<string, unknown> {
 }
 
 export interface CreateUser extends Record<string, unknown> {
+    dni_user: number;
     fullname_user: string;
     email_user: string;
     password_user: string;
-    type_user: string;
     category_user: string;
+    type_user: string;
 }
 
 export interface UsersWithData extends Record<string, unknown> {

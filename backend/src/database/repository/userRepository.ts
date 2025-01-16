@@ -57,7 +57,7 @@ export const searchUserByName = async (name: string): Promise<Users | null> => {
 };
 
 export const getByID = async (id: number): Promise<Users | null> => {
-  if (isNaN(id)) throw new ErrorArgumentoInvalido("Debe ingresar un número.");
+  //if (isNaN(id)) throw new ErrorArgumentoInvalido("Debe ingresar un número.");
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE id_user = ${id};`;
   return query[0];
 };

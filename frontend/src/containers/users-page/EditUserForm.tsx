@@ -76,8 +76,8 @@ export const EditUserForm = ({
           onChange={(e) => handleSelectChange(e, 'text')}
           required
         >
-          <option value="operador">DT</option>
-          <option value="administrador">Player</option>
+          <option value="dt">DT</option>
+          <option value="player">Player</option>
           
         </Select>
         {editUser.status === 'LOADING' && (

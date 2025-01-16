@@ -2,7 +2,6 @@ import '../styles/views/user-detail.css'
 //import { View } from '../containers/View'
 import { useDataFetching } from '../hooks'
 import { Users } from '../shared'
-import '../styles/views/user-detail.css'
 import { useParams } from 'react-router-dom'
 import { UserDetailPageContent } from '../containers/user-page/UserDetailPageContent'
 
