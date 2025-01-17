@@ -1,77 +1,79 @@
-body,
-html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
+*{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-
-.login-container {
+.login-container{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  /*background-color: rgba(153, 139, 139, 0.9);*/
   background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5cYRBSs0WvCjLui5WocgZYuS3E9DZDRf4xQ&s");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  text-align: center;
-}
-
-.login-form {
-  display: flex;
+  height: 100vh;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  justify-content: center;
 }
 
-.login-input {
-  width: 100%;
-  padding: 12px;
-  text-align: start;
-  border-radius: 10px;
-  font-size: 16px;
-  border: none;
-}
-
-.input-password {
+.login-form h1{
   display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 12px;
-  text-align: start;
+  font-size: 40px;
+  justify-content: center;
+  text-shadow: black 1px 1px;
+  margin: 10px;
+}
+
+.login-form .title-j{
+  color: #B12424;
+}
+
+.logo {
+  margin-bottom: 10px; 
+}
+
+.login-form img {
+  width: 50%;
+  margin-left: 85px;
+}
+
+.login-form label{
+  display: flex;
+  font-size: 30px;
+  text-shadow: black 2px 2px;
+  margin: 12px;
+  justify-content: start;
+}
+
+.login-form input{
+  width: 270px;
+  height: 35px;
   border-radius: 10px;
-  font-size: 16px;
   border: none;
+  background-color: white;
+  color: black;
+  margin: 12px;
 }
 
-.see-password-button {
-  border: none;
-}
-
-.forgot-password {
+.forgot-password{
+  justify-content: center;
   color: white;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
+  margin: 50px;
+  margin-left: 150px;
 }
 
-.error {
-  color: rgb(90, 10, 10);
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.login-button {
-  width: 120px;
-  padding: 12px;
+.login-button{
+  justify-content: center;
+  width: 270px;
+  height: 40px;
+  border-radius: 10px;
   border: none;
-  border-radius: 20px;
-  font-size: 16px;
+  background-color: #B12424;
+  color: white;
+  margin: 30px;
   cursor: pointer;
-  margin-top: 50px;
-  background-color: #FC3D3D;
+  margin-left: 80px;
+
 }
+
+
+

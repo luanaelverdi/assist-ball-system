@@ -66,17 +66,19 @@ export const LoginPage = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin} >
-        <h1>Iniciar sesión</h1>
+        <h1 className='title-j'>JUVENTUD</h1> <h1>UNIDA</h1>
+        <img src="/ESCUDO_JUVE-removebg-preview.png" alt="logo" className="logo" />
+        <label htmlFor="email">Correo electrónico</label>
         <input 
           type="text"
-          placeholder="Ingrese su email" 
           name="email" 
           className="login-input" 
           onChange={handleSetErrorFalse}  
         />
         <div className='input-password'>
-          {!isExpanded ? (<input type="password" placeholder="Ingrese su contraseña" name="password"  className="login-input" />) : (
-            (<input type="text" placeholder="Ingrese su contraseña" name="password"  className="login-input" />)
+          <label htmlFor="password">Contraseña</label>
+          {!isExpanded ? (<input type="password"  name="password"  className="login-input" />) : (
+            (<input type="text" name="password"  className="login-input" />)
           )}
           <button type='button' onClick={seePassword} className="see-password-button">
             {isExpanded ? <FaEyeSlash /> : <MdOutlineRemoveRedEye />}
