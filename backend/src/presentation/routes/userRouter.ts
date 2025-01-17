@@ -29,7 +29,7 @@ const router: Router = Router();
  *               email_user:
  *                 type: string
  *                 example: juanperez@gmail.com
- *               pass_user:
+ *               password_user:
  *                 type: string
  *                 example: 12345678
  *               category_user:

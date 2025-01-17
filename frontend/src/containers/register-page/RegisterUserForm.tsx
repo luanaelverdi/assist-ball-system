@@ -64,47 +64,57 @@ export const RegisterUserForm = () => {
 
   return (
     <div className="form-section">
-      <h3>Usuario a registrar</h3>
+      <h1>Usuario a registrar</h1>
       <form onSubmit={handleRegisterUser} className='form'>
         <TextField 
           name="dni_user"
           label="DNI del usuario"
           value={newUser.dni_user}
           onChange={formHandlers.handleInputChange}
+          className='input'
+
           required />
         <TextField
           name="fullname_user"
           label="Nombre del usuario"
           value={newUser.fullname_user}
           onChange={formHandlers.handleInputChange}
+          className='input'
+
           required />
         <TextField
           name="email_user"
           label="Email del usuario"
           value={newUser.email_user}
           onChange={formHandlers.handleInputChange}
+          className='input'
           required />
         <TextField
           name="password_user"
           label="Contraseña del usuario"
           value={newUser.password_user}
           onChange={formHandlers.handleInputChange}
+          className='input'
+
           required />
-        <Select
+        <Select 
           label='Rol del usuario'
           name='type_user'
           onChange={(e) => formHandlers.handleSelectChange(e, 'text')}
           value={newUser.type_user}
           required>
-          <option value="">Selecciona un rol</option>
-          <option value="dt">DT</option>
-          <option value="player">Jugador</option>
+          <option className='option' value="">Selecciona un rol</option>
+          <option className='option' value="dt">DT</option>
+          <option className='option' value="player">Jugador</option>
+
         </Select>
         <TextField
           name="category_user"
           label="Categoría del usuario"
           value={newUser.category_user}
           onChange={formHandlers.handleInputChange}
+          className='input'
+
           required />
         {registerClient.status === 'LOADING' && (
           <Spinner style={{ width: '2rem', height: '2rem' }} />

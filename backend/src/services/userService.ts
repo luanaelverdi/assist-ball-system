@@ -60,25 +60,27 @@ export const getPasswordUser = async (id: number) => {
 };
 
 const add = async (body: {
-  dni: number;
-  fullname: string;
-  email: string;
-  pass: string;
-  category: string;
-  type: TypeUser;
+  dni_user: number;
+  fullname_user: string;
+  email_user: string;
+  password_user: string;
+  category_user: string;
+  type_user: TypeUser;
 }) => {
+  console.log(body);
+  console.log(body.password_user + "probando contraseña");
   // Validaciones de entrada
-  userValidator.validateName(body.fullname);
-  userValidator.validatePassword(body.pass);
-  userValidator.validateEmail(body.email);
-  userValidator.validateType(body.type);
-  userValidator.validateDNI(body.dni);
-  userValidator.validateCategory(body.category);
-  body.pass = Password.hash(body.pass);
+  userValidator.validateName(body.fullname_user);
+  userValidator.validatePassword(body.password_user);
+  userValidator.validateEmail(body.email_user);
+  userValidator.validateType(body.type_user);
+  userValidator.validateDNI(body.dni_user);
+  userValidator.validateCategory(body.category_user);
+  body.password_user = Password.hash(body.password_user);
 
-  console.log(body.pass + "PASS HASH");
+  console.log(body.password_user + "PASS HASH");
 
-  await userValidator.validarEmailRepetido(body.email, null);
+  await userValidator.validarEmailRepetido(body.email_user, null);
 
   await Postgres.query().begin(async sql => {
     await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
@@ -97,12 +99,12 @@ const add = async (body: {
       )
         
       VALUES (
-        ${body.dni},
-        ${body.fullname},
-        ${body.email},
-        ${body.pass},
-        ${body.category},
-        ${body.type},
+        ${body.dni_user},
+        ${body.fullname_user},
+        ${body.email_user},
+        ${body.password_user},
+        ${body.category_user},
+        ${body.type_user},
         'alta',
         CURRENT_DATE,
         null

@@ -96,12 +96,12 @@ const add = async (req: Request, res: Response) => {
   try {
 
     const body = {
-      dni: req.body.dni_user,
-      fullname: req.body.fullname_user,
-      email: req.body.email_user,
-      pass: req.body.pass_user,
-      category: req.body.category_user,
-      type: req.body.type_user,
+      dni_user: req.body.dni_user,
+      fullname_user: req.body.fullname_user,
+      email_user: req.body.email_user,
+      password_user: req.body.password_user,
+      category_user: req.body.category_user,
+      type_user: req.body.type_user,
     };
     const response = await userService.add(body);
 

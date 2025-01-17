@@ -10,6 +10,7 @@ import { firePopup } from '../../utils'
 import { DropdownOptions } from '../../components/DropdownOptions'
 import { PaginatedTable } from '../../components/PaginatedTable'
 
+
 interface UsersPageContentProps {
   handleSearch: React.ChangeEventHandler<HTMLInputElement>;
   users: Users[] | null;
@@ -114,6 +115,7 @@ export const UsersPageContent = ({
   return (
     <>
       <div className="users-page-content">
+      <h1>JUGADORES</h1>
         <input 
           type="text"
           className='search-input'
@@ -123,16 +125,18 @@ export const UsersPageContent = ({
         />
         <button className="create-btn" onClick={handleCreateUser} >+ Crear nuevo usuario</button>
         <PaginatedTable<Users>
-          columns={[ 'ID', 'Nombre', 'Email', 'Rol', 'Estado', 'Opciones', ]}
+          columns={[ 'ID', 'Nombre', 'DNI', 'Estado', 'Tipo', 'Categoría', 'Email', 'Opciones' ]}
           rowsPerPage={20}
           data={users}
           renderRow={(user) => (
             <tr key={user.id_user}>
               <td className="user-id">{user.id_user}</td>
               <td>{user.fullname_user}</td>
-              <td>{user.email_user}</td>
-              <td>{readableRoleByRole[user.tipo_usuario as keyof typeof readableRoleByRole]}</td>
+              <td>{user.dni_user}</td>
               <td>{user.state_user}</td>
+              <td>{readableRoleByRole[user.type_user as keyof typeof readableRoleByRole]}</td>
+              <td>{user.category_user}</td>
+              <td>{user.email_user}</td>
               <td style={{ textAlign: 'center' }}>
                 <button onClick={() => toggleOptions(user.id_user)} className='user-options-button'>
                   <OptionsIcon /> 
