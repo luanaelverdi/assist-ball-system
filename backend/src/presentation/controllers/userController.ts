@@ -45,6 +45,8 @@ const searchUserByType = async (req: Request, res: Response) => {
 };
 
 const getByID = async (req: Request, res: Response) => {
+  console.log("id obtenido:", req.params.id);
+  console.log("req.params:", req.params);
   try {
     const usuarios = await userService.getByID(Number(req.params.id));
     ResponseOk(res, responses.OK, usuarios);
@@ -73,15 +75,7 @@ const searchUserByDNI = async (req: Request, res: Response) => {
     ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
   }
 };
-const searchUserByName = async (req: Request, res: Response) => {
-  try {
-    const usuarios = await userService.searchUserByName(req.params.name);
-    ResponseOk(res, responses.OK, usuarios);
-  } catch (error: any) {
-    console.error(error);
-    ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
-  }
-};
+
 const modifyDNI = async (req: Request, res: Response) => {
   try {
     const usuarios = await userService.modifyDNI(req.user, req.body);
@@ -179,13 +173,15 @@ const modifyEmail = async (req: Request, res: Response) => {
 };
 
 const getDatosWithToken = async (req: Request, res: Response) => {
+  console.log("req", req)
   try {
-    const usuario = req.user;
+    const user = req.user;
 
     const data: any = {
-      usuario
+      user
     }
-
+    console.log(user.id_user)
+    console.log(req.user.id_user)
     ResponseOk(res, responses.OK, data);
   } catch (error: any) {
     console.error(error);
@@ -208,6 +204,5 @@ export const userController = {
   modifyEmail,
   getDatosWithToken,
   searchUserByDNI,
-  searchUserByName,
   modifyDNI
 };

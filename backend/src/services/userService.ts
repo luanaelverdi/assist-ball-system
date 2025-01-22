@@ -25,34 +25,31 @@ export const getAll = async (query: {
 };
 
 export const getByID = async (id: number) => {
-  const users = await userRepository.getByID(id);
-  if (!users) throw new ErrorRecursoNoEncontrado("El id de usuario no existe.");
+  console.log("Valor de id recibido:", id);
+  const users = await userRepository.getByID(Number(id));
+  //if (!users) throw new ErrorRecursoNoEncontrado("El id de usuario no existe.");
   return users;
 };
 
 export const searchUserWithEmail = async (mail: string) => {
   const users = await userRepository.searchUserWithEmail(mail);
-  if (!users) throw new ErrorRecursoNoEncontrado("El correo ingresado no existe.");
+  //if (!users) throw new ErrorRecursoNoEncontrado("El correo ingresado no existe.");
   return users;
 };
 
 export const searchUserByType = async (type: string) => {
-  userValidator.validateType(type);
+  //userValidator.validateType(type);
   const users = await userRepository.searchUserByType(type);
   return users;
 };
 
 export const searchUserByDNI = async (dni: number) => {
   const users = await userRepository.searchUserByDNI(dni);
-  if (!users) throw new ErrorRecursoNoEncontrado("El dni ingresado no existe.");
+  //if (!users) throw new ErrorRecursoNoEncontrado("El dni ingresado no existe.");
   return users;
 };
 
-export const searchUserByName = async (name: string) => {
-  const users = await userRepository.searchUserByName(name);
-  if (!users) throw new ErrorRecursoNoEncontrado("El nombre ingresado no existe.");
-  return users;
-};
+
 
 export const getPasswordUser = async (id: number) => {
   const users = await userRepository.getPasswordUser(id);
@@ -208,6 +205,5 @@ export const userService = {
   modifyEmail,
   deleteUser,
   modifyDNI,
-  searchUserByDNI,
-  searchUserByName
+  searchUserByDNI
 };

@@ -49,22 +49,14 @@ export const searchUserByDNI = async (dni: number): Promise<Users | null> => {
 
 };
 
-export const searchUserByName = async (name: string): Promise<Users | null> => {
-  const name_ = name.toLowerCase();
-  const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE fullname_user = ${name_} AND state_user = 'alta';`;
-  return query[0];
-
-};
-
 export const getByID = async (id: number): Promise<Users | null> => {
-  if (isNaN(id)) throw new ErrorArgumentoInvalido("Debe ingresar un número.");
+  console.log("Valor de id_user recibido:", id);
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE id_user = ${id};`;
   return query[0];
 };
 
 export const getPasswordUser = async (id: number): Promise<string> => {
-  if (isNaN(id)) throw new ErrorArgumentoInvalido("Debe ingresar un número.");
-  const query: Array<any> = await Postgres.query()`SELECT pass_user FROM user WHERE id_user = ${id};`;
+  const query: Array<any> = await Postgres.query()`SELECT pass_user FROM users WHERE id_user = ${id};`;
   return query[0];
 };
 
@@ -179,7 +171,7 @@ export const modifyCategory = async (id: number, cat: string) => {
   }
 }
 
-export const deleteUser = async (_id: number) => {
+export const deleteUser = async (id: number) => {
   try {
     await Postgres.query()`
       UPDATE 
@@ -188,7 +180,7 @@ export const deleteUser = async (_id: number) => {
         state_user = 'baja',
         fecha_baja_user= CURRENT_DATE
       WHERE 
-        id_user = ${_id};`;
+        id_user = ${id};`;
   } catch (error) {
     console.error(error);
     if (error instanceof ErrorGenerico) throw error;
@@ -202,7 +194,6 @@ export const userRepository = {
   searchUserWithEmail,
   searchUserByType,
   searchUserByDNI,
-  searchUserByName,
   getPasswordUser,
   add,
   modify,

@@ -247,43 +247,6 @@ router.get('/searchUserByDNI/:dni', ValidarAutorizacion.User, userController.sea
 
 /**
  * @openapi
- * /api/user/searchUserByName/{name}:
- *   get:
-*     security:
-*      - tokenAutorizacion: []
-*     tags:
-*       - Usuario
-*     summary: Trae un usuario por nombre
-*     parameters:
-*       - in: path
-*         name: name
-*         required: true
-*         schema:
-*           type: string
-*         description: Nombre del usuario
-*     responses:
-*       200:
-*         description: OK
-*         content:
-*           application/json:
-*             schema:
-*               type: object
-*               properties:
-*                 id_user:
-*                   type: number
-*                 fullname_user:
-*                   type: string
-*                 email_user:
-*                   type: string
-*                 category_user:
-*                   type: string
-*                 type_user:
-*                   type: string
-*/
-router.get('/searchUserByName/:name', ValidarAutorizacion.User, userController.searchUserByName);
-
-/**
- * @openapi
  * /api/user/getPasswordUser/{id}:
  *   get:
  *     security:
@@ -313,20 +276,13 @@ router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getP
 
 /**
  * @openapi
- * /api/user/getDatosWithToken/{id}:
+ * /api/user/getDatosWithToken:
  *   get:
  *     security:
  *       - tokenAutorizacion: []
  *     tags:
  *       - Usuario
  *     summary: Devuelve el usuario con sus datos
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: number
- *         description: ID del usuario
  *     responses:
  *       200:
  *         description: OK
@@ -355,7 +311,7 @@ router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getP
  *                   type: string 
  *        
  */
-router.get('/getDatosWithToken/:id', ValidarAutorizacion.User, userController.getDatosWithToken);
+router.get('/getDatosWithToken', ValidarAutorizacion.User, userController.getDatosWithToken);
 
 /**
 * @openapi
