@@ -6,7 +6,7 @@ export const QrCode = ({
   value,
   code,
   handleClose,
-  entity = 'producto'
+  entity = 'jugador'
 }: { value: string; code: string; handleClose: () => void; entity?: string; }) => {
   const downloadQRCode = () => {
     const qrCodeEl = document.getElementById('qrCodeElement') as HTMLCanvasElement

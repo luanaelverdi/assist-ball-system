@@ -1,0 +1,49 @@
+.container {
+  padding: 2rem;
+  padding-top: 0.8rem;
+  border-radius: 10px;
+  display: flex;
+  box-shadow: 0 0 8px var(--secondary-light-color);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  background-color: var(--primary-color);
+}
+
+.close-button {
+  align-self: end;
+  color: var(--secondary-light-color)
+}
+
+.container button {
+  font-size: 1.2rem;
+}
+
+.container button {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.qr-code__element {
+  padding: 0.4rem;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.qr-text {
+  color: var(--secondary-light-color);
+}
+
+.qr-text:hover {
+  cursor: default;
+}
+
+.qr-download {
+  color: var(--secondary-light-color);
+}
+
+.qr-download:hover {
+  color: var(--primary-text-color);
+}
