@@ -76,14 +76,6 @@ export const PlayerPageContent = ({
   return (
     <>
       <div className="supplier-page-content">
-        <button 
-          className="create-btn" 
-          onClick={handleOpenModalCreate} 
-          style={{  }}
-        >
-          + Agregar Proveedor
-        </button>
-
         {/* supplier cards */}
         <div className='cards-container'>
           {players

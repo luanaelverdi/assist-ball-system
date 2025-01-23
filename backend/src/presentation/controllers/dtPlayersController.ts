@@ -18,6 +18,8 @@ const getAll = async (req: Request, res: Response) => {
 };
 
 const getByID = async (req: Request, res: Response) => {
+    console.log("id obtenido:", req.params.id);
+    console.log("req.params:", req.params);
     try {
         const dtPlayers = await dtPlayersService.getByID(Number(req.params.id));
         ResponseOk(res, responses.OK, dtPlayers);
@@ -49,7 +51,7 @@ const modifyDtPlayers = async (req: Request, res: Response) => {
             id_player: req.body.id_player
         };
 
-        const dtPlayers = await dtPlayersService.modifyDtPlayers(Number(req.params.id), body.id_dt, body.id_player, body);
+        const dtPlayers = await dtPlayersService.modifyDtPlayers(Number(req.params.id), body);
         ResponseOk(res, responses.OK, dtPlayers);
     } catch (error: any) {
         console.error(error);

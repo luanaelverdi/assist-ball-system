@@ -1,4 +1,6 @@
+
 .users-page-content {
+  background-color: #B12424;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -18,7 +20,7 @@
 }
 
 .user-table-wrapper {
-  background-color: var(--primary-color);
+  background-color: #000000;
   border-radius: 8px;
   align-self: normal;
   margin: 1.2rem;
@@ -38,16 +40,16 @@
 .user-table td {
   padding: 12px;
   text-align: left;
-  border: 2px solid var(--secondary-light-color);
+  border: 2px solid black;
   border-radius: 5px;
-  color: var(--primary-text-color)
+  color: white-;
 }
 
 .user-table th {
-  background-color: var(--secondary-light-color);
-  border: 2px solid var(--primary-text-color);
+  background-color: black;
+  border: 2px solid black;
   border-radius: 5px;
-  color: var(--primary-color);
+  color: white;
 }
 
 .user-table tr {
@@ -60,7 +62,7 @@
 }
 
 .user-table tr:hover {
-  background-color: var(--primary-color);
+  background-color: #c75e5e;
 }
 
 .options-container {
@@ -75,5 +77,5 @@
   padding: 0;
   display: flex;
   align-items: center;
-  color: var(--secondary-light-color);
+  color: red;
 }

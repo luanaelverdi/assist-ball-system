@@ -48,7 +48,7 @@ export const addDtPlayers = async (body: {
     }
 };
 
-export const modifyDtPlayers = async (id: number, id_dt: number | null , id_player: number | null, body: {
+export const modifyDtPlayers = async (id: number,body: {
     id_dt: number,
     id_player: number
 }) => {

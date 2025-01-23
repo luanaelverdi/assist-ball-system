@@ -29,7 +29,7 @@ const router: Router = Router();
  *               email_user:
  *                 type: string
  *                 example: juanperez@gmail.com
- *               pass_user:
+ *               password_user:
  *                 type: string
  *                 example: 12345678
  *               category_user:
@@ -94,7 +94,7 @@ router.post('/', userController.add);
  *                       fecha_baja_user:    
  *                         type: string
  */
-router.get('/', ValidarAutorizacion.User, userController.getAll);
+router.get('/getAll', ValidarAutorizacion.User, userController.getAll);
 
 /**
  * @openapi
@@ -247,43 +247,6 @@ router.get('/searchUserByDNI/:dni', ValidarAutorizacion.User, userController.sea
 
 /**
  * @openapi
- * /api/user/searchUserByName/{name}:
- *   get:
-*     security:
-*      - tokenAutorizacion: []
-*     tags:
-*       - Usuario
-*     summary: Trae un usuario por nombre
-*     parameters:
-*       - in: path
-*         name: name
-*         required: true
-*         schema:
-*           type: string
-*         description: Nombre del usuario
-*     responses:
-*       200:
-*         description: OK
-*         content:
-*           application/json:
-*             schema:
-*               type: object
-*               properties:
-*                 id_user:
-*                   type: number
-*                 fullname_user:
-*                   type: string
-*                 email_user:
-*                   type: string
-*                 category_user:
-*                   type: string
-*                 type_user:
-*                   type: string
-*/
-router.get('/searchUserByName/:name', ValidarAutorizacion.User, userController.searchUserByName);
-
-/**
- * @openapi
  * /api/user/getPasswordUser/{id}:
  *   get:
  *     security:
@@ -313,20 +276,13 @@ router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getP
 
 /**
  * @openapi
- * /api/user/getDatosWithToken/{id}:
+ * /api/user/getDatosWithToken:
  *   get:
  *     security:
  *       - tokenAutorizacion: []
  *     tags:
  *       - Usuario
  *     summary: Devuelve el usuario con sus datos
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: number
- *         description: ID del usuario
  *     responses:
  *       200:
  *         description: OK
@@ -355,7 +311,7 @@ router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getP
  *                   type: string 
  *        
  */
-router.get('/getDatosWithToken/:id', ValidarAutorizacion.User, userController.getDatosWithToken);
+router.get('/getDatosWithToken', ValidarAutorizacion.User, userController.getDatosWithToken);
 
 /**
 * @openapi
@@ -408,20 +364,13 @@ router.post('/modify/:id', ValidarAutorizacion.User, userController.modify);
 
 /**
 * @openapi
-* /api/user/modifyDNI/{dni}:
+* /api/user/modifyDNI:
 *   post:
 *     security:
 *      - tokenAutorizacion: []
 *     tags:
 *       - Usuario
 *     summary: Modificar el dni de un usuario existente
-*     parameters:
-*       - in: path
-*         name: dni
-*         required: true
-*         schema:
-*           type: number
-*         description: La ID del usuario a modificar.
 *     requestBody:
 *       required: true
 *       content:
@@ -429,7 +378,7 @@ router.post('/modify/:id', ValidarAutorizacion.User, userController.modify);
 *           schema:
 *             type: object
 *             properties:
-*               dni_user:
+*               dni:
 *                 type: number
 *     responses:
 *       200:
@@ -443,24 +392,17 @@ router.post('/modify/:id', ValidarAutorizacion.User, userController.modify);
 *                   type: string
 *                   example: OK
 */
-router.post('/modifyDNI/:dni', ValidarAutorizacion.User, userController.modifyDNI);
+router.post('/modifyDNI', ValidarAutorizacion.User, userController.modifyDNI);
 
 /**
  * @openapi
- * /api/user/modifyName/{id}:
+ * /api/user/modifyName:
 *   post:
 *     security:
 *      - tokenAutorizacion: []
 *     tags:
 *       - Usuario
 *     summary: Modificar el nombre de un usuario existente
-*     parameters:
-*       - in: path
-*         name: id
-*         required: true
-*         schema:
-*           type: number
-*         description: La ID del usuario a modificar.
 *     requestBody:
 *       required: true
 *       content:
@@ -468,7 +410,7 @@ router.post('/modifyDNI/:dni', ValidarAutorizacion.User, userController.modifyDN
 *           schema:
 *             type: object
 *             properties:
-*               nombre_user:
+*               nombre:
 *                 type: string
 *     responses:
 *       200:
@@ -482,24 +424,17 @@ router.post('/modifyDNI/:dni', ValidarAutorizacion.User, userController.modifyDN
 *                   type: string
 *                   example: OK
 */
-router.post('/modifyName/:id', ValidarAutorizacion.User, userController.modifyName);
+router.post('/modifyName', ValidarAutorizacion.User, userController.modifyName);
 
 /**
  * @openapi
- * /api/user/modifyPassword/{id}:
+ * /api/user/modifyPassword:
 *   post:
 *     security:
 *      - tokenAutorizacion: []
 *     tags:
 *       - Usuario
 *     summary: Modificar el password de un usuario existente
-*     parameters:
-*       - in: path
-*         name: id
-*         required: true
-*         schema:
-*           type: number
-*         description: La ID del usuario a modificar.
 *     requestBody:
 *       required: true
 *       content:
@@ -507,7 +442,7 @@ router.post('/modifyName/:id', ValidarAutorizacion.User, userController.modifyNa
 *           schema:
 *             type: object
 *             properties:
-*               pass_user:
+*               pass:
 *                 type: string
 *     responses:
 *       200:
@@ -521,24 +456,17 @@ router.post('/modifyName/:id', ValidarAutorizacion.User, userController.modifyNa
 *                   type: string
 *                   example: OK
 */
-router.post('/modifyPassword/:id', ValidarAutorizacion.User, userController.modifyPassword);
+router.post('/modifyPassword', ValidarAutorizacion.User, userController.modifyPassword);
 
 /**
  * @openapi
- * /api/user/modifyEmail/{id}:
+ * /api/user/modifyEmail:
 *   post:
 *     security:
 *      - tokenAutorizacion: []
 *     tags:
 *       - Usuario
 *     summary: Modificar el email de un usuario existente
-*     parameters:
-*       - in: path
-*         name: id
-*         required: true
-*         schema:
-*           type: number
-*         description: La ID del usuario a modificar.
 *     requestBody:
 *       required: true
 *       content:
@@ -546,7 +474,7 @@ router.post('/modifyPassword/:id', ValidarAutorizacion.User, userController.modi
 *           schema:
 *             type: object
 *             properties:
-*               email_user:
+*               email:
 *                 type: string
 *     responses:
 *       200:
@@ -560,7 +488,7 @@ router.post('/modifyPassword/:id', ValidarAutorizacion.User, userController.modi
 *                   type: string
 *                   example: OK
 */
-router.post('/modifyEmail/:id', ValidarAutorizacion.User, userController.modifyEmail);
+router.post('/modifyEmail', ValidarAutorizacion.User, userController.modifyEmail);
 
 /**
  * @openapi

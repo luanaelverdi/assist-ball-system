@@ -9,6 +9,7 @@ import '../styles/views/homepage.css'
 
 export const HomePage = () => {
   //const roleOptions = useDataFetching<Pantalla[]>('pantalla')
+  const currentUser = useContext(UserContext) as UserContextType
 
   return (
     <h1>HOME </h1>

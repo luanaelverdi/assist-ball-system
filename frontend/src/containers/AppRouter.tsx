@@ -7,6 +7,7 @@ import { Layout } from './Layout';
 import { RegisterPage } from '../views/RegisterPage';
 import { UsersPage } from '../views/UsersPage';
 import { PlayersPage } from '../views/dt/PlayersPage';
+import { QrCodePage } from '../views/player/QrCodePage';
 
 const adminRoutes = [
   {
@@ -38,6 +39,10 @@ const playerRoutes = [
   {
     path: '/asistencias',
     element: <h1>Asistencias</h1>
+  },
+  {
+    path: '/qr-code',
+    element: <ProtectedRoute element={<QrCodePage />} />
   }
 ]
 

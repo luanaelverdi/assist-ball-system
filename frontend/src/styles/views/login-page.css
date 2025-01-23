@@ -1,77 +1,97 @@
-body,
-html {
+/* LoginForm.css */
+body, html {
   margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
+  height: 100vh;
+  background: linear-gradient(to left, #800000, #ac1818);
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  /*background-color: rgba(153, 139, 139, 0.9);*/
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5cYRBSs0WvCjLui5WocgZYuS3E9DZDRf4xQ&s");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  width: 110%;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 35px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  color: white;
   text-align: center;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+.logo h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  text-shadow: black 1px 1px;
 }
 
-.login-input {
-  width: 100%;
-  padding: 12px;
-  text-align: start;
-  border-radius: 10px;
-  font-size: 16px;
-  border: none;
+.logo span {
+  color: #ff0000;
 }
 
-.input-password {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 12px;
-  text-align: start;
-  border-radius: 10px;
-  font-size: 16px;
-  border: none;
+.logo-img {
+  margin: 10px 0;
+  width: 100px;
+  height: auto;
 }
 
-.see-password-button {
-  border: none;
-}
-
-.forgot-password {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
+.login-form label {
+  display: block;
+  text-align: left;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.error {
-  color: rgb(90, 10, 10);
-  font-size: 20px;
-  font-weight: bold;
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-container .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .login-button {
-  width: 120px;
-  padding: 12px;
+  width: 100%;
+  padding: 10px;
   border: none;
-  border-radius: 20px;
-  font-size: 16px;
+  border-radius: 5px;
+  background-color: #800000;
+  color: white;
+  font-size: 1rem;
   cursor: pointer;
-  margin-top: 50px;
-  background-color: #FC3D3D;
 }
+
+.forgot-password {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+
+
+
+
+
+

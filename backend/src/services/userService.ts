@@ -25,34 +25,31 @@ export const getAll = async (query: {
 };
 
 export const getByID = async (id: number) => {
-  const users = await userRepository.getByID(id);
-  if (!users) throw new ErrorRecursoNoEncontrado("El id de usuario no existe.");
+  console.log("Valor de id recibido:", id);
+  const users = await userRepository.getByID(Number(id));
+  //if (!users) throw new ErrorRecursoNoEncontrado("El id de usuario no existe.");
   return users;
 };
 
 export const searchUserWithEmail = async (mail: string) => {
   const users = await userRepository.searchUserWithEmail(mail);
-  if (!users) throw new ErrorRecursoNoEncontrado("El correo ingresado no existe.");
+  //if (!users) throw new ErrorRecursoNoEncontrado("El correo ingresado no existe.");
   return users;
 };
 
 export const searchUserByType = async (type: string) => {
-  userValidator.validateType(type);
+  //userValidator.validateType(type);
   const users = await userRepository.searchUserByType(type);
   return users;
 };
 
 export const searchUserByDNI = async (dni: number) => {
   const users = await userRepository.searchUserByDNI(dni);
-  if (!users) throw new ErrorRecursoNoEncontrado("El dni ingresado no existe.");
+  //if (!users) throw new ErrorRecursoNoEncontrado("El dni ingresado no existe.");
   return users;
 };
 
-export const searchUserByName = async (name: string) => {
-  const users = await userRepository.searchUserByName(name);
-  if (!users) throw new ErrorRecursoNoEncontrado("El nombre ingresado no existe.");
-  return users;
-};
+
 
 export const getPasswordUser = async (id: number) => {
   const users = await userRepository.getPasswordUser(id);
@@ -60,25 +57,27 @@ export const getPasswordUser = async (id: number) => {
 };
 
 const add = async (body: {
-  dni: number;
-  fullname: string;
-  email: string;
-  pass: string;
-  category: string;
-  type: TypeUser;
+  dni_user: number;
+  fullname_user: string;
+  email_user: string;
+  password_user: string;
+  category_user: string;
+  type_user: TypeUser;
 }) => {
+  console.log(body);
+  console.log(body.password_user + "probando contraseña");
   // Validaciones de entrada
-  userValidator.validateName(body.fullname);
-  userValidator.validatePassword(body.pass);
-  userValidator.validateEmail(body.email);
-  userValidator.validateType(body.type);
-  userValidator.validateDNI(body.dni);
-  userValidator.validateCategory(body.category);
-  body.pass = Password.hash(body.pass);
+  userValidator.validateName(body.fullname_user);
+  userValidator.validatePassword(body.password_user);
+  userValidator.validateEmail(body.email_user);
+  userValidator.validateType(body.type_user);
+  userValidator.validateDNI(body.dni_user);
+  userValidator.validateCategory(body.category_user);
+  body.password_user = Password.hash(body.password_user);
 
-  console.log(body.pass + "PASS HASH");
+  console.log(body.password_user + "PASS HASH");
 
-  await userValidator.validarEmailRepetido(body.email, null);
+  await userValidator.validarEmailRepetido(body.email_user, null);
 
   await Postgres.query().begin(async sql => {
     await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
@@ -97,12 +96,12 @@ const add = async (body: {
       )
         
       VALUES (
-        ${body.dni},
-        ${body.fullname},
-        ${body.email},
-        ${body.pass},
-        ${body.category},
-        ${body.type},
+        ${body.dni_user},
+        ${body.fullname_user},
+        ${body.email_user},
+        ${body.password_user},
+        ${body.category_user},
+        ${body.type_user},
         'alta',
         CURRENT_DATE,
         null
@@ -123,29 +122,29 @@ export const deleteUser = async (id: number) => {
 }
 
 export type BodyModificarUsuarioAdmin = {
-  dni: number | null;
-  fullname: string | null;
-  email: string | null;
-  pass: string | null;
-  type: TypeUser | null;
-  category: string | null;
+  dni_user: number | null;
+  fullname_user: string | null;
+  email_user: string | null;
+  pass_user: string | null;
+  type_user: TypeUser | null;
+  category_user: string | null;
 };
 
 const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
-  if (body.dni) userValidator.validateDNI(body.dni);
-  if (body.fullname) userValidator.validateName(body.fullname);
-  if (body.pass) userValidator.validatePassword(body.pass);
-  if (body.pass) body.pass = Password.hash(body.pass);
-  if (body.email) userValidator.validateEmail(body.email);
-  if (body.type) userValidator.validateType(body.type);
-  if (body.category) userValidator.validateCategory(body.category);
-  if (body.email) await userValidator.validarEmailRepetido(body.email, id);
+  if (body.dni_user) userValidator.validateDNI(body.dni_user);
+  if (body.fullname_user) userValidator.validateName(body.fullname_user);
+  if (body.pass_user) userValidator.validatePassword(body.pass_user);
+  if (body.pass_user) body.pass_user = Password.hash(body.pass_user);
+  if (body.email_user) userValidator.validateEmail(body.email_user);
+  if (body.type_user) userValidator.validateType(body.type_user);
+  if (body.category_user) userValidator.validateCategory(body.category_user);
+  if (body.email_user) await userValidator.validarEmailRepetido(body.email_user, id);
 
   const user = await userRepository.getByID(id);
   if (!user) throw new ErrorRecursoNoEncontrado("No se ha encontrado al usuario.");
 
   const userWithEmail = await Postgres.query()`
-    SELECT * FROM users WHERE email_user = ${body.email} AND id_user != ${user.id_user};
+    SELECT * FROM users WHERE email_user = ${body.email_user} AND id_user != ${user.id_user};
   `;
   if (userWithEmail[0]) throw new ErrorArgumentoInvalido("Ese correo ya está siendo utilizado.");
 
@@ -206,6 +205,5 @@ export const userService = {
   modifyEmail,
   deleteUser,
   modifyDNI,
-  searchUserByDNI,
-  searchUserByName
+  searchUserByDNI
 };

@@ -49,22 +49,14 @@ export const searchUserByDNI = async (dni: number): Promise<Users | null> => {
 
 };
 
-export const searchUserByName = async (name: string): Promise<Users | null> => {
-  const name_ = name.toLowerCase();
-  const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE fullname_user = ${name_} AND state_user = 'alta';`;
-  return query[0];
-
-};
-
 export const getByID = async (id: number): Promise<Users | null> => {
-  //if (isNaN(id)) throw new ErrorArgumentoInvalido("Debe ingresar un número.");
+  console.log("Valor de id_user recibido:", id);
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE id_user = ${id};`;
   return query[0];
 };
 
 export const getPasswordUser = async (id: number): Promise<string> => {
-  if (isNaN(id)) throw new ErrorArgumentoInvalido("Debe ingresar un número.");
-  const query: Array<any> = await Postgres.query()`SELECT pass_user FROM user WHERE id_user = ${id};`;
+  const query: Array<any> = await Postgres.query()`SELECT pass_user FROM users WHERE id_user = ${id};`;
   return query[0];
 };
 
@@ -116,11 +108,11 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
   try {
     await Postgres.query().begin(async sql => {
       await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
-      if (body.dni) await sql`UPDATE users SET dni_user = ${body.dni} WHERE id_user = ${id};`;
-      if (body.fullname) await sql`UPDATE users SET fullname_user = ${body.fullname} WHERE id_user = ${id};`;
-      if (body.email) await sql`UPDATE users SET email_user = ${body.email} WHERE id_user = ${id};`;
-      if (body.pass) await sql`UPDATE users SET pass_user = ${body.pass} WHERE id_user = ${id};`;
-      if (body.type) await sql`UPDATE users SET type_user = ${body.type} WHERE id_user = ${id};`;
+      if (body.dni_user) await sql`UPDATE users SET dni_user = ${body.dni_user} WHERE id_user = ${id};`;
+      if (body.fullname_user) await sql`UPDATE users SET fullname_user = ${body.fullname_user} WHERE id_user = ${id};`;
+      if (body.email_user) await sql`UPDATE users SET email_user = ${body.email_user} WHERE id_user = ${id};`;
+      if (body.pass_user) await sql`UPDATE users SET pass_user = ${body.pass_user} WHERE id_user = ${id};`;
+      if (body.type_user) await sql`UPDATE users SET type_user = ${body.type_user} WHERE id_user = ${id};`;
     });
   } catch (error) {
     console.error(error);
@@ -179,7 +171,7 @@ export const modifyCategory = async (id: number, cat: string) => {
   }
 }
 
-export const deleteUser = async (_id: number) => {
+export const deleteUser = async (id: number) => {
   try {
     await Postgres.query()`
       UPDATE 
@@ -188,7 +180,7 @@ export const deleteUser = async (_id: number) => {
         state_user = 'baja',
         fecha_baja_user= CURRENT_DATE
       WHERE 
-        id_user = ${_id};`;
+        id_user = ${id};`;
   } catch (error) {
     console.error(error);
     if (error instanceof ErrorGenerico) throw error;
@@ -202,7 +194,6 @@ export const userRepository = {
   searchUserWithEmail,
   searchUserByType,
   searchUserByDNI,
-  searchUserByName,
   getPasswordUser,
   add,
   modify,
