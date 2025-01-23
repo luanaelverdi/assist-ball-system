@@ -19,8 +19,8 @@ interface UsersPageContentProps {
 
 const readableRoleByRole = {
   admin: 'Administrador',
-  dt: 'DT',
-  jugador: 'Jugador'
+  dt: 'Director técnico',
+  player: 'Jugador'
 }
 
 const clickOptions = [

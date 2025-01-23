@@ -5,7 +5,7 @@ import { Users } from '../shared'
 import { UsersPageContent } from '../containers/users-page/UsersPageContent'
 
 export const UsersPage = () => {
-  const users = useDataFetching<Users[]>('user')
+  const users = useDataFetching<Users[]>('user/getAll')
   const { handleSearch } = useSearchBar(users.fetch)
 
   return (
