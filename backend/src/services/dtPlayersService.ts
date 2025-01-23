@@ -15,6 +15,7 @@ const getAll = async (query: {
 };
 
 export const getByID = async (id: number) => {
+    console.log("Valor de id asistencia recibido en service:", id);
     const dtPlayers = await dtPlayersRepository.getByID(id);
     return dtPlayers;
 };
@@ -27,11 +28,11 @@ export const addDtPlayers = async (body: {
     return dtPlayers;
 };
 
-export const modifyDtPlayers = async (id: number, id_dt: number | null , id_player: number | null, body: {
+export const modifyDtPlayers = async (id: number, body: {
     id_dt: number,
     id_player: number
 }) => {
-    const dtPlayers = await dtPlayersRepository.modifyDtPlayers(id, body.id_dt, body.id_player, body);
+    const dtPlayers = await dtPlayersRepository.modifyDtPlayers(id, body);
     return dtPlayers;
 };
 

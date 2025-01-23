@@ -122,29 +122,29 @@ export const deleteUser = async (id: number) => {
 }
 
 export type BodyModificarUsuarioAdmin = {
-  dni: number | null;
-  fullname: string | null;
-  email: string | null;
-  pass: string | null;
-  type: TypeUser | null;
-  category: string | null;
+  dni_user: number | null;
+  fullname_user: string | null;
+  email_user: string | null;
+  pass_user: string | null;
+  type_user: TypeUser | null;
+  category_user: string | null;
 };
 
 const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
-  if (body.dni) userValidator.validateDNI(body.dni);
-  if (body.fullname) userValidator.validateName(body.fullname);
-  if (body.pass) userValidator.validatePassword(body.pass);
-  if (body.pass) body.pass = Password.hash(body.pass);
-  if (body.email) userValidator.validateEmail(body.email);
-  if (body.type) userValidator.validateType(body.type);
-  if (body.category) userValidator.validateCategory(body.category);
-  if (body.email) await userValidator.validarEmailRepetido(body.email, id);
+  if (body.dni_user) userValidator.validateDNI(body.dni_user);
+  if (body.fullname_user) userValidator.validateName(body.fullname_user);
+  if (body.pass_user) userValidator.validatePassword(body.pass_user);
+  if (body.pass_user) body.pass_user = Password.hash(body.pass_user);
+  if (body.email_user) userValidator.validateEmail(body.email_user);
+  if (body.type_user) userValidator.validateType(body.type_user);
+  if (body.category_user) userValidator.validateCategory(body.category_user);
+  if (body.email_user) await userValidator.validarEmailRepetido(body.email_user, id);
 
   const user = await userRepository.getByID(id);
   if (!user) throw new ErrorRecursoNoEncontrado("No se ha encontrado al usuario.");
 
   const userWithEmail = await Postgres.query()`
-    SELECT * FROM users WHERE email_user = ${body.email} AND id_user != ${user.id_user};
+    SELECT * FROM users WHERE email_user = ${body.email_user} AND id_user != ${user.id_user};
   `;
   if (userWithEmail[0]) throw new ErrorArgumentoInvalido("Ese correo ya está siendo utilizado.");
 

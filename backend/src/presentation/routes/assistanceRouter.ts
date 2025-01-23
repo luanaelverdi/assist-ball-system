@@ -21,7 +21,7 @@ const router: Router = Router();
  *             type: object
  *             properties:
  *               fecha_asistencia:
- *                 type: string
+ *                 type: Date
  *                 example: 2022-01-01
  *               hora_asistencia:
  *                 type: string
@@ -72,7 +72,7 @@ router.post('/', ValidarAutorizacion.User, assistanceController.add);
  *                       hora_asistencia:
  *                         type: string
  */
-router.get('/', ValidarAutorizacion.User, assistanceController.getAll);
+router.get('/getAll', ValidarAutorizacion.User, assistanceController.getAll);
 
 /**
  * @openapi

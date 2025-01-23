@@ -108,11 +108,11 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
   try {
     await Postgres.query().begin(async sql => {
       await sql`SET TRANSACTION ISOLATION LEVEL READ COMMITTED;`;
-      if (body.dni) await sql`UPDATE users SET dni_user = ${body.dni} WHERE id_user = ${id};`;
-      if (body.fullname) await sql`UPDATE users SET fullname_user = ${body.fullname} WHERE id_user = ${id};`;
-      if (body.email) await sql`UPDATE users SET email_user = ${body.email} WHERE id_user = ${id};`;
-      if (body.pass) await sql`UPDATE users SET pass_user = ${body.pass} WHERE id_user = ${id};`;
-      if (body.type) await sql`UPDATE users SET type_user = ${body.type} WHERE id_user = ${id};`;
+      if (body.dni_user) await sql`UPDATE users SET dni_user = ${body.dni_user} WHERE id_user = ${id};`;
+      if (body.fullname_user) await sql`UPDATE users SET fullname_user = ${body.fullname_user} WHERE id_user = ${id};`;
+      if (body.email_user) await sql`UPDATE users SET email_user = ${body.email_user} WHERE id_user = ${id};`;
+      if (body.pass_user) await sql`UPDATE users SET pass_user = ${body.pass_user} WHERE id_user = ${id};`;
+      if (body.type_user) await sql`UPDATE users SET type_user = ${body.type_user} WHERE id_user = ${id};`;
     });
   } catch (error) {
     console.error(error);

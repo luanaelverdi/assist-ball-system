@@ -116,14 +116,15 @@ const deleteUser = async (req: Request, res: Response) => {
 }
 
 const modify = async (req: Request, res: Response) => {
+  console.log(req.body, "body")
   try {
     const response = await userService.modify(req.user.id_user, {
-      dni: req.body.dni_user ?? null,
-      fullname: req.body.fullname_user ?? null,
-      email: req.body.email_user ?? null,
-      pass: req.body.pass_user ?? null,
-      category: req.body.category_user ?? null,
-      type: req.body.type_user ?? null
+      dni_user: req.body.dni_user ?? null,
+      fullname_user: req.body.fullname_user ?? null,
+      email_user: req.body.email_user ?? null,
+      pass_user: req.body.pass_user ?? null,
+      category_user: req.body.category_user ?? null,
+      type_user: req.body.type_user ?? null
     });
     ResponseOk(res, responses.OK, response);
   } catch (error) {

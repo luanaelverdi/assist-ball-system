@@ -75,7 +75,7 @@ router.get('/:id', ValidarAutorizacion.User, dtPlayersController.getByID);
 
 /**
  * @openapi
- * /api/dtPlayers:
+ * /api/dtPlayers/getAll:
  *   get:
  *     security:
  *      - tokenAutorizacion: []
@@ -110,7 +110,7 @@ router.get('/:id', ValidarAutorizacion.User, dtPlayersController.getByID);
  
  */
 
-router.get('/', ValidarAutorizacion.User, dtPlayersController.getAll);
+router.get('/getAll', ValidarAutorizacion.User, dtPlayersController.getAll);
 
 /**
  * @openapi

@@ -70,7 +70,7 @@ router.get('/:id', ValidarAutorizacion.User, notificationController.getByID);
 
 /**
  * @openapi
- * /api/notification:
+ * /api/notification/getAll:
  *   get:
  *     security:
  *      - tokenAutorizacion: []
@@ -102,7 +102,7 @@ router.get('/:id', ValidarAutorizacion.User, notificationController.getByID);
  
  */
 
-router.get('/', ValidarAutorizacion.User, notificationController.getAll);
+router.get('/getAll', ValidarAutorizacion.User, notificationController.getAll);
 
 /**
  * @openapi

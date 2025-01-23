@@ -15,6 +15,7 @@ export const getAll = async (query: {
 };
 
 export const getByID = async (id: number) => {
+    console.log("Valor de id asistencia recibido en service:", id);
     const assis = await assistanceRepository.getByID(id);
     return assis;
 };
@@ -27,7 +28,7 @@ export const getByDates = async (date: Date) => {
 
 export const add = async (body: {
     date: Date,
-    entry_time: Date
+    entry_time: string
 }) => {
     const assistance = await assistanceRepository.add(body);
     return assistance;

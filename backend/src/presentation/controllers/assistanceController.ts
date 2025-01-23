@@ -18,6 +18,9 @@ const getAll = async (req: Request, res: Response) => {
 };
 
 const getByID = async (req: Request, res: Response) => {
+    console.log("id obtenido:", req.params.id_assistance);
+    console.log("req.params:", req.params.id_asistencia);
+    console.log("req.params:", req.params);
     try {
         const assis = await assistanceService.getByID(Number(req.params.id));
         ResponseOk(res, responses.OK, assis);
@@ -41,7 +44,7 @@ const add = async (req: Request, res: Response) => {
     try {
         const body = {
             date: new Date(req.body.date),
-            entry_time: new Date(req.body.entry_time)
+            entry_time: req.body.entry_time
         };
 
         const assistance = await assistanceService.add(body);
