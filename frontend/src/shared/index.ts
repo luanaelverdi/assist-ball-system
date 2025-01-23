@@ -1,3 +1,9 @@
+export interface Pantalla {
+    id_pantalla: number;
+    tipo_usuario: string;
+    nombre: string;
+    path: string;
+  }
 export interface Users extends Record<string, unknown> {
     id_user: number;
     dni_user: number;

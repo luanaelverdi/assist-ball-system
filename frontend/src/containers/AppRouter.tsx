@@ -8,6 +8,7 @@ import { RegisterPage } from '../views/RegisterPage';
 import { UsersPage } from '../views/UsersPage';
 import { PlayersPage } from '../views/dt/PlayersPage';
 import { QrCodePage } from '../views/player/QrCodePage';
+import { UserDetailPage } from '../views/UserDetailPage';
 
 const adminRoutes = [
   {
@@ -21,7 +22,11 @@ const adminRoutes = [
   {
     path: '/gestion-usuarios',
     element: <ProtectedRoute element={<UsersPage />} />
-  }
+  },
+  {
+    path: '/gestion-usuarios/:usuarioId',
+    element: <ProtectedRoute element={< UserDetailPage />} />
+  },
 ]
 
 const dtRoutes = [

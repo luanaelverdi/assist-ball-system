@@ -1,5 +1,5 @@
 import { Users } from '../shared'
-import styles from '../styles/components/SupplierCard.module.css'
+import styles from '../styles/components/PlayerCard.module.css'
 
 interface PlayerCardProps {
   player: Users;
@@ -16,7 +16,7 @@ export const PlayerCard = ({
   handleOpenDetail
 }: PlayerCardProps) => {
   return (
-    <div 
+    <div
       className={styles.card}
       onClick={() => handleOpenDetail(player.id_user)}>
       <div className={styles.header}>
@@ -25,6 +25,8 @@ export const PlayerCard = ({
       <div className={styles.content}>
         <span>DNI: {player.dni_user}</span>
         <span>Mail: {player.email_user}</span>
+        <span>Tipo: {player.type_user}</span>
+        <span>Estado: {player.state_user}</span>
       </div>
       <div className={styles.footer}>
         <button className={styles.deleteButton} onClick={() => handleDelete(player.id_user)}>
