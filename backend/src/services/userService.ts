@@ -24,10 +24,10 @@ export const getAll = async (query: {
   return results;
 };
 
-export const getByID = async (id: number) => {
-  console.log("Valor de id recibido:", id);
-  const users = await userRepository.getByID(Number(id));
-  //if (!users) throw new ErrorRecursoNoEncontrado("El id de usuario no existe.");
+export const getByID = async (id_user: number) => {
+  const users = await userRepository.getByID(id_user);
+  console.log("id obtenido en servicio:", id_user);
+  if (!users) throw new ErrorRecursoNoEncontrado("El id de usuario no existe.");
   return users;
 };
 

@@ -5,14 +5,16 @@ import { ResponseError } from "../helpers/ControllerResponse";
 import { authService } from "../services/authService";
 import responses from "../static/responses";
 import ErrorNoAutorizado from "../errors/ErrorNoAutorizado";
+import { formToJSON } from "axios";
 
 class Autorizacion {
     private async validarAutorizacion(req: Request, res: Response, next: NextFunction, permiso: TypeUser) {
         try {
             const user = JWT.validar(req);
             await this.validarPermiso(user.id_user, permiso);
-            req.user = user;
+            req.usuario = user;
             next();
+            console.log("req.user en autorizacion valdar auto", req.usuario);
         } catch (error: any) {
             console.error(error);
             ResponseError(res, error.statusCode || responses.UNAUTHORIZED, error);
@@ -20,6 +22,7 @@ class Autorizacion {
     }
 
     private async validarPermiso(id_usuario: number, permisoRequerido: TypeUser) {
+        console.log("id_usuario en autorizacion", id_usuario);
         const permisoUsuario = await authService.obtenerRol(id_usuario);
         const poseePermiso = this.calcularPermiso(permisoUsuario, permisoRequerido);
 
@@ -47,7 +50,9 @@ class Autorizacion {
 
     User = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.user = JWT.validar(req);
+            req.usuario = JWT.validar(req);
+            console.log("req.user en autorizacion", req.usuario);
+            console.log("req.user en user", req.usuario);
             next();
         } catch (error: any) {
             console.error(error);
@@ -60,14 +65,15 @@ class Autorizacion {
              try {
                  const usuario = JWT.validar(req);
                  const permisoUsuario = await authService.obtenerRol(usuario.id_user);
-
+                 
                  let autorizado = false;
                  for (const permiso of permisos) {
                      autorizado = autorizado || this.calcularPermiso(permisoUsuario, permiso);
-                 }
-
-                 if (!autorizado) throw new ErrorNoAutorizado("Permiso denegado: Se requiren permisos de " + permisos.join(" o "));
-                 req.user = usuario;
+                    }
+                    
+                    if (!autorizado) throw new ErrorNoAutorizado("Permiso denegado: Se requiren permisos de " + permisos.join(" o "));
+                    req.usuario = usuario;
+                    console.log("req.user en custom", req.usuario);
                  next();
              } catch (error: any) {
                  console.error(error);

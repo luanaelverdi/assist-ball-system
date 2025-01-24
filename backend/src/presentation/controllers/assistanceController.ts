@@ -18,9 +18,6 @@ const getAll = async (req: Request, res: Response) => {
 };
 
 const getByID = async (req: Request, res: Response) => {
-    console.log("id obtenido:", req.params.id_assistance);
-    console.log("req.params:", req.params.id_asistencia);
-    console.log("req.params:", req.params);
     try {
         const assis = await assistanceService.getByID(Number(req.params.id));
         ResponseOk(res, responses.OK, assis);
