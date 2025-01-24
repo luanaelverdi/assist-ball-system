@@ -42,11 +42,11 @@ const dtRoutes = [
 
 const playerRoutes = [
   {
-    path: '/asistencias',
+    path: '/mis-asistencias',
     element: <h1>Asistencias</h1>
   },
   {
-    path: '/qr-code',
+    path: '/mi-qr-code',
     element: <ProtectedRoute element={<QrCodePage />} />
   }
 ]

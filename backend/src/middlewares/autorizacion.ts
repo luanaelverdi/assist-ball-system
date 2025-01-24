@@ -55,26 +55,26 @@ class Autorizacion {
         }
     }
 
-    // Custom = (permisos: UserType[]) => {
-    //     return async (req: Request, res: Response, next: NextFunction) => {
-    //         try {
-    //             const usuario = JWT.validar(req);
-    //             const permisoUsuario = await authService.obtenerRol(usuario.id_user);
+     Custom = (permisos: TypeUser[]) => {
+         return async (req: Request, res: Response, next: NextFunction) => {
+             try {
+                 const usuario = JWT.validar(req);
+                 const permisoUsuario = await authService.obtenerRol(usuario.id_user);
 
-    //             let autorizado = false;
-    //             for (const permiso of permisos) {
-    //                 autorizado = autorizado || this.calcularPermiso(permisoUsuario, permiso);
-    //             }
+                 let autorizado = false;
+                 for (const permiso of permisos) {
+                     autorizado = autorizado || this.calcularPermiso(permisoUsuario, permiso);
+                 }
 
-    //             if (!autorizado) throw new ErrorNoAutorizado("Permiso denegado: Se requiren permisos de " + permisos.join(" o "));
-    //             req.user = usuario;
-    //             next();
-    //         } catch (error: any) {
-    //             console.error(error);
-    //             ResponseError(res, error.statusCode || responses.UNAUTHORIZED, error);
-    //         }
-    //     }
-    // }
+                 if (!autorizado) throw new ErrorNoAutorizado("Permiso denegado: Se requiren permisos de " + permisos.join(" o "));
+                 req.user = usuario;
+                 next();
+             } catch (error: any) {
+                 console.error(error);
+                 ResponseError(res, error.statusCode || responses.UNAUTHORIZED, error);
+             }
+         }
+     }
 }
 
 export const ValidarAutorizacion = new Autorizacion();

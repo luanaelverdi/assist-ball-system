@@ -9,6 +9,7 @@ import assistanceRouter from "./presentation/routes/assistanceRouter";
 import notificationRouter from "./presentation/routes/notificationRouter";
 import dtPlayersRouter from "./presentation/routes/dtPlayersRouter";
 import pantallaRouter from "./presentation/routes/pantallaRouter";
+import routeRouter from "./presentation/routes/routeRouter";
 
 
 class Server {
@@ -44,7 +45,8 @@ class Server {
     assistance: '/api/assistance',
     notification: '/api/notification',
     dtPlayers: '/api/dtPlayers',
-    pantalla: '/api/pantalla'
+    pantalla: '/api/pantalla',
+    route: '/api/route'
 
   };
 
@@ -81,6 +83,7 @@ class Server {
     this.app.use(this.pathRoutes.notification, notificationRouter);
     this.app.use(this.pathRoutes.dtPlayers, dtPlayersRouter);
     this.app.use(this.pathRoutes.pantalla, pantallaRouter);
+    this.app.use(this.pathRoutes.route, routeRouter);
 
     // this.app.use(this.pathRoutes.test, function (_, res) {
     //   res.json(true);
