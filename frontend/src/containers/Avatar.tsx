@@ -34,21 +34,21 @@ export const Avatar: React.FC<AvatarProps> = ({ user }) => {
 
   const initials = getInitials(user.fullname_user)
   const backgroundColor = getRandomColor(user.fullname_user)
-  const readableRole = readableRoleByRole[user.tipo_usuario as keyof typeof readableRoleByRole] || 'Usuario'
+  const readableRole = readableRoleByRole[user.type_user as keyof typeof readableRoleByRole] || 'Users'
 
   return (
     <div className="avatar-container">
       {user.avatarUrl && typeof user.avatarUrl === 'string' ? (
         <img 
           src={user.avatarUrl} 
-          alt={`${user.nombre_usuario}'s avatar`} 
+          alt={`${user.fullname_user}'s avatar`} 
           className="avatar-image"
         />
       ) : (
         <div 
           className="avatar-initials"
           style={{ backgroundColor }}
-          aria-label={`${user.nombre_usuario}'s avatar`}
+          aria-label={`${user.fullname_user}'s avatar`}
         >
           {initials}
         </div>

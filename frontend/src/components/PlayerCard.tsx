@@ -1,41 +1,18 @@
 import { Users } from '../shared'
-import styles from '../styles/components/PlayerCard.module.css'
+import '../styles/components/PlayerCard.module.css'
+import { useNavigate } from 'react-router-dom'
 
-interface PlayerCardProps {
-  player: Users;
-  index: number;
-  handleModify: (id_user: number) => void;
-  handleDelete: (id_user: number) => void;
-  handleOpenDetail: (id_user: number) => void;
-}
-
-export const PlayerCard = ({
-  player,
-  handleModify,
-  handleDelete,
-  handleOpenDetail
-}: PlayerCardProps) => {
-  return (
-    <div
-      className={styles.card}
-      onClick={() => handleOpenDetail(player.id_user)}>
-      <div className={styles.header}>
-        <h3>{player.fullname_user}</h3>
-      </div>
-      <div className={styles.content}>
-        <span>DNI: {player.dni_user}</span>
-        <span>Mail: {player.email_user}</span>
-        <span>Tipo: {player.type_user}</span>
-        <span>Estado: {player.state_user}</span>
-      </div>
-      <div className={styles.footer}>
-        <button className={styles.deleteButton} onClick={() => handleDelete(player.id_user)}>
-          ELIMINAR
-        </button>
-        <button className={styles.modifyButton} onClick={() => handleModify(player.id_user)}>
-          MODIFICAR
-        </button>
-      </div>
+export const PlayerCard = ({ player }: { player: Users }) => {
+  const navigate = useNavigate()
+  return(
+    <div className='card'>
+      <h1>{player.fullname_user}</h1>
+      <h2>Datos personales</h2>
+      <h3>DNI: {player.dni_user}</h3>
+      <h3>Email: {player.email_user}</h3>
+      <h3>Categoría: {player.category_user}</h3>
+      <button onClick={() => navigate(`/asistencias/${player.id_user}`)}>Ver asistencias</button>
     </div>
+    
   )
 }

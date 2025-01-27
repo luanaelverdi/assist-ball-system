@@ -1,4 +1,3 @@
-import { FaTruck as SupplierIcon } from 'react-icons/fa'
 import { useDataFetching } from '../../hooks'
 import '../../styles/views/suppliers-page.css'
 import { Users } from '../../shared'
@@ -10,12 +9,14 @@ export const PlayersPage = () => {
 
   return (
     <ViewWithHeader
-      icon={<SupplierIcon />}
       title="JUGADORES"
-      data={players.data} status={players.status} error={players.error}>*/
+      status={players.status}
+      error={players.error}
+      icon={undefined}>
       <PlayerPageContent
         players={players.data}
-        refetchPlayers={players.fetch} />
+      />
+
     </ViewWithHeader>
   )
 }
