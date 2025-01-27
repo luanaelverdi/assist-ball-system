@@ -98,7 +98,7 @@ router.get('/getAll', ValidarAutorizacion.User, userController.getAll);
 
 /**
  * @openapi
- * /api/user/{id_user}:
+ * /api/user/{id}:
  *   get:
  *     security:
  *       - tokenAutorizacion: []
@@ -107,10 +107,10 @@ router.get('/getAll', ValidarAutorizacion.User, userController.getAll);
  *     summary: Devuelve un usuario por ID
  *     parameters:
  *       - in: path
- *         name: id_user
+ *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: number
  *         description: ID del usuario
  *     responses:
  *       200:
@@ -131,7 +131,7 @@ router.get('/getAll', ValidarAutorizacion.User, userController.getAll);
  *                 type_user:
  *                   type: string
  */
-router.get('/:id_user', ValidarAutorizacion.User, userController.getByID);
+router.get('/:id', ValidarAutorizacion.User, userController.getByID);
 
 
 /**
@@ -277,7 +277,7 @@ router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getP
 
 /**
  * @openapi
- * /api/user/getDatosWithToken:
+ * /api/user/getDatosWithToken
  *   get:
  *     security:
  *       - tokenAutorizacion: []

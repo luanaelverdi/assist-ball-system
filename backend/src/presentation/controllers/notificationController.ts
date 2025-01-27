@@ -4,12 +4,8 @@ import { notificationService } from "../../services/notificationService";
 import responses from "../../static/responses";
 
 const getAll = async (req: Request, res: Response) => {
-    const query = {
-        search: req.query.search ? req.query.search as string : null
-    };
-
     try {
-        const notifications = await notificationService.getAll(query);
+        const notifications = await notificationService.getAll();
         ResponseOk(res, responses.OK, notifications);
     } catch (error: any) {
         console.error(error);

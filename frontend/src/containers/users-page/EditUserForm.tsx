@@ -56,19 +56,34 @@ export const EditUserForm = ({
       <h2>Editar Usuario</h2>
       <form onSubmit={handleConfirmEdition} className='form'>
         <TextField
-          name="nombre_usuario"
+          name="fullname_user"
           label="Nombre del usuario"
           value={editedUser.fullname_user}
           onChange={handleInputChange}
           required
         />
         <TextField
-          name="email_usuario"
+          name="email_user"
           label="Email del usuario"
           value={editedUser.email_user}
           onChange={handleInputChange}
           required
         />
+         <TextField
+          name="dni_user"
+          label="Dni del usuario"
+          value={editedUser.dni_user}
+          onChange={handleInputChange}
+          required
+        />
+         <TextField
+          name="category_user"
+          label="Categoria del usuario"
+          value={editedUser.category_user}
+          onChange={handleInputChange}
+          required
+        />
+        
         <Select 
           label='Rol del usuario'
           name='tipo_usuario'

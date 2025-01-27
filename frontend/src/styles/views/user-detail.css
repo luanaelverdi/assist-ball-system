@@ -15,85 +15,39 @@
   max-width: 800px;
   margin: 0 auto;
 }
-  
-  .page-title {
-    font-size: 1.5rem;
-    color: var(--secondary-light-color);
-    text-align: center;
-    margin-bottom: 2rem;
+
+.page-title {
+  font-size: 1.5rem;
+  color: black;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.user-info-list {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: red;
+  overflow: hidden;
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 1.5rem;
+  /* Añade un margen inferior para separar de la sección siguiente */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .user-detail-container {
+    padding: 1rem;
   }
-  
-  .user-info-list {
-    background-color: var(--primary-color);
-    border-radius: 8px;
-    box-shadow: var(--shadow-card);
-    overflow: hidden;
-    margin-bottom: 1.5rem; /* Añade un margen inferior para separar de la sección siguiente */
+
+  .field-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
   }
-  
-  .user-documents {
-    background-color: var(--primary-color);
-    border-radius: 8px;
-    box-shadow: var(--shadow-card);
-    width: 100%;
-    max-width: 700px;
-    margin-top: 1.5rem;
+
+  .field-value {
+    margin-left: 0;
   }
-  
-  .user-documents h2 {
-    color: var(--secondary-light-color);
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    text-align: center;
-  }
-  
-  .document-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--primary-text-color);
-    transition: background-color 0.2s ease;
-  }
-  
-  .document-row:last-child {
-    border-bottom: none;
-  }
-  
-  .document-row:hover {
-    background-color: var(--primary-color-hover);
-  }
-  
-  .document-label {
-    font-size: 0.875rem;
-    color: var(--primary-text-color);
-    font-weight: 500;
-  }
-  
-  .document-value {
-    font-size: 0.875rem;
-    color: var(--secondary-text-color);
-  }
-   
-  .documentat-title {
-    font-size: 1.5rem;
-    color: var(--secondary-light-color);
-    text-align: center;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 640px) {
-    .user-detail-container {
-      padding: 1rem;
-    }
-  
-    .field-content {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.25rem;
-    }
-  
-    .field-value {
-      margin-left: 0;
-    }
-  }
+}

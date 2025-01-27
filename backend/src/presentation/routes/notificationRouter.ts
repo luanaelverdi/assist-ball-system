@@ -51,7 +51,7 @@ router.post('/', ValidarAutorizacion.User, notificationController.add);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: number
  *         description: ID de la notificación
  *     responses:
  *       200:
