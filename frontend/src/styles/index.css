@@ -276,11 +276,11 @@ button {
   padding: 10px;
   color: white;
   border-radius: 5px;
-  background-color: #d85353;
+  background-color:  #9b0000;
 }
 
 .create-btn:hover {
-  background-color: #9b0000;
+  background-color: #d85353;
 }
 
 .create-btn.secondary {

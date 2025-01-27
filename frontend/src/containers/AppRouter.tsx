@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
 import { Layout } from './Layout';
-import { RegisterPage } from '../views/RegisterPage';
-import { UsersPage } from '../views/UsersPage';
+import { RegisterPage } from '../views/admin/RegisterPage';
+import { UsersPage } from '../views/admin/UsersPage';
 import { PlayersPage } from '../views/dt/PlayersPage';
 import { QrCodePage } from '../views/player/QrCodePage';
-import { UserDetailPage } from '../views/UserDetailPage';
+import { UserDetailPage } from '../views/admin/UserDetailPage';
 import { AssistancesPage } from '../views/dt/AssistancesPage';
 import { QRScannerPage } from '../views/dt/QRScannerPage';
+import { DtPage } from '../views/dt/DtPage';
 
 const adminRoutes = [
   {
@@ -33,6 +34,14 @@ const adminRoutes = [
 
 const dtRoutes = [
   {
+    path: '/',
+    element: <ProtectedRoute element={<HomePage />} />,
+  },
+  {
+    path: 'jugadores/asistencias',
+    element: <ProtectedRoute element={<DtPage />} />
+  }
+ /* {
     path: '/mis-jugadores',
     element: <ProtectedRoute element={<PlayersPage />} />
   },
@@ -43,10 +52,14 @@ const dtRoutes = [
   {
     path: '/scanear-qr',
     element: <ProtectedRoute element={<QRScannerPage />} />
-  }
+  }*/
 ]
 
 const playerRoutes = [
+  {
+    path: '/',
+    element: <ProtectedRoute element={<HomePage />} />,
+  },
   {
     path: '/mis-asistencias',
     element: <h1>Asistencias</h1>

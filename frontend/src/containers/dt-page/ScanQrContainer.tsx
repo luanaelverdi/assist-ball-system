@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Modal } from '../../../components/Modal'
+import { Modal } from '../../components/Modal'
 import { FaQrcode as QrIcon } from 'react-icons/fa'
 // import { IDetectedBarcode, Scanner } from '@yudiel/react-qr-scanner'
-import QrReader from '../../../components/QrReader'
+import QrReader from '../../components/QrReader'
 
 export const ScanQrContainer = () => {
   const [ openScanner, setOpenScanner ] = useState(false)
@@ -29,7 +29,7 @@ export const ScanQrContainer = () => {
     <>
       <div className='flex'>
         <button className='qr-button mechanic' onClick={() => setOpenScanner(true)}>
-          <QrIcon /> Escanear
+          <QrIcon />
         </button>
       </div>
       {openScanner && (

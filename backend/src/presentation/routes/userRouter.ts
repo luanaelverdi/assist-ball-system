@@ -277,7 +277,7 @@ router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getP
 
 /**
  * @openapi
- * /api/user/getDatosWithToken
+ * /api/user/getDatosWithToken:
  *   get:
  *     security:
  *       - tokenAutorizacion: []
@@ -308,8 +308,7 @@ router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getP
  *                       type: string
  *                     category_user:
  *                       type: string
- *                 token_user:      
- *                   type: string 
+ 
  *        
  */
 router.get('/getDatosWithToken', ValidarAutorizacion.User, userController.getDatosWithToken);

@@ -1,4 +1,4 @@
-import { ScanQrContainer } from "../../containers/dt-page/qr/ScanQrContainer"
+import { ScanQrContainer } from "../../containers/dt-page/ScanQrContainer"
 import { ViewWithHeader } from "../../containers/ViewWithHeader"
 
 export const QRScannerPage = () => {
