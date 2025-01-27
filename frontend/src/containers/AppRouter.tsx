@@ -9,6 +9,8 @@ import { UsersPage } from '../views/UsersPage';
 import { PlayersPage } from '../views/dt/PlayersPage';
 import { QrCodePage } from '../views/player/QrCodePage';
 import { UserDetailPage } from '../views/UserDetailPage';
+import { AssistancesPage } from '../views/dt/AssistancesPage';
+import { QRScannerPage } from '../views/dt/QRScannerPage';
 
 const adminRoutes = [
   {
@@ -31,12 +33,16 @@ const adminRoutes = [
 
 const dtRoutes = [
   {
-    path: '/jugadores',
+    path: '/mis-jugadores',
     element: <ProtectedRoute element={<PlayersPage />} />
   },
   {
     path: '/asistencias',
-    element: <h1>Asistencias</h1>
+    element: <ProtectedRoute element={<AssistancesPage />} />
+  },
+  {
+    path: '/scanear-qr',
+    element: <ProtectedRoute element={<QRScannerPage />} />
   }
 ]
 

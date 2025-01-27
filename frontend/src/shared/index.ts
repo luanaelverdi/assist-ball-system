@@ -29,3 +29,9 @@ export interface CreateUser extends Record<string, unknown> {
 export interface UsersWithData extends Record<string, unknown> {
     user: Users;
 }
+
+export interface Assistance extends Record<string, unknown> {
+    id_assistance: number;
+    date: Date;
+    entry_time: string;
+}
