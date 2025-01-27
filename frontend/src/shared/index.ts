@@ -1,3 +1,9 @@
+export interface Pantalla {
+    id_pantalla: number;
+    type_user: string;
+    nombre: string;
+    path: string;
+  }
 export interface Users extends Record<string, unknown> {
     id_user: number;
     dni_user: number;
@@ -22,4 +28,10 @@ export interface CreateUser extends Record<string, unknown> {
 
 export interface UsersWithData extends Record<string, unknown> {
     user: Users;
+}
+
+export interface Assistance extends Record<string, unknown> {
+    id_assistance: number;
+    date: Date;
+    entry_time: string;
 }

@@ -1,39 +1,3 @@
-// import jwt from 'jsonwebtoken';
-// import { Users, PublicUsers } from "../database/models/User";
-// import { Request } from 'express';
-// import ErrorNoAutorizado from '../errors/ErrorNoAutorizado';
-
-// export default class JWT {
-//     public static generar (user: PublicUsers) {
-//         return new Promise((resolve, reject) => {
-//             const payload = { user };
-//             jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '24h' }, (err, token) => {
-//                 if (err) reject('No se pudo generar el token.');
-//                 resolve(token);
-//             });
-//         });
-//     }
-
-//     public static validar (req: Request) {
-//         try {
-//             const token = req.headers['authorization']?.split(" ");
-//             if (!token) throw new ErrorNoAutorizado("Token no enviado.");
-//             return this.verificarToken(token[1]);
-//         } catch (error) {
-//             throw error;
-//         }
-//     }
-
-//     public static verificarToken (token: string): PublicUsers {
-//         try {
-//             const { user } = jwt.verify(token, process.env.JWT_KEY) as any;
-//             return user;
-//         } catch (error) {
-//             throw new ErrorNoAutorizado("Token inválido.");
-//         }
-//     }
-// }
-
 import jwt from 'jsonwebtoken';
 import { Users, PublicUsers } from "../database/models/User";
 import { Request } from 'express';
@@ -65,14 +29,17 @@ export default class JWT {
             if (!authHeader) {
                 throw new ErrorNoAutorizado('Token no enviado.');
             }
-
+    
             const parts = authHeader.split(' ');
             if (parts.length !== 2 || parts[0] !== 'Bearer') {
                 throw new ErrorNoAutorizado('Formato de token no válido.');
             }
-
+    
             const token = parts[1];
-            return this.verificarToken(token);
+            const user = this.verificarToken(token);
+    
+            console.log("Usuario decodificado en validar:", user); // Depuración válida
+            return user;
         } catch (error) {
             throw error;
         }

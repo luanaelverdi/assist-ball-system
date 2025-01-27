@@ -25,7 +25,6 @@ export const QrCode = ({
   return (
     <div className={styles.container}>
       <button onClick={handleClose} className={styles['close-button']}>x</button>
-      <h3 className={styles['qr-text']}>Código QR para {entity} con código {code}</h3>
       <button className={styles['qr-download']} onClick={downloadQRCode}>
         <PrintIcon />
         <span>Descargar</span>

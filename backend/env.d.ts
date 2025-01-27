@@ -18,9 +18,10 @@ declare global {
 declare global {
   namespace Express {
     interface Request {
-      user: PublicUsers
+      usuario: PublicUsers
     }
   }
 }
-
+console.log("global", global);
+console.log("usuario", global.usuario);
 export { }

@@ -8,6 +8,9 @@ import { RegisterPage } from '../views/RegisterPage';
 import { UsersPage } from '../views/UsersPage';
 import { PlayersPage } from '../views/dt/PlayersPage';
 import { QrCodePage } from '../views/player/QrCodePage';
+import { UserDetailPage } from '../views/UserDetailPage';
+import { AssistancesPage } from '../views/dt/AssistancesPage';
+import { QRScannerPage } from '../views/dt/QRScannerPage';
 
 const adminRoutes = [
   {
@@ -21,27 +24,35 @@ const adminRoutes = [
   {
     path: '/gestion-usuarios',
     element: <ProtectedRoute element={<UsersPage />} />
-  }
+  },
+  {
+    path: '/gestion-usuarios/:usuarioId',
+    element: <ProtectedRoute element={< UserDetailPage />} />
+  },
 ]
 
 const dtRoutes = [
   {
-    path: '/jugadores',
+    path: '/mis-jugadores',
     element: <ProtectedRoute element={<PlayersPage />} />
   },
   {
     path: '/asistencias',
-    element: <h1>Asistencias</h1>
+    element: <ProtectedRoute element={<AssistancesPage />} />
+  },
+  {
+    path: '/scanear-qr',
+    element: <ProtectedRoute element={<QRScannerPage />} />
   }
 ]
 
 const playerRoutes = [
   {
-    path: '/asistencias',
+    path: '/mis-asistencias',
     element: <h1>Asistencias</h1>
   },
   {
-    path: '/qr-code',
+    path: '/mi-qr-code',
     element: <ProtectedRoute element={<QrCodePage />} />
   }
 ]

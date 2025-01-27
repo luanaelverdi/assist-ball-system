@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { request } from '../libraries/axios-lib'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { debounce } from '../utils';
+import { debounce } from '../utils'
 
 export interface FetchData<T> {
     data: T | null;
@@ -122,4 +122,3 @@ export const useSearchBar = (fetch: (endpoint: string) => void) => {
 
   return { handleSearch }
 }
-

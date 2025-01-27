@@ -41,7 +41,7 @@ export const LoginPage = () => {
     const form = e.target as HTMLFormElement
     const values = {
       email: form.email.value,
-      password: form.password.value
+      password: form.password.value,
     }
 
     

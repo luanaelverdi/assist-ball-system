@@ -45,10 +45,13 @@ const searchUserByType = async (req: Request, res: Response) => {
 };
 
 const getByID = async (req: Request, res: Response) => {
-  console.log("id obtenido:", req.params.id);
-  console.log("req.params:", req.params);
   try {
     const usuarios = await userService.getByID(Number(req.params.id));
+    console.log("usuarios obtenido en controller", usuarios);
+    console.log("req-params", req.params);
+    console.log("req-params", req.params.data);
+    console.log("id obtenido en controller:", req.params.id);
+    console.log("req.params controller:", req.params.id_usuario);
     ResponseOk(res, responses.OK, usuarios);
   } catch (error: any) {
     console.error(error);
@@ -78,7 +81,7 @@ const searchUserByDNI = async (req: Request, res: Response) => {
 
 const modifyDNI = async (req: Request, res: Response) => {
   try {
-    const usuarios = await userService.modifyDNI(req.user, req.body);
+    const usuarios = await userService.modifyDNI(req.usuario, req.body);
     ResponseOk(res, responses.OK, usuarios);
   } catch (error: any) {
     console.error(error);
@@ -118,7 +121,7 @@ const deleteUser = async (req: Request, res: Response) => {
 const modify = async (req: Request, res: Response) => {
   console.log(req.body, "body")
   try {
-    const response = await userService.modify(req.user.id_user, {
+    const response = await userService.modify(req.usuario.id_user, {
       dni_user: req.body.dni_user ?? null,
       fullname_user: req.body.fullname_user ?? null,
       email_user: req.body.email_user ?? null,
@@ -134,8 +137,8 @@ const modify = async (req: Request, res: Response) => {
 
 const modifyName = async (req: Request, res: Response) => {
   try {
-    if (!req.user) throw new ErrorNoAutorizado("Error de autentificacion.");
-    const resultado = await userService.modifyName(req.user, req.body);
+    if (!req.usuario) throw new ErrorNoAutorizado("Error de autentificacion.");
+    const resultado = await userService.modifyName(req.usuario, req.body);
     ResponseOk(res, responses.OK, resultado);
   } catch (error: any | ErrorGenerico) {
     ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
@@ -144,8 +147,8 @@ const modifyName = async (req: Request, res: Response) => {
 
 const modifyPassword = async (req: Request, res: Response) => {
   try {
-    if (!req.user) throw new ErrorNoAutorizado("Error de autentificacion.");
-    const resultado = await userService.modifyPassword(req.user, req.body);
+    if (!req.usuario) throw new ErrorNoAutorizado("Error de autentificacion.");
+    const resultado = await userService.modifyPassword(req.usuario, req.body);
     ResponseOk(res, responses.OK, resultado);
   } catch (error: any) {
     ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
@@ -165,8 +168,8 @@ const modifyPasswordWithToken = async (req: Request, res: Response) => {
 
 const modifyEmail = async (req: Request, res: Response) => {
   try {
-    if (!req.user) throw new ErrorNoAutorizado("Error de autentificacion.");
-    const resultado = await userService.modifyEmail(req.user, req.body);
+    if (!req.usuario) throw new ErrorNoAutorizado("Error de autentificacion.");
+    const resultado = await userService.modifyEmail(req.usuario, req.body);
     ResponseOk(res, responses.OK, resultado);
   } catch (error: any) {
     ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
@@ -176,13 +179,13 @@ const modifyEmail = async (req: Request, res: Response) => {
 const getDatosWithToken = async (req: Request, res: Response) => {
   console.log("req", req)
   try {
-    const user = req.user;
-
+    const user = req.usuario;
+    console.log(user)
     const data: any = {
       user
     }
     console.log(user.id_user)
-    console.log(req.user.id_user)
+    console.log(req.usuario.id_user)
     ResponseOk(res, responses.OK, data);
   } catch (error: any) {
     console.error(error);

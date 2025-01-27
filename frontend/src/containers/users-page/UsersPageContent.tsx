@@ -141,7 +141,7 @@ export const UsersPageContent = ({
                 <button onClick={() => toggleOptions(user.id_user)} className='user-options-button'>
                   <OptionsIcon /> 
                 </button>
-                {showOptions && currentUser?.id_usuario === user.id_usuario && (
+                {showOptions && currentUser?.id_user === user.id_user && (
                   <DropdownOptions
                     handleClose={() => setShowOptions(false)}
                     options={clickOptions}

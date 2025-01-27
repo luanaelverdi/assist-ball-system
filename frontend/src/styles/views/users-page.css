@@ -1,6 +1,5 @@
 
 .users-page-content {
-  background-color: #B12424;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -19,8 +18,7 @@
   max-height: fit-content;
 }
 
-.user-table-wrapper {
-  background-color: #000000;
+.table-wrapper {
   border-radius: 8px;
   align-self: normal;
   margin: 1.2rem;
@@ -42,14 +40,14 @@
   text-align: left;
   border: 2px solid black;
   border-radius: 5px;
-  color: white-;
+  color: black;
 }
 
 .user-table th {
   background-color: black;
   border: 2px solid black;
   border-radius: 5px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .user-table tr {
@@ -77,5 +75,5 @@
   padding: 0;
   display: flex;
   align-items: center;
-  color: red;
+  color: rgb(226, 12, 12);
 }
