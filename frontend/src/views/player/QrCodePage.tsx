@@ -1,10 +1,14 @@
 import { QrCodePageContent } from "../../containers/players-page/QrCodePageContent"
+import { ViewWithHeader } from "../../containers/ViewWithHeader"
 
 export const QrCodePage = () => {
   return (
-    <div className='qr-code-page-container'>
-      <h1>QR Code</h1>
+    <ViewWithHeader
+      title="QR CODE"
+      status={undefined}
+      error={null}
+      icon={undefined}>
       <QrCodePageContent />
-    </div>
+    </ViewWithHeader>
   )
 }

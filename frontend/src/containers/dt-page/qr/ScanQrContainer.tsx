@@ -28,7 +28,6 @@ export const ScanQrContainer = () => {
   return (
     <>
       <div className='flex'>
-        <h3>ESCANEAR QR DE JUGADOR</h3>
         <button className='qr-button mechanic' onClick={() => setOpenScanner(true)}>
           <QrIcon /> Escanear
         </button>
