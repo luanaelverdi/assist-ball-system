@@ -1,4 +1,3 @@
-import { useDataFetching } from '../../hooks'
 import { Users } from '../../shared'
 import { 
   FaUser, 
@@ -8,7 +7,6 @@ import {
   FaIdCard,
   FaUserTag,
   FaCheckCircle,
-  FaUserTie,
 } from 'react-icons/fa'
 
 export const UserDetailPageContent = ({
@@ -18,12 +16,14 @@ export const UserDetailPageContent = ({
 
   const userFields = [
     { icon: FaIdCard, label: 'ID usuario', value: user.id_user },
+    { icon: FaUser, label: 'DNI usuario', value: user.dni_user },
     { icon: FaUser, label: 'Nombre usuario', value: user.fullname_user },
     { icon: FaEnvelope, label: 'Email', value: user.email_user },
     { icon: FaUserTag, label: 'Tipo usuario', value: user.type_user },
+    { icon: FaCheckCircle, label: 'Categoría', value: user.category_user },
     { icon: FaCheckCircle, label: 'Estado', value: user.state_user },
     { icon: FaCalendarPlus, label: 'Fecha Alta', value: new Date(user.fecha_alta_user).toLocaleDateString() },
-    { icon: FaCalendarMinus, label: 'Fecha Baja', value: user.fecha_baja_user? new Date(user.fecha_baja_user).toLocaleDateString() : 'N/A' }
+    { icon: FaCalendarMinus, label: 'Fecha Baja', value: user.fecha_baja_user? new Date(user.fecha_baja_user).toLocaleDateString() : ' N/A' }
   ]
  
   return (

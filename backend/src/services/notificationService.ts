@@ -2,16 +2,9 @@ import { notificationRepository } from "../database/repository/notificationRepos
 
 const fetch = require('node-fetch');
 
-const getAll = async (query: {
-    search: string | null
-}) => {
+const getAll = async () => {
     const notifications = await notificationRepository.getAll();
-
-    const results = notifications.filter(notification => {
-        return (!query.search || notification.description.toLowerCase().includes(query.search.toLowerCase()));
-    });
-
-    return results;
+    return notifications;
 };
 
 export const getByID = async (id: number) => {

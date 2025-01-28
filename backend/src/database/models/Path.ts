@@ -1,6 +1,6 @@
 export type Pantalla = {
     id_pantalla: number;
-    tipo_usuario: string;
+    type_user: string;
     nombre: string;
     path: string;
 }

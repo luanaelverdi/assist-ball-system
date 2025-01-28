@@ -240,7 +240,7 @@ button {
 
 /* Fondo del scrollbar */
 ::-webkit-scrollbar-track {
-  background: #990707;
+  background: #000000;
   /* Fondo del scroll track */
   border-radius: 10px;
 }
@@ -276,11 +276,11 @@ button {
   padding: 10px;
   color: white;
   border-radius: 5px;
-  background-color: #d85353;
+  background-color:  #9b0000;
 }
 
 .create-btn:hover {
-  background-color: #9b0000;
+  background-color: #d85353;
 }
 
 .create-btn.secondary {
@@ -354,7 +354,7 @@ button {
 }
 
 .form-actions button[type="submit"]:hover:not(:disabled) {
-  background-color: var(--primary-action-color-hover);
+  background-color: #ce3838;
 }
 
 .form-actions button[type="button"] {
@@ -458,18 +458,18 @@ button {
 }
 
 .swal-confirm {
-  background-color: var(--primary-action-color);
-  color: var(--button-text-color);
+  background-color: #990707;
+  color: black;
 }
 
 .swal2-popup {
-  background-color: var(--primary-color) !important;
+  background-color: #990707 !important;
   box-shadow: var(--box-shadow) !important;
-  color: var(--primary-text-color) !important;
+  color: black !important;
 }
 
 .error {
-  color: var(--secondary-action-color);
+  color: #c21818;
 }
 
 .modal-close-btn {
@@ -477,13 +477,13 @@ button {
   cursor: pointer;
   right: 1rem;
   top: 1rem;
-  color: var(--secondary-light-color);
+  color: #000000;
   font-style: normal;
 }
 
 .modal {
   position: relative;
-  background-color: var(--primary-color);
+  background-color: #9b0000;
   border-radius: 8px;
   box-shadow: var(--box-shadow);
   max-width: 400px;
@@ -503,56 +503,6 @@ button {
   border-bottom: 2px solid var(--secondary-light-color);
 }
 
-.modal-total-price {
-  color: var(--primary-text-color);
-  font-size: 1.2rem;
-  margin: 20px 0;
-}
-
-.modal-product-list {
-  margin-top: 20px;
-  border-top: 1px solid var(--secondary-light-color-hover);
-}
-
-.modal-product-header,
-.modal-product-item {
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--secondary-light-color-hover);
-}
-
-.modal-product-header span {
-  color: var(--description-text-color);
-}
-
-.modal-product-item span {
-  color: var(--primary-text-color);
-  width: fit-content;
-}
-
-.modal-product-total {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  padding: 15px 0 0;
-  margin-bottom: 10px;
-  color: var(--secondary-light-color)
-}
-
-.modal-show-products-button {
-  position: absolute;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  font-size: 1.3rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  top: 10px;
-  left: 10px;
-}
 
 .carousel-nav {
   border: none;
@@ -574,25 +524,19 @@ button {
   border-radius: 10px;
   padding: 0.4rem;
   width: 80%;
-  max-height: fit-content;
-  background-color: var(--primary-color);
-  color: var(--primary-text-color);
-  border: 1px solid transparent;
-  padding: 0.5rem;
-  border-radius: 8px;
+  max-height:80%;
+  border: 1px solid black;
   transition: border 0.3s, box-shadow 0.3s;
   flex: 1;
-  max-width: 100vw;
 }
 
 .search-input::placeholder {
-  color: var(--secondary-light-color);
   opacity: 0.7;
 }
 
 .search-input:focus {
-  border: 1px solid var(--secondary-light-color);
-  box-shadow: 0 0 8px var(--secondary-light-color);
+  border: 1px solid black;
+  box-shadow: 0 0 8px #ad3333;
   outline: none;
 }
 

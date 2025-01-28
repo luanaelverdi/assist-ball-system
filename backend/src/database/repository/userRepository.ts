@@ -49,11 +49,10 @@ export const searchUserByDNI = async (dni: number): Promise<Users | null> => {
 
 };
 console.log("ntrando a get by id");
-export const getByID = async (id_user: number): Promise<Users | null> => {
-  console.log("id obtenido en repo:", id_user);
-  const id = Number(id_user);
+export const getByID = async (id: number): Promise<Users | null> => {
+  console.log("id obtenido en repo:", id);
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE id_user = ${id};`;
-  console.log("id obtenido en repo:", id_user);
+  console.log("id obtenido en repo:", id);
   console.log("query", query);
   return query[0];
 };

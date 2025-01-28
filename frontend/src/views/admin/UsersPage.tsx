@@ -1,8 +1,8 @@
-import { useDataFetching, useSearchBar } from '../hooks'
-import '../styles/views/users-page.css'
-import { Users } from '../shared'
-import { View } from '../containers/View'
-import { UsersPageContent } from '../containers/users-page/UsersPageContent'
+import { useDataFetching, useSearchBar } from '../../hooks'
+import '../../styles/views/users-page.css'
+import { Users } from '../../shared'
+import { View } from '../../containers/View'
+import { UsersPageContent } from '../../containers/users-page/UsersPageContent'
 
 export const UsersPage = () => {
   const users = useDataFetching<Users[]>('user/getAll')
