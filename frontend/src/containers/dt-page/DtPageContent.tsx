@@ -4,10 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import { Assistance, Users } from '../../shared';
 import { ScanQrContainer } from './ScanQrContainer';
 import '../../styles/views/dt-page.css'
-import { FaQrcode as QrIcon } from 'react-icons/fa'
 import { PaginatedTable } from '../../components/PaginatedTable';
-import { PlayerCard } from '../../components/PlayerCard';
-import { PlayersPage } from '../../views/dt/PlayersPage';
 import { PlayerPageContent } from '../players-page/PlayerPageContent';
 
 
@@ -34,14 +31,16 @@ export const DtPageContent = ({
     return (
         <div className="mechanic-page-content">
             <div className='tabs-container'>
-                {['Jugadores', 'Asistencias', 'Escanear'].map((label, index) => (
-                    <Tab
-                        key={index}
-                        label={label}
-                        isActive={index === activeTab}
-                        onClick={() => handleTabClick(index)}
-                    />
-                ))}
+                <div className="optiones">
+                    {['Jugadores', 'Asistencias', 'Escanear'].map((label, index) => (
+                        <Tab
+                            key={index}
+                            label={label}
+                            isActive={index === activeTab}
+                            onClick={() => handleTabClick(index)}
+                        />
+                    ))}
+                </div>
                 {
                     activeTab === 0 ? <PlayerPageContent
                         players={players} /> : null
@@ -56,12 +55,12 @@ export const DtPageContent = ({
                                 <td className="user-id">{assistance.id_assistance}</td>
                                 <td>{assistance.date.toString()}</td>
                                 <td>{assistance.entry_time}</td>
-                              </tr>
-                            )} >
-                          </PaginatedTable> : null
+                            </tr>
+                        )} >
+                    </PaginatedTable> : null
                 }
                 {activeTab === 2 ?
-                    <ScanQrContainer /> : null
+                   <ScanQrContainer />  : null
                 }
             </div>
         </div>

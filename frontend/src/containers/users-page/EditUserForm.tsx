@@ -5,6 +5,7 @@ import { TextField } from '../../components/TextField'
 import Spinner from '../../components/Spinner'
 import { Select } from '../../components/Select'
 import { firePopup } from '../../utils'
+import '../../styles/views/suppliers-page.css'
 
 export const EditUserForm = ({
   user,
@@ -86,7 +87,7 @@ export const EditUserForm = ({
         
         <Select 
           label='Rol del usuario'
-          name='tipo_usuario'
+          name='type_user'
           value={editedUser.type_user}
           onChange={(e) => handleSelectChange(e, 'text')}
           required
