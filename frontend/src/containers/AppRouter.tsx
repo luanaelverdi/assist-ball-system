@@ -7,11 +7,12 @@ import { Layout } from './Layout';
 import { RegisterPage } from '../views/admin/RegisterPage';
 import { UsersPage } from '../views/admin/UsersPage';
 import { PlayersPage } from '../views/dt/PlayersPage';
-import { QrCodePage } from '../views/player/QrCodePage';
+import { PlayerPage } from '../views/player/PlayerPage';
 import { UserDetailPage } from '../views/admin/UserDetailPage';
 import { AssistancesPage } from '../views/dt/AssistancesPage';
 import { QRScannerPage } from '../views/dt/QRScannerPage';
 import { DtPage } from '../views/dt/DtPage';
+import { QrCodePage } from '../views/player/QrCodePage';
 
 const adminRoutes = [
   {
@@ -68,6 +69,11 @@ const playerRoutes = [
     path: '/mi-qr-code',
     element: <ProtectedRoute element={<QrCodePage />} />
   }
+/* {
+  path: 'mi-qr/asistencias',
+  element: <ProtectedRoute element={<PlayerPage />} />
+}*/
+ 
 ]
 
 const router = createBrowserRouter([
