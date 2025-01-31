@@ -1,4 +1,4 @@
-import { PublicUsers } from "../database/models/User";
+import { PublicUsers } from "../database/models/Users";
 import { authRepository } from "../database/repository/authRepository";
 import { userRepository } from "../database/repository/userRepository";
 import ErrorArgumentoInvalido from "../errors/ErrorArgumentoInvalido";
@@ -16,9 +16,9 @@ const login = async (body: { email: string, password: string }) => {
     const user = await userRepository.searchUserWithEmail(email);
     if (!user) throw new ErrorRecursoNoEncontrado("Credenciales incorrectas.");
 
-    //if (!await Password.validar(password, user.pass_user)) throw new ErrorArgumentoInvalido("Credenciales incorrectas.");
+        if (!await Password.validar(password, user.pass_user)) throw new ErrorArgumentoInvalido("Credenciales incorrectas.");
 
-    const usuarioPublico: PublicUsers = {
+    const userPublic: PublicUsers = {
         id_user: user.id_user,
         dni_user: user.dni_user,
         fullname_user: user.fullname_user,
@@ -30,13 +30,13 @@ const login = async (body: { email: string, password: string }) => {
         fecha_baja_user: user.fecha_baja_user
     }
 
-    const token = await JWT.generar(usuarioPublico);
+    const token = await JWT.generar(userPublic);
     console.log(token + "TOKEN");
-    return { user: usuarioPublico, token };
+    return { user: userPublic, token };
 };
 
-const obtenerRol = async (id_user: number) => {
-    return await authRepository.obtenerRolPorId(id_user);
+const obtenerRol = async (id: number) => {
+    return await authRepository.obtenerRolPorId(id);
 }
 
 export const authService = {

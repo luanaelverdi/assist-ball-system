@@ -4,6 +4,7 @@ import { authService } from "../../services/authService";
 import responses from "../../static/responses";
 
 const login = async (req: Request, res: Response) => {
+    console.log("req.body de login", req.body);
     try {
         const { email, password } = req.body;
         const response = await authService.login({ email, password });

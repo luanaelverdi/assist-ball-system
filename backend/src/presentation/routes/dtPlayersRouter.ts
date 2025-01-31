@@ -3,76 +3,6 @@ import { ValidarAutorizacion } from "../../middlewares/autorizacion";
 import { dtPlayersController } from "../controllers/dtPlayersController"; 
 
 const router: Router = Router();
-
-/**
- * @openapi
- * /api/dtPlayers:
- *   post:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - DtPlayers
- *     summary: Añade una relacion dt-player
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:    
- *             type: object
- *             properties:
- *               id_dt:
- *                 type: number
- *                 example: 1
- *               id_player:
- *                 type: number
- *                 example: 1
- *     responses:
- *       200:
- *         description: Asistencia creada
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- */
-router.post('/', ValidarAutorizacion.User, dtPlayersController.addDtPlayers);
-
-/**
- * @openapi
- * /api/dtPlayers/{id}:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - DtPlayers
- *     summary: Devuelve una relacion dt-player por ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID de la asistencia
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id_dt_players:
- *                   type: number
- *                 id_dt:
- *                   type: number
- *                 id_player:
- *                   type: number
- */
-router.get('/:id', ValidarAutorizacion.User, dtPlayersController.getByID);
-
 /**
  * @openapi
  * /api/dtPlayers/getAll:
@@ -111,6 +41,76 @@ router.get('/:id', ValidarAutorizacion.User, dtPlayersController.getByID);
  */
 
 router.get('/getAll', ValidarAutorizacion.User, dtPlayersController.getAll);
+/**
+ * @openapi
+ * /api/dtPlayers/{id}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - DtPlayers
+ *     summary: Devuelve una relacion dt-player por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de la asistencia
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_dt_players:
+ *                   type: number
+ *                 id_dt:
+ *                   type: number
+ *                 id_player:
+ *                   type: number
+ */
+router.get('/:id', ValidarAutorizacion.User, dtPlayersController.getByID);
+
+/**
+ * @openapi
+ * /api/dtPlayers:
+ *   post:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - DtPlayers
+ *     summary: Añade una relacion dt-player
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:    
+ *             type: object
+ *             properties:
+ *               id_dt:
+ *                 type: number
+ *                 example: 1
+ *               id_player:
+ *                 type: number
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Asistencia creada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ */
+router.post('/', ValidarAutorizacion.User, dtPlayersController.addDtPlayers);
+
+
 
 /**
  * @openapi

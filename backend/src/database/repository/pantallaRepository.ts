@@ -3,7 +3,6 @@ import { Pantalla } from "../models/Path"
 import Postgres from "../Postgres"
 
 const buscarPorTipo = async (tipo: string): Promise<Array<Pantalla>> => {
-    // const query: Array<Pantalla> = await Postgres.query()`SELECT * FROM pantalla WHERE tipo_usuario = ${tipo} and path_padre is null;`;
 
     let query: Array<Pantalla> = [];
     await Postgres.query().begin(async sql => {
@@ -17,7 +16,6 @@ const buscarPorTipo = async (tipo: string): Promise<Array<Pantalla>> => {
 
 
 const buscarPorTipoConPadre = async (tipo: string, padre: string): Promise<Array<Pantalla>> => {
-    // const query: Array<Pantalla> = await Postgres.query()`SELECT * FROM pantalla WHERE tipo_usuario = ${tipo} and path_padre = ${padre};`;
 
     let query: Array<Pantalla> = [];
     await Postgres.query().begin(async sql => {

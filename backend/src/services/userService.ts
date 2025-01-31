@@ -1,5 +1,5 @@
 
-import { TypeUser, PublicUsers } from "../database/models/User";
+import { TypeUser, PublicUsers } from "../database/models/Users";
 import Postgres from "../database/Postgres";
 import { userRepository } from "../database/repository/userRepository";
 import ErrorNoDisponible from "../errors/ErrorNoDisponible";
@@ -24,9 +24,9 @@ export const getAll = async (query: {
   return results;
 };
 
-export const getByID = async (id_user: number) => {
-  const users = await userRepository.getByID(id_user);
-  console.log("id obtenido en servicio:", id_user);
+export const getByID = async (id: number) => {
+  console.log("id obtenido en servicio:", id);
+  const users = await userRepository.getByID(id);
   if (!users) throw new ErrorRecursoNoEncontrado("El id de usuario no existe.");
   return users;
 };
