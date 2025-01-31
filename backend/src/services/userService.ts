@@ -190,6 +190,11 @@ export const modifyDNI = async (user: PublicUsers, body: { dni: number }) => {
   await userRepository.modifyDNI(user.id_user, body.dni);
 }
 
+export const getQR = async (id: number) => {
+  const resul = await userRepository.getQR(id);
+  if (!resul) throw new ErrorRecursoNoEncontrado("Usuario no encontrado.");
+  return resul;
+}
 
 
 export const userService = {
@@ -205,5 +210,6 @@ export const userService = {
   modifyEmail,
   deleteUser,
   modifyDNI,
-  searchUserByDNI
+  searchUserByDNI,
+  getQR
 };

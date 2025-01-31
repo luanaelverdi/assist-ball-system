@@ -12,8 +12,7 @@ import { UserDetailPage } from '../views/admin/UserDetailPage';
 import { AssistancesPage } from '../views/dt/AssistancesPage';
 import { QRScannerPage } from '../views/dt/QRScannerPage';
 import { DtPage } from '../views/dt/DtPage';
-import { QrCodePage } from '../views/player/QrCodePage';
-
+import { QrCodePage } from '../views/player/QrCodePage'
 const adminRoutes = [
   {
     path: '/',
@@ -35,11 +34,7 @@ const adminRoutes = [
 
 const dtRoutes = [
   {
-    path: '/',
-    element: <ProtectedRoute element={<HomePage />} />,
-  },
-  {
-    path: 'jugadores/asistencias',
+    path: '/jugadores-asistencias',
     element: <ProtectedRoute element={<DtPage />} />
   }
  /* {
@@ -57,10 +52,6 @@ const dtRoutes = [
 ]
 
 const playerRoutes = [
-  {
-    path: '/',
-    element: <ProtectedRoute element={<HomePage />} />,
-  },
   {
     path: '/mis-asistencias',
     element: <h1>Asistencias</h1>

@@ -16,7 +16,9 @@ export const Navbar = ({
       <ButtonIcon handleOnClick={() => handleGoToPath('/')}>
         <img src='/ESCUDO_JUVE-removebg-preview.png' alt="logo" className="logo-img" />
       </ButtonIcon>
+      <div>
       <Avatar user={currentUser.user} />
+      </div>
       <div>
           <ButtonIcon handleOnClick={handleLogout}>
             <LogoutIcon />

@@ -48,6 +48,7 @@ const searchUserByType = async (req: Request, res: Response) => {
 const getByID = async (req: Request, res: Response) => {
   console.log("url", req.url);
   console.log(req.params.id);  // ✅ Debe imprimir el ID correcto
+  console.log("En getByID - req.params:", req.params);
 
   try {
     console.log("id obtenido en controller:", Number(req.params.id));
@@ -180,14 +181,22 @@ const modifyEmail = async (req: Request, res: Response) => {
 
 const getDatosWithToken = async (req: Request, res: Response) => {
   console.log(req.url);
-  console.log("HOLA",req.params.id);
+  console.log("HOLA",req.params);
   try {
-    console.log("req.user en controller", req.user);
     const user = req.user;
-    console.log("USUARIO EM CONTROLLER",user)
   
-
     ResponseOk(res, responses.OK, user);
+  } catch (error: any) {
+    console.error(error);
+    ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
+  }
+}
+
+const getQR = async (req: Request, res: Response) => {
+  try {
+    const user = req.user;
+    const qr = await userService.getQR(user.id_user);
+    ResponseOk(res, responses.OK, qr);
   } catch (error: any) {
     console.error(error);
     ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
@@ -209,5 +218,6 @@ export const userController = {
   modifyEmail,
   getDatosWithToken,
   searchUserByDNI,
-  modifyDNI
+  modifyDNI,
+  getQR
 };

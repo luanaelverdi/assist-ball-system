@@ -4,6 +4,7 @@ import ErrorGenerico from "../../errors/ErrorGenerico";
 import { BodyModificarUsuarioAdmin } from "../../services/userService";
 import { Users, PublicUsers } from "../models/Users";
 import Postgres from "../Postgres";
+const QRCode = require("qrcode");
 
 export const getAll = async (): Promise<Array<Users>> => {
   const query: Array<Users> = await Postgres.query()`
@@ -188,6 +189,12 @@ export const deleteUser = async (id: number) => {
   }
 }
 
+export const getQR = async (id: number): Promise<Users> => {
+  const query: Array<Users> = await Postgres.query()`SELECT id_user FROM users WHERE id_user = ${id};`;
+  const qrCodeData = await QRCode.toDataURL(query);
+  return qrCodeData;
+}
+
 export const userRepository = {
   getAll,
   getByID,
@@ -202,5 +209,6 @@ export const userRepository = {
   modifyEmail,
   modifyDNI,
   modifyCategory,
-  deleteUser
+  deleteUser,
+  getQR
 };

@@ -1,4 +1,4 @@
-import { Form, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import '../styles/views/login-page.css'
 import { MdOutlineRemoveRedEye } from 'react-icons/md'
 import { FaEyeSlash } from 'react-icons/fa'
@@ -7,21 +7,21 @@ import { UserContext, UserContextType } from '../hooks/UserContext'
 import { useMutate } from '../hooks'
 
 export const LoginPage = () => {
-  const [ params ] = useSearchParams()
+  const [params] = useSearchParams()
   const currentUser = useContext(UserContext) as UserContextType
 
   const navigate = useNavigate()
-  const [ error, setError ] = useState('')
-  const [ isExpanded, setIsExpanded ] = useState<boolean>(false)
+  const [error, setError] = useState('')
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
-  const login = useMutate<{ token:string }>({
+  const login = useMutate<{ token: string }>({
     onSuccess: (data) => {
       localStorage.setItem('token', data.token)
       console.log("token de usuario " + data.token)
       currentUser.onLogin()
 
       console.log("holi")
-      
+
       const callback = params.get('callback')
 
       if (callback != null)
@@ -31,12 +31,13 @@ export const LoginPage = () => {
     },
   })
 
+  
   const validarEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.com$/
     return regex.test(email)
   }
 
-  const handleLogin = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.target as HTMLFormElement
     const values = {
@@ -44,7 +45,7 @@ export const LoginPage = () => {
       password: form.password.value,
     }
 
-    
+
     if (!validarEmail(values.email)) {
       setError('Por favor, ingresa un email válido.')
       return
@@ -64,7 +65,7 @@ export const LoginPage = () => {
     setError('')
   }
 
-  const seePassword = () =>{
+  const seePassword = () => {
     setIsExpanded(!isExpanded)
   }
 
@@ -77,17 +78,17 @@ export const LoginPage = () => {
       </div>
       <form className="login-form" onSubmit={handleLogin} >
         <label htmlFor="email">Correo electrónico</label>
-        <input 
+        <input
           type="text"
-          id="email" 
+          id="email"
           placeholder='correo@ejemplo.com'
-          onChange={handleSetErrorFalse}  
+          onChange={handleSetErrorFalse}
           required
         />
         <div className='input-password'>
           <label htmlFor="password">Contraseña</label>
-          {!isExpanded ? (<input type="password"  name="password"  className="login-input" placeholder='******' required />) : (
-            (<input type="text" name="password"  className="login-input" required />)
+          {!isExpanded ? (<input type="password" name="password" className="login-input" placeholder='******' required />) : (
+            (<input type="text" name="password" className="login-input" required />)
           )}
           <button type='button' onClick={seePassword} className="see-password-button">
             {isExpanded ? <FaEyeSlash /> : <MdOutlineRemoveRedEye />}
@@ -104,3 +105,5 @@ export const LoginPage = () => {
     </div>
   )
 }
+
+

@@ -5,11 +5,11 @@ export const HomepageHeader = ({
 }: { roleName: string }) => {
   const component = useMemo(() => {
     switch (roleName){
-    case 'admin': 
+    case 'ADMIN': 
       break
-    case 'dt':
+    case 'DT':
       break
-    case 'player':
+    case 'PLAYER':
       break
     }
   }, [ roleName ])

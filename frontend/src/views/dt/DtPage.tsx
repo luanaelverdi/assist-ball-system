@@ -8,15 +8,15 @@ export const DtPage = () => {
     const assistances = useDataFetching<Assistance[]>('assistance/getAll')
 
     return (
-        <>
-            <View data={players.data && assistances.data} status={players.status || assistances.status} error={players.error || assistances.error}>
-                <DtPageContent
-                    players={players.data}
-                    assistances={assistances.data}
-                    refetchPlayers={players.fetch}
-                    refetchAssistances={assistances.fetch}
-                />
-            </View>
-        </>
+
+        <View data={players.data && assistances.data} status={players.status && assistances.status} error={players.error && assistances.error}>
+            <DtPageContent
+                players={players.data}
+                assistances={assistances.data}
+                refetchPlayers={players.fetch}
+                refetchAssistances={assistances.fetch}
+            />
+        </View>
+
     )
 }
