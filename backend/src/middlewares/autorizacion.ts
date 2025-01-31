@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { TypeUser } from "../database/models/User";
+import { TypeUser } from "../database/models/Users";
 import JWT from "../helpers/JWT";
 import { ResponseError } from "../helpers/ControllerResponse";
 import { authService } from "../services/authService";
@@ -12,18 +12,18 @@ class Autorizacion {
         try {
             const user = JWT.validar(req);
             await this.validarPermiso(user.id_user, permiso);
-            req.usuario = user;
+            req.user = user;
             next();
-            console.log("req.user en autorizacion valdar auto", req.usuario);
         } catch (error: any) {
             console.error(error);
             ResponseError(res, error.statusCode || responses.UNAUTHORIZED, error);
         }
     }
 
-    private async validarPermiso(id_usuario: number, permisoRequerido: TypeUser) {
-        console.log("id_usuario en autorizacion", id_usuario);
-        const permisoUsuario = await authService.obtenerRol(id_usuario);
+    private async validarPermiso(id: number, permisoRequerido: TypeUser) {
+        console.log("id_usuario en autorizacion", id);
+        const permisoUsuario = await authService.obtenerRol(id);
+        console.log("permisoUsuario en autorizacion asdasd", permisoUsuario);
         const poseePermiso = this.calcularPermiso(permisoUsuario, permisoRequerido);
 
         if (!poseePermiso) {
@@ -50,9 +50,7 @@ class Autorizacion {
 
     User = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            req.usuario = JWT.validar(req);
-            console.log("req.user en autorizacion", req.usuario);
-            console.log("req.user en user", req.usuario);
+            req.user = JWT.validar(req);
             next();
         } catch (error: any) {
             console.error(error);
@@ -62,18 +60,21 @@ class Autorizacion {
 
      Custom = (permisos: TypeUser[]) => {
          return async (req: Request, res: Response, next: NextFunction) => {
+            console.log("permisos en custom", permisos);
+            console.log("Middleware ejecutado - req.params:",req.params);
              try {
                  const usuario = JWT.validar(req);
                  const permisoUsuario = await authService.obtenerRol(usuario.id_user);
-                 
+                 console.log(usuario.id_user)
+                 console.log("permisoUsuario en custom", permisoUsuario);
                  let autorizado = false;
                  for (const permiso of permisos) {
                      autorizado = autorizado || this.calcularPermiso(permisoUsuario, permiso);
                     }
                     
                     if (!autorizado) throw new ErrorNoAutorizado("Permiso denegado: Se requiren permisos de " + permisos.join(" o "));
-                    req.usuario = usuario;
-                    console.log("req.user en custom", req.usuario);
+                    req.user = usuario;
+                    console.log("req.user en custom", req.user);
                  next();
              } catch (error: any) {
                  console.error(error);

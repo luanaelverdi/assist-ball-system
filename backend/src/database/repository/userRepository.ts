@@ -2,7 +2,7 @@ import ErrorArgumentoInvalido from "../../errors/ErrorArgumentoInvalido";
 import ErrorBaseDeDatos from "../../errors/ErrorBaseDeDatos";
 import ErrorGenerico from "../../errors/ErrorGenerico";
 import { BodyModificarUsuarioAdmin } from "../../services/userService";
-import { Users, PublicUsers } from "../models/User";
+import { Users, PublicUsers } from "../models/Users";
 import Postgres from "../Postgres";
 
 export const getAll = async (): Promise<Array<Users>> => {
@@ -48,15 +48,13 @@ export const searchUserByDNI = async (dni: number): Promise<Users | null> => {
   return query[0];
 
 };
-console.log("ntrando a get by id");
-export const getByID = async (id: number): Promise<Users | null> => {
-  console.log("id obtenido en repo:", id);
+export const getByID = async (id: number): Promise<Users> => {
+  console.log("id obtenido en repo 1:", id);
+  console.log(Promise.resolve(id));
+  console.log( Promise<Users>);
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE id_user = ${id};`;
-  console.log("id obtenido en repo:", id);
-  console.log("query", query);
   return query[0];
-};
-
+}
 export const getPasswordUser = async (id: number): Promise<string> => {
   const query: Array<any> = await Postgres.query()`SELECT pass_user FROM users WHERE id_user = ${id};`;
   return query[0];

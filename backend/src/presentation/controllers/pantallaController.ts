@@ -9,16 +9,17 @@ const buscarPorTipo = async (req: Request, res: Response) =>{
     try {
         const token = req.headers['authorization']?.split(' ')[1];
         if (!token) throw new ErrorNoAutorizado("Token Invalido.");
-        const usuario = JWT.verificarToken(token);
+        const user = JWT.verificarToken(token);
 
         const pathPadre = req.query.path_padre as string | undefined;
 
         let resultados;
 
         if (pathPadre === undefined) {
-            resultados = await pantallaService.buscarPorTipo(usuario.type_user);
+            resultados = await pantallaService.buscarPorTipo(user.type_user);
         } else {
-            resultados = await pantallaService.buscarPorTipoConPadre(usuario.type_user, pathPadre);
+            resultados = await pantallaService.buscarPorTipoConPadre(user.type_user, pathPadre);
+
         }
 
         ResponseOk(res, responses.OK, resultados);

@@ -3,7 +3,268 @@ import { userController } from "../controllers/userController";
 import { ValidarAutorizacion } from "../../middlewares/autorizacion";
 
 const router: Router = Router();
+/**
+ * @openapi
+ * /api/user/getAll:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve todos los usuarios
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 users:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id_user:
+ *                         type: number
+ *                       fullname_user:
+ *                         type: string
+ *                       email_user:
+ *                         type: string
+ *                       category_user:
+ *                         type: string
+ *                       type_user:     
+ *                         type: string
+ *                       state_user:
+ *                         type: string
+ *                       fecha_alta_user:
+ *                         type: string
+ *                       fecha_baja_user:    
+ *                         type: string
+ */
+router.get('/getAll', ValidarAutorizacion.Custom([ 'admin', 'dt']), userController.getAll);
 
+
+/**
+ * @openapi
+ * /api/user/getDatosWithToken:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve el usuario con sus datos
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id_user:
+ *                       type: number
+ *                     fullname_user:
+ *                       type: string
+ *                     email_user:
+ *                       type: string
+ *                     type_user:
+ *                       type: string
+ *                     category_user:
+ *                       type: string
+ 
+ *        
+ */
+router.get('/getDatosWithToken', ValidarAutorizacion.Custom([ 'admin', 'dt', 'player']), userController.getDatosWithToken);
+
+
+/**
+ * @openapi
+ * /api/user/{id}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve un usuario por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_user:
+ *                   type: number
+ *                 fullname_user:
+ *                   type: string
+ *                 email_user:
+ *                   type: string
+ *                 category_user:
+ *                   type: string
+ *                 type_user:
+ *                   type: string
+ */
+router.get('/:id', ValidarAutorizacion.Custom([ 'admin', 'dt', 'player']), userController.getByID);
+
+
+/**
+ * @openapi
+ * /api/user/searchUserWithEmail/{mail}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Trae un usuario por email
+ *     parameters:
+ *       - in: path
+ *         name: mail
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Email del usuario
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_user:
+ *                   type: number
+ *                 fullname_user:
+ *                   type: string
+ *                 email_user:
+ *                   type: string
+ *                 category_user:
+ *                   type: string
+ *                 type_user:
+ *                   type: string
+ */
+router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.Custom([ 'admin', 'dt']), userController.searchUserWithEmail);
+
+/**
+ * @openapi
+ * /api/user/searchUserByType/{type}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Trae usuarios por tipo
+ *     parameters:
+ *       - in: path
+ *         name: type
+ *         required: true
+ *         schema:
+ *           type_user: string
+ *         description: Tipo de usuario
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_user:
+ *                   type: number
+ *                 fullname_user:
+ *                   type: string
+ *                 email_user:
+ *                   type: string
+ *                 category_user:
+ *                   type: string
+ *                 type_user:
+ *                   type: string
+ */
+router.get('/searchUserByType/:type', ValidarAutorizacion.Custom([ 'admin', 'dt', 'player']), userController.searchUserByType);
+
+
+/**
+ * @openapi
+ * /api/user/searchUserByDNI/{dni}:
+*   get:
+*     security:
+*      - tokenAutorizacion: []
+*     tags:
+*       - Usuario
+*     summary: Trae un usuario por dni
+*     parameters:
+*       - in: path
+*         name: dni
+*         required: true
+*         schema:
+*           type: number
+*         description: DNI del usuario
+*     responses:
+*       200:
+*         description: OK
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 id_user:
+*                   type: number
+*                 fullname_user:
+*                   type: string
+*                 email_user:
+*                   type: string
+*                 category_user:
+*                   type: string
+*                 type_user:
+*                   type: string
+*/
+router.get('/searchUserByDNI/:dni', ValidarAutorizacion.Admin, userController.searchUserByDNI);
+
+/**
+ * @openapi
+ * /api/user/getPasswordUser/{id}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve el password del usuario
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 pass_user:
+ *                   type: string
+ */
+router.get('/getPasswordUser/:id', ValidarAutorizacion.Admin, userController.getPasswordUser);
 /**
  * @openapi
  * /api/user:
@@ -49,269 +310,8 @@ const router: Router = Router();
  *                 status:
  *                   type: string
  *                   example: OK
- */
-router.post('/', userController.add);
-
-/**
- * @openapi
- * /api/user/getAll:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Usuario
- *     summary: Devuelve todos los usuarios
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 users:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       id_user:
- *                         type: number
- *                       fullname_user:
- *                         type: string
- *                       email_user:
- *                         type: string
- *                       category_user:
- *                         type: string
- *                       type_user:     
- *                         type: string
- *                       state_user:
- *                         type: string
- *                       fecha_alta_user:
- *                         type: string
- *                       fecha_baja_user:    
- *                         type: string
- */
-router.get('/getAll', ValidarAutorizacion.User, userController.getAll);
-
-/**
- * @openapi
- * /api/user/{id}:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Usuario
- *     summary: Devuelve un usuario por ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: number
- *         description: ID del usuario
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id_user:
- *                   type: number
- *                 fullname_user:
- *                   type: string
- *                 email_user:
- *                   type: string
- *                 category_user:
- *                   type: string
- *                 type_user:
- *                   type: string
- */
-router.get('/:id', ValidarAutorizacion.User, userController.getByID);
-
-
-/**
- * @openapi
- * /api/user/searchUserWithEmail/{mail}:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Usuario
- *     summary: Trae un usuario por email
- *     parameters:
- *       - in: path
- *         name: mail
- *         required: true
- *         schema:
- *           type: string
- *         description: Email del usuario
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id_user:
- *                   type: number
- *                 fullname_user:
- *                   type: string
- *                 email_user:
- *                   type: string
- *                 category_user:
- *                   type: string
- *                 type_user:
- *                   type: string
- */
-router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.User, userController.searchUserWithEmail);
-
-/**
- * @openapi
- * /api/user/searchUserByType/{type}:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Usuario
- *     summary: Trae usuarios por tipo
- *     parameters:
- *       - in: path
- *         name: type
- *         required: true
- *         schema:
- *           type_user: string
- *         description: Tipo de usuario
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id_user:
- *                   type: number
- *                 fullname_user:
- *                   type: string
- *                 email_user:
- *                   type: string
- *                 category_user:
- *                   type: string
- *                 type_user:
- *                   type: string
- */
-router.get('/searchUserByType/:type', ValidarAutorizacion.User, userController.searchUserByType);
-
-
-/**
- * @openapi
- * /api/user/searchUserByDNI/{dni}:
-*   get:
-*     security:
-*      - tokenAutorizacion: []
-*     tags:
-*       - Usuario
-*     summary: Trae un usuario por dni
-*     parameters:
-*       - in: path
-*         name: dni
-*         required: true
-*         schema:
-*           type: number
-*         description: DNI del usuario
-*     responses:
-*       200:
-*         description: OK
-*         content:
-*           application/json:
-*             schema:
-*               type: object
-*               properties:
-*                 id_user:
-*                   type: number
-*                 fullname_user:
-*                   type: string
-*                 email_user:
-*                   type: string
-*                 category_user:
-*                   type: string
-*                 type_user:
-*                   type: string
 */
-router.get('/searchUserByDNI/:dni', ValidarAutorizacion.User, userController.searchUserByDNI);
-
-/**
- * @openapi
- * /api/user/getPasswordUser/{id}:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Usuario
- *     summary: Devuelve el password del usuario
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: number
- *         description: ID del usuario
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 pass_user:
- *                   type: string
- */
-router.get('/getPasswordUser/:id', ValidarAutorizacion.User, userController.getPasswordUser);
-
-/**
- * @openapi
- * /api/user/getDatosWithToken:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Usuario
- *     summary: Devuelve el usuario con sus datos
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 user:
- *                   type: object
- *                   properties:
- *                     id_user:
- *                       type: number
- *                     fullname_user:
- *                       type: string
- *                     email_user:
- *                       type: string
- *                     type_user:
- *                       type: string
- *                     category_user:
- *                       type: string
- 
- *        
- */
-router.get('/getDatosWithToken', ValidarAutorizacion.User, userController.getDatosWithToken);
+router.post('/', ValidarAutorizacion.Admin, userController.add);
 
 /**
 * @openapi
@@ -360,7 +360,7 @@ router.get('/getDatosWithToken', ValidarAutorizacion.User, userController.getDat
 *                   example: OK
 */
 
-router.post('/modify/:id', ValidarAutorizacion.User, userController.modify);
+router.post('/modify/:id', ValidarAutorizacion.Admin, userController.modify);
 
 /**
 * @openapi
@@ -392,7 +392,7 @@ router.post('/modify/:id', ValidarAutorizacion.User, userController.modify);
 *                   type: string
 *                   example: OK
 */
-router.post('/modifyDNI', ValidarAutorizacion.User, userController.modifyDNI);
+router.post('/modifyDNI', ValidarAutorizacion.Admin, userController.modifyDNI);
 
 /**
  * @openapi
@@ -424,7 +424,7 @@ router.post('/modifyDNI', ValidarAutorizacion.User, userController.modifyDNI);
 *                   type: string
 *                   example: OK
 */
-router.post('/modifyName', ValidarAutorizacion.User, userController.modifyName);
+router.post('/modifyName', ValidarAutorizacion.Admin, userController.modifyName);
 
 /**
  * @openapi
@@ -456,7 +456,7 @@ router.post('/modifyName', ValidarAutorizacion.User, userController.modifyName);
 *                   type: string
 *                   example: OK
 */
-router.post('/modifyPassword', ValidarAutorizacion.User, userController.modifyPassword);
+router.post('/modifyPassword', ValidarAutorizacion.Admin, userController.modifyPassword);
 
 /**
  * @openapi
@@ -488,7 +488,7 @@ router.post('/modifyPassword', ValidarAutorizacion.User, userController.modifyPa
 *                   type: string
 *                   example: OK
 */
-router.post('/modifyEmail', ValidarAutorizacion.User, userController.modifyEmail);
+router.post('/modifyEmail', ValidarAutorizacion.Admin, userController.modifyEmail);
 
 /**
  * @openapi
@@ -518,7 +518,7 @@ router.post('/modifyEmail', ValidarAutorizacion.User, userController.modifyEmail
  *                   type: string
  *                   example: OK
  */
-router.post('/delete/:id', ValidarAutorizacion.User, userController.deleteUser);
+router.post('/delete/:id', ValidarAutorizacion.Admin, userController.deleteUser);
 
 
 

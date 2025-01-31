@@ -52,6 +52,7 @@ class Server {
 
   constructor() {
     this.app = express();
+    this.app.use(express.urlencoded({ extended: true }));
     // this.port = process.env.PORT;
     this.port = "8000";
 
@@ -71,7 +72,6 @@ class Server {
        })
      );
     this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: true }));
 
 
   }

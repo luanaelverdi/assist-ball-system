@@ -3,71 +3,6 @@ import { ValidarAutorizacion } from "../../middlewares/autorizacion";
 import { notificationController } from "../controllers/notificationController"; 
 
 const router: Router = Router();
-
-/**
- * @openapi
- * /api/notification:
- *   post:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Notificacion
- *     summary: Añade una notificación
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               description:
- *                 type: string
- *                 example: Notificación de prueba
- *     responses:
- *       200:
- *         description: Notificación creada
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- */
-router.post('/', ValidarAutorizacion.User, notificationController.add);
-
-/**
- * @openapi
- * /api/notification/{id}:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Notificacion
- *     summary: Devuelve una notificación por ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: number
- *         description: ID de la notificación
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id_notification:
- *                   type: number
- *                 description:
- *                   type: string
- */
-router.get('/:id', ValidarAutorizacion.User, notificationController.getByID);
-
 /**
  * @openapi
  * /api/notification/getAll:
@@ -103,6 +38,71 @@ router.get('/:id', ValidarAutorizacion.User, notificationController.getByID);
  */
 
 router.get('/getAll', ValidarAutorizacion.User, notificationController.getAll);
+
+/**
+ * @openapi
+ * /api/notification/{id}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Notificacion
+ *     summary: Devuelve una notificación por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID de la notificación
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_notification:
+ *                   type: number
+ *                 description:
+ *                   type: string
+ */
+router.get('/:id', ValidarAutorizacion.User, notificationController.getByID);
+/**
+ * @openapi
+ * /api/notification:
+ *   post:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Notificacion
+ *     summary: Añade una notificación
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               description:
+ *                 type: string
+ *                 example: Notificación de prueba
+ *     responses:
+ *       200:
+ *         description: Notificación creada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ */
+router.post('/', ValidarAutorizacion.User, notificationController.add);
+
+
 
 /**
  * @openapi
