@@ -6,9 +6,7 @@ import Postgres from "../Postgres";
 export const getAll = async (): Promise<Array<Assistance>> => {
     const query: Array<Assistance> = await Postgres.query()`
         SELECT 
-            id_assistance,
-            date,
-            entry_time
+            *
         FROM 
             assistance
         ORDER BY
@@ -41,18 +39,24 @@ export const getByDates = async (date: Date | null): Promise<Array<Assistance>> 
 
 export const add = async (body: {
     date: Date,
-    entry_time: string
+    entry_time: string,
+    id_player: number,
+    id_dt: number
 }) => {
     try {
         const query = await Postgres.query()`
       INSERT INTO 
         assistance (
           date, 
-          entry_time
+          entry_time,
+          id_player, 
+          id_dt
         ) 
       VALUES (
         CURRENT_DATE,
-        ${body.entry_time} 
+        ${body.entry_time}, 
+        ${body.id_player},
+        ${body.id_dt}
       )
       RETURNING *
     ;`;
@@ -64,9 +68,22 @@ export const add = async (body: {
     }
 };
 
+export const getByID_Player = async (id: number): Promise<Assistance | null> => {
+    //console.log("Valor de id jugador recibido:", id);
+    const query: Array<Assistance> = await Postgres.query()`SELECT * FROM assistance WHERE id_player = ${id};`;
+    return query[0];
+};
+
+export const getByID_dt = async (id: number): Promise<Assistance | null> => {
+    const query: Array<Assistance> = await Postgres.query()`SELECT * FROM assistance WHERE id_dt = ${id};`;
+    return query[0];
+};
+
 export const assistanceRepository = {
     getAll,
     getByID,
     getByDates,
-    add
+    add,
+    getByID_Player,
+    getByID_dt
 };

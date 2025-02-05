@@ -27,6 +27,26 @@ const getByID = async (req: Request, res: Response) => {
     }
 };
 
+const getByID_player = async (req: Request, res: Response) => {
+    try {
+        const assis = await assistanceService.getByID_player(Number(req.params.id));
+        ResponseOk(res, responses.OK, assis);
+    } catch (error: any) {
+        console.error(error);
+        ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
+    }
+};
+
+const getByID_dt = async (req: Request, res: Response) => {
+    try {
+        const assis = await assistanceService.getByID_dt(Number(req.params.id));
+        ResponseOk(res, responses.OK, assis);
+    } catch (error: any) {
+        console.error(error);
+        ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
+    }
+};
+
 const getByDates = async (req: Request, res: Response) => {
     try {
         const assis = await assistanceService.getByDates(new Date(req.params.date));
@@ -39,9 +59,12 @@ const getByDates = async (req: Request, res: Response) => {
 
 const add = async (req: Request, res: Response) => {
     try {
+        console.log("req asistencia: ",req.body)
         const body = {
             date: new Date(req.body.date),
-            entry_time: req.body.entry_time
+            entry_time: req.body.entry_time,
+            id_player: req.body.id_player,
+            id_dt: req.body.id_dt
         };
 
         const assistance = await assistanceService.add(body);
@@ -56,5 +79,7 @@ export const assistanceController = {
     getAll,
     getByID,
     getByDates,
-    add
+    add,
+    getByID_player,
+    getByID_dt
 };

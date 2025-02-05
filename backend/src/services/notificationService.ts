@@ -13,7 +13,9 @@ export const getByID = async (id: number) => {
 };
 
 export const add = async (body: {
-    description: string
+    description: string,
+    id_player: number,
+    id_dt: number
 }) => {
     const notification = await notificationRepository.addNotification(body);
     return notification;
