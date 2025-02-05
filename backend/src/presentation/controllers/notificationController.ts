@@ -26,7 +26,9 @@ const getByID = async (req: Request, res: Response) => {
 const add = async (req: Request, res: Response) => {
     try {
         const body = {
-            description: req.body.description
+            description: req.body.description,
+            id_player: Number(req.body.id_player),
+            id_dt: Number(req.body.id_dt)
         };
 
         const notification = await notificationService.add(body);

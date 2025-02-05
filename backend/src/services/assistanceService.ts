@@ -20,6 +20,18 @@ export const getByID = async (id: number) => {
     return assis;
 };
 
+export const getByID_player = async (id: number) => {
+    console.log("Valor de id asistencia recibido en service:", id);
+    const assis = await assistanceRepository.getByID_Player(id);
+    return assis;
+};
+
+export const getByID_dt = async (id: number) => {
+    console.log("Valor de id asistencia recibido en service:", id);
+    const assis = await assistanceRepository.getByID_dt(id);
+    return assis;
+};
+
 export const getByDates = async (date: Date) => {
     const assis = await assistanceRepository.getByDates(date);
     return assis;
@@ -28,8 +40,11 @@ export const getByDates = async (date: Date) => {
 
 export const add = async (body: {
     date: Date,
-    entry_time: string
+    entry_time: string,
+    id_player: number,
+    id_dt: number
 }) => {
+    console.log("body service: ", body)
     const assistance = await assistanceRepository.add(body);
     return assistance;
 };
@@ -38,5 +53,7 @@ export const assistanceService = {
     getAll,
     getByDates,
     getByID,
-    add
+    add,
+    getByID_player,
+    getByID_dt
 };
