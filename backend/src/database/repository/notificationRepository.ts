@@ -6,8 +6,7 @@ import Postgres from "../Postgres";
 export const getAll = async (): Promise<Array<Notification>> => {
     const query: Array<Notification> = await Postgres.query()`
         SELECT 
-            id_notification,
-            description
+            *
         FROM 
             notification
         ORDER BY
@@ -23,13 +22,17 @@ export const getByID = async (id: number): Promise<Notification | null> => {
 };
 
 export const addNotification = async (body: {
-    description: string
+    description: string;
+    id_player: number;
+    id_dt: number;
 }) => {
     try {
         const query = await Postgres.query()`
       INSERT INTO 
         notification (
-          description
+          description,
+          id_player,
+          id_dt
         ) 
       VALUES (
         ${body.description}
