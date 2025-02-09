@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.qr-code-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100%;
+    padding: 1.2rem;
+    gap: 1.2rem;
+    overflow-y: auto;
+}
+
+.qr-code .qr {
+    padding: 0.4rem;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.qr-code img {
+    width: 100%;
+    color: black;
+}
+
+.qr-code button {
+    font-size: 1.2rem;
+    color: brown;
+}

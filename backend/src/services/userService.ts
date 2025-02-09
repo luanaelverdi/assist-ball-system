@@ -131,6 +131,7 @@ export type BodyModificarUsuarioAdmin = {
 };
 
 const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
+  console.log("body modificar en servicio",body)
   if (body.dni_user) userValidator.validateDNI(body.dni_user);
   if (body.fullname_user) userValidator.validateName(body.fullname_user);
   if (body.pass_user) userValidator.validatePassword(body.pass_user);
@@ -190,6 +191,11 @@ export const modifyDNI = async (user: PublicUsers, body: { dni: number }) => {
   await userRepository.modifyDNI(user.id_user, body.dni);
 }
 
+export const getQR = async (id: number) => {
+  const resul = await userRepository.getQR(id);
+  if (!resul) throw new ErrorRecursoNoEncontrado("Usuario no encontrado.");
+  return resul;
+}
 
 
 export const userService = {
@@ -205,5 +211,6 @@ export const userService = {
   modifyEmail,
   deleteUser,
   modifyDNI,
-  searchUserByDNI
+  searchUserByDNI,
+  getQR
 };

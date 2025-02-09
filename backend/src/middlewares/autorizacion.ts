@@ -5,7 +5,6 @@ import { ResponseError } from "../helpers/ControllerResponse";
 import { authService } from "../services/authService";
 import responses from "../static/responses";
 import ErrorNoAutorizado from "../errors/ErrorNoAutorizado";
-import { formToJSON } from "axios";
 
 class Autorizacion {
     private async validarAutorizacion(req: Request, res: Response, next: NextFunction, permiso: TypeUser) {
@@ -21,9 +20,7 @@ class Autorizacion {
     }
 
     private async validarPermiso(id: number, permisoRequerido: TypeUser) {
-        console.log("id_usuario en autorizacion", id);
         const permisoUsuario = await authService.obtenerRol(id);
-        console.log("permisoUsuario en autorizacion asdasd", permisoUsuario);
         const poseePermiso = this.calcularPermiso(permisoUsuario, permisoRequerido);
 
         if (!poseePermiso) {
@@ -58,30 +55,29 @@ class Autorizacion {
         }
     }
 
-     Custom = (permisos: TypeUser[]) => {
-         return async (req: Request, res: Response, next: NextFunction) => {
-            console.log("permisos en custom", permisos);
-            console.log("Middleware ejecutado - req.params:",req.params);
-             try {
-                 const usuario = JWT.validar(req);
-                 const permisoUsuario = await authService.obtenerRol(usuario.id_user);
-                 console.log(usuario.id_user)
-                 console.log("permisoUsuario en custom", permisoUsuario);
-                 let autorizado = false;
-                 for (const permiso of permisos) {
-                     autorizado = autorizado || this.calcularPermiso(permisoUsuario, permiso);
-                    }
-                    
-                    if (!autorizado) throw new ErrorNoAutorizado("Permiso denegado: Se requiren permisos de " + permisos.join(" o "));
-                    req.user = usuario;
-                    console.log("req.user en custom", req.user);
-                 next();
-             } catch (error: any) {
-                 console.error(error);
-                 ResponseError(res, error.statusCode || responses.UNAUTHORIZED, error);
-             }
-         }
-     }
+    Custom = (permisos: TypeUser[]) => {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            console.log("Middleware ejecutado - req.url:", req.url);
+            console.log("Middleware ejecutado - req.originalUrl:", req.originalUrl);
+            console.log("Middleware ejecutado - req.params:", req.params);
+
+            try {
+                const usuario = JWT.validar(req);
+                const permisoUsuario = await authService.obtenerRol(usuario.id_user);
+                let autorizado = false;
+                for (const permiso of permisos) {
+                    autorizado = autorizado || this.calcularPermiso(permisoUsuario, permiso);
+                }
+
+                if (!autorizado) throw new ErrorNoAutorizado("Permiso denegado: Se requiren permisos de " + permisos.join(" o "));
+                req.user = usuario;
+                next();
+            } catch (error: any) {
+                console.error(error);
+                ResponseError(res, error.statusCode || responses.UNAUTHORIZED, error);
+            }
+        }
+    }
 }
 
 export const ValidarAutorizacion = new Autorizacion();

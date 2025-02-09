@@ -34,7 +34,7 @@ export const Avatar: React.FC<AvatarProps> = ({ user }) => {
 
   const initials = getInitials(user.fullname_user)
   const backgroundColor = getRandomColor(user.fullname_user)
-  const readableRole = readableRoleByRole[user.type_user as keyof typeof readableRoleByRole] || 'Users'
+  const readableRole = readableRoleByRole[user.type_user as keyof typeof readableRoleByRole] || 'User'
 
   return (
     <div className="avatar-container">

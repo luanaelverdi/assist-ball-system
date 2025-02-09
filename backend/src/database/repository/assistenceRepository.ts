@@ -68,15 +68,15 @@ export const add = async (body: {
     }
 };
 
-export const getByID_Player = async (id: number): Promise<Assistance | null> => {
+export const getByID_Player = async (id: number): Promise<Array<Assistance> | null> => {
     //console.log("Valor de id jugador recibido:", id);
     const query: Array<Assistance> = await Postgres.query()`SELECT * FROM assistance WHERE id_player = ${id};`;
-    return query[0];
+    return query;
 };
 
-export const getByID_dt = async (id: number): Promise<Assistance | null> => {
+export const getByID_dt = async (id: number): Promise<Array<Assistance> | null> => {
     const query: Array<Assistance> = await Postgres.query()`SELECT * FROM assistance WHERE id_dt = ${id};`;
-    return query[0];
+    return query;
 };
 
 export const assistanceRepository = {

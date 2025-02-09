@@ -44,6 +44,11 @@ button {
   border-bottom: 2px solid black;
 }
 
+.layout nav img {
+  max-height: 120px;
+  width: auto;
+}
+
 @media screen and (max-width: 200px) {
   .layout nav img {
     width: 80%;
@@ -75,6 +80,7 @@ button {
   .layout nav>div:last-child {
     margin-left: auto;
   }
+}
 
   .avatar-container {
     display: flex;
@@ -119,7 +125,7 @@ button {
     color: black;
   }
 
-}
+
 
 @media (min-width: 800px) {
 

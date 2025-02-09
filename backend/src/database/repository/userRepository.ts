@@ -4,6 +4,7 @@ import ErrorGenerico from "../../errors/ErrorGenerico";
 import { BodyModificarUsuarioAdmin } from "../../services/userService";
 import { Users, PublicUsers } from "../models/Users";
 import Postgres from "../Postgres";
+const QRCode = require("qrcode");
 
 export const getAll = async (): Promise<Array<Users>> => {
   const query: Array<Users> = await Postgres.query()`
@@ -113,6 +114,7 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
       if (body.email_user) await sql`UPDATE users SET email_user = ${body.email_user} WHERE id_user = ${id};`;
       if (body.pass_user) await sql`UPDATE users SET pass_user = ${body.pass_user} WHERE id_user = ${id};`;
       if (body.type_user) await sql`UPDATE users SET type_user = ${body.type_user} WHERE id_user = ${id};`;
+      if (body.category_user) await sql`UPDATE users SET category_user = ${body.category_user} WHERE id_user = ${id};`;
     });
   } catch (error) {
     console.error(error);
@@ -188,6 +190,12 @@ export const deleteUser = async (id: number) => {
   }
 }
 
+export const getQR = async (id: number): Promise<Users> => {
+  const query: Array<Users> = await Postgres.query()`SELECT id_user FROM users WHERE id_user = ${id};`;
+  const qrCodeData = await QRCode.toDataURL(query);
+  return qrCodeData;
+}
+
 export const userRepository = {
   getAll,
   getByID,
@@ -202,5 +210,6 @@ export const userRepository = {
   modifyEmail,
   modifyDNI,
   modifyCategory,
-  deleteUser
+  deleteUser,
+  getQR
 };

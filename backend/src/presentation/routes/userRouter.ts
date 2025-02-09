@@ -45,7 +45,7 @@ const router: Router = Router();
  *                       fecha_baja_user:    
  *                         type: string
  */
-router.get('/getAll', ValidarAutorizacion.Custom([ 'admin', 'dt']), userController.getAll);
+router.get('/getAll', ValidarAutorizacion.Custom(['admin', 'dt']), userController.getAll);
 
 
 /**
@@ -84,45 +84,9 @@ router.get('/getAll', ValidarAutorizacion.Custom([ 'admin', 'dt']), userControll
  
  *        
  */
-router.get('/getDatosWithToken', ValidarAutorizacion.Custom([ 'admin', 'dt', 'player']), userController.getDatosWithToken);
+router.get('/getDatosWithToken', ValidarAutorizacion.Custom(['admin', 'dt', 'player']), userController.getDatosWithToken);
 
 
-/**
- * @openapi
- * /api/user/{id}:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - Usuario
- *     summary: Devuelve un usuario por ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: number
- *         description: ID del usuario
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id_user:
- *                   type: number
- *                 fullname_user:
- *                   type: string
- *                 email_user:
- *                   type: string
- *                 category_user:
- *                   type: string
- *                 type_user:
- *                   type: string
- */
-router.get('/:id', ValidarAutorizacion.Custom([ 'admin', 'dt', 'player']), userController.getByID);
 
 
 /**
@@ -160,7 +124,7 @@ router.get('/:id', ValidarAutorizacion.Custom([ 'admin', 'dt', 'player']), userC
  *                 type_user:
  *                   type: string
  */
-router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.Custom([ 'admin', 'dt']), userController.searchUserWithEmail);
+router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.Custom(['admin', 'dt']), userController.searchUserWithEmail);
 
 /**
  * @openapi
@@ -196,8 +160,8 @@ router.get('/searchUserWithEmail/:mail', ValidarAutorizacion.Custom([ 'admin', '
  *                   type: string
  *                 type_user:
  *                   type: string
- */
-router.get('/searchUserByType/:type', ValidarAutorizacion.Custom([ 'admin', 'dt', 'player']), userController.searchUserByType);
+*/
+router.get('/searchUserByType/:type', ValidarAutorizacion.Custom(['admin', 'dt', 'player']), userController.searchUserByType);
 
 
 /**
@@ -335,17 +299,17 @@ router.post('/', ValidarAutorizacion.Admin, userController.add);
 *         application/json:
 *          schema:
 *           properties:
+*              dni_user:
+*                  type: number 
 *              fullname_user:
-*                  type: string
-*              pass_user:
 *                  type: string
 *              email_user:
 *                  type: string
-*              type_user:
+*              pass_user:
 *                  type: string
-*              dni_user:
-*                  type: number
 *              category_user:
+*                  type: string
+*              type_user:
 *                  type: string
 *     responses:
 *       200:
@@ -363,8 +327,8 @@ router.post('/', ValidarAutorizacion.Admin, userController.add);
 router.post('/modify/:id', ValidarAutorizacion.Admin, userController.modify);
 
 /**
-* @openapi
-* /api/user/modifyDNI:
+ * @openapi
+ * /api/user/modifyDNI:
 *   post:
 *     security:
 *      - tokenAutorizacion: []
@@ -397,7 +361,7 @@ router.post('/modifyDNI', ValidarAutorizacion.Admin, userController.modifyDNI);
 /**
  * @openapi
  * /api/user/modifyName:
-*   post:
+ *   post:
 *     security:
 *      - tokenAutorizacion: []
 *     tags:
@@ -429,8 +393,8 @@ router.post('/modifyName', ValidarAutorizacion.Admin, userController.modifyName)
 /**
  * @openapi
  * /api/user/modifyPassword:
-*   post:
-*     security:
+ *   post:
+ *     security:
 *      - tokenAutorizacion: []
 *     tags:
 *       - Usuario
@@ -461,7 +425,7 @@ router.post('/modifyPassword', ValidarAutorizacion.Admin, userController.modifyP
 /**
  * @openapi
  * /api/user/modifyEmail:
-*   post:
+ *   post:
 *     security:
 *      - tokenAutorizacion: []
 *     tags:
@@ -517,9 +481,80 @@ router.post('/modifyEmail', ValidarAutorizacion.Admin, userController.modifyEmai
  *                 status:
  *                   type: string
  *                   example: OK
- */
+*/
 router.post('/delete/:id', ValidarAutorizacion.Admin, userController.deleteUser);
+/**
+ * @openapi
+ * /api/user/{id}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve un usuario por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_user:
+ *                   type: number
+ *                 fullname_user:
+ *                   type: string
+ *                 email_user:
+ *                   type: string
+ *                 category_user:
+ *                   type: string
+ *                 type_user:
+ *                   type: string
+ */
+router.get('/:id', ValidarAutorizacion.Custom(['admin', 'dt', 'player']), userController.getByID);
 
-
+/**
+* @openapi
+ * /api/user/qr/{id}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve el QR usuario por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_user:
+ *                   type: number
+ *                 fullname_user:
+ *                   type: string
+ *                 email_user:
+ *                   type: string
+ *                 category_user:
+ *                   type: string
+ *                 type_user:
+ *                   type: string
+ */
+router.get('/qr/:id', ValidarAutorizacion.Custom(['admin', 'dt', 'player']), userController.getQR);
 
 export default router;

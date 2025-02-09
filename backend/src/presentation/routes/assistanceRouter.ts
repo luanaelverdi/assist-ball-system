@@ -58,10 +58,10 @@ router.get('/getAll', ValidarAutorizacion.User, assistanceController.getAll);
  *           schema:
  *             type: object
  *             properties:
- *               fecha_asistencia:
+ *               date:
  *                 type: Date
  *                 example: 2022-01-01
- *               hora_asistencia:
+ *               entry_time:
  *                 type: string
  *                 example: 12:00
  *               id_player:
@@ -167,10 +167,10 @@ router.get('/searchByDate/:date', ValidarAutorizacion.User, assistanceController
  *     summary: Devuelve id jugador segun asistencia
  *     parameters:
  *       - in: path
- *         name: date
+ *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: number
  *         description: ID del jugador
  *     responses:
  *       200:
@@ -202,10 +202,10 @@ router.get('/getByIdPlayer/:id', ValidarAutorizacion.User, assistanceController.
  *     summary: Devuelve id del dt segun asistencia
  *     parameters:
  *       - in: path
- *         name: date
+ *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: number
  *         description: ID del dt
  *     responses:
  *       200:
