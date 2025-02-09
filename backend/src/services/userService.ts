@@ -131,6 +131,7 @@ export type BodyModificarUsuarioAdmin = {
 };
 
 const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
+  console.log("body modificar en servicio",body)
   if (body.dni_user) userValidator.validateDNI(body.dni_user);
   if (body.fullname_user) userValidator.validateName(body.fullname_user);
   if (body.pass_user) userValidator.validatePassword(body.pass_user);

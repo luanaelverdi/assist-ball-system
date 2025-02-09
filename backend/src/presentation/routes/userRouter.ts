@@ -299,17 +299,17 @@ router.post('/', ValidarAutorizacion.Admin, userController.add);
 *         application/json:
 *          schema:
 *           properties:
+*              dni_user:
+*                  type: number 
 *              fullname_user:
-*                  type: string
-*              pass_user:
 *                  type: string
 *              email_user:
 *                  type: string
-*              type_user:
+*              pass_user:
 *                  type: string
-*              dni_user:
-*                  type: number
 *              category_user:
+*                  type: string
+*              type_user:
 *                  type: string
 *     responses:
 *       200:

@@ -114,6 +114,7 @@ export const modify = async (id: number, body: BodyModificarUsuarioAdmin) => {
       if (body.email_user) await sql`UPDATE users SET email_user = ${body.email_user} WHERE id_user = ${id};`;
       if (body.pass_user) await sql`UPDATE users SET pass_user = ${body.pass_user} WHERE id_user = ${id};`;
       if (body.type_user) await sql`UPDATE users SET type_user = ${body.type_user} WHERE id_user = ${id};`;
+      if (body.category_user) await sql`UPDATE users SET category_user = ${body.category_user} WHERE id_user = ${id};`;
     });
   } catch (error) {
     console.error(error);

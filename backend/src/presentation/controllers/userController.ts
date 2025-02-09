@@ -122,7 +122,7 @@ const deleteUser = async (req: Request, res: Response) => {
 }
 
 const modify = async (req: Request, res: Response) => {
-  console.log(req.body, "body")
+  console.log("body modificar en controoller",req.body)
   try {
     const response = await userService.modify(req.user.id_user, {
       dni_user: req.body.dni_user ?? null,
