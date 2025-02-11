@@ -59,9 +59,20 @@ const modifyDtPlayers = async (req: Request, res: Response) => {
     }
 };
 
+ const getPlayersByIdDt = async (req: Request, res: Response) => {
+    try {
+        const dtPlayers = await dtPlayersService.getPlayersByIdDt(Number(req.params.id));
+        ResponseOk(res, responses.OK, dtPlayers);
+    } catch (error: any) {
+        console.error(error);
+        ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
+    }
+};
+
 export const dtPlayersController = {
     getAll,
     getByID,
     addDtPlayers,
-    modifyDtPlayers
+    modifyDtPlayers,
+    getPlayersByIdDt
 };
