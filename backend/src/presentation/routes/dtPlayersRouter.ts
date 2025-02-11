@@ -41,38 +41,6 @@ const router: Router = Router();
  */
 
 router.get('/getAll', ValidarAutorizacion.User, dtPlayersController.getAll);
-/**
- * @openapi
- * /api/dtPlayers/{id}:
- *   get:
- *     security:
- *       - tokenAutorizacion: []
- *     tags:
- *       - DtPlayers
- *     summary: Devuelve una relacion dt-player por ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID de la asistencia
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id_dt_players:
- *                   type: number
- *                 id_dt:
- *                   type: number
- *                 id_player:
- *                   type: number
- */
-router.get('/:id', ValidarAutorizacion.User, dtPlayersController.getByID);
 
 /**
  * @openapi
@@ -168,7 +136,39 @@ router.post('/modify/:id', ValidarAutorizacion.User, dtPlayersController.modifyD
 
 /**
  * @openapi
- * /api/dtPlayers/getPlayersByIdDt/{id}:
+ * /api/dtPlayers/{id}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - DtPlayers
+ *     summary: Devuelve una relacion dt-player por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de la asistencia
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_dt_players:
+ *                   type: number
+ *                 id_dt:
+ *                   type: number
+ *                 id_player:
+ *                   type: number
+ */
+router.get('/:id', ValidarAutorizacion.User, dtPlayersController.getByID);
+/**
+ * @openapi
+ * /api/dtPlayers/getPlayersByIdDt/{id_dt}:
  *   get:
  *     security:
  *       - tokenAutorizacion: []
@@ -177,7 +177,7 @@ router.post('/modify/:id', ValidarAutorizacion.User, dtPlayersController.modifyD
  *     summary: Devuelve todos los jugadores de un dt
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: id_dt
  *         required: true
  *         schema:
  *           type: number
@@ -202,6 +202,6 @@ router.post('/modify/:id', ValidarAutorizacion.User, dtPlayersController.modifyD
  *                              type: number
  *                              example: 1
  */
-router.get('/getPlayersByIdDt/:id', ValidarAutorizacion.Dt, dtPlayersController.getPlayersByIdDt);
+router.get('/getPlayersByIdDt/:id_dt', ValidarAutorizacion.Dt, dtPlayersController.getPlayersByIdDt);
 
 export default router;

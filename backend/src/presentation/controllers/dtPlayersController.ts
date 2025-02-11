@@ -61,7 +61,7 @@ const modifyDtPlayers = async (req: Request, res: Response) => {
 
  const getPlayersByIdDt = async (req: Request, res: Response) => {
     try {
-        const dtPlayers = await dtPlayersService.getPlayersByIdDt(Number(req.params.id));
+        const dtPlayers = await dtPlayersService.getPlayersByIdDt(Number(req.params.id_dt));
         ResponseOk(res, responses.OK, dtPlayers);
     } catch (error: any) {
         console.error(error);

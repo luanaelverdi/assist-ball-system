@@ -36,8 +36,8 @@ export const modifyDtPlayers = async (id: number, body: {
     return dtPlayers;
 };
 
-export const getPlayersByIdDt = async (id: number) => {
-    const dtPlayers = await dtPlayersRepository.getPlayersByIdDt(id);
+export const getPlayersByIdDt = async (id_dt: number) => {
+    const dtPlayers = await dtPlayersRepository.getPlayersByIdDt(id_dt);
     return dtPlayers;
 }
 

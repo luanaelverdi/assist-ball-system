@@ -34,7 +34,7 @@ const adminRoutes = [
 
 const dtRoutes = [
   {
-    path: '/jugadores-asistencias',
+    path: '/jugadores-asistencias/:id_dt',
     element: <ProtectedRoute element={<DtPage />} />
   }
  /* {

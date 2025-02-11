@@ -62,8 +62,8 @@ export const modifyDtPlayers = async (id: number,body: {
     }
 }
 
-export const getPlayersByIdDt = async (id: number): Promise<Array<DtPlayers> | null> => {
-    const query: Array<DtPlayers> = await Postgres.query()`SELECT id_player FROM dt_players WHERE id_dt = ${id};`;
+export const getPlayersByIdDt = async (id_dt: number): Promise<Array<DtPlayers> | null> => {
+    const query: Array<DtPlayers> = await Postgres.query()`SELECT id_player FROM dt_players WHERE id_dt = ${id_dt};`;
     return query;
 };
 

@@ -35,3 +35,14 @@ export interface Assistance extends Record<string, unknown> {
     date: Date;
     entry_time: string;
 }
+
+export interface DtPlayers extends Record<string, unknown> {
+    id_dt_players: number;
+    id_dt: number;
+    id_player: number;
+}
+
+export interface CreateDtPlayers extends Record<string, unknown> {
+    id_dt: number;
+    id_player: number;
+}
