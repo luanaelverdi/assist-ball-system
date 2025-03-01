@@ -158,7 +158,7 @@ router.get('/searchByDate/:date', ValidarAutorizacion.User, assistanceController
 
 /**
  * @openapi
- * /api/assistance/getByIdPlayer/{id}:
+ * /api/assistance/getByIdPlayer/{id_player}:
  *   get:
  *     security:
  *       - tokenAutorizacion: []
@@ -167,7 +167,7 @@ router.get('/searchByDate/:date', ValidarAutorizacion.User, assistanceController
  *     summary: Devuelve id jugador segun asistencia
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: id_player
  *         required: true
  *         schema:
  *           type: number
@@ -189,7 +189,7 @@ router.get('/searchByDate/:date', ValidarAutorizacion.User, assistanceController
  *                 id_dt:
  *                   type: number 
  */
-router.get('/getByIdPlayer/:id', ValidarAutorizacion.User, assistanceController.getByID_player);
+router.get('/getByIdPlayer/:id_player', ValidarAutorizacion.User, assistanceController.getByID_player);
 
 /**
  * @openapi
@@ -202,7 +202,7 @@ router.get('/getByIdPlayer/:id', ValidarAutorizacion.User, assistanceController.
  *     summary: Devuelve id del dt segun asistencia
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: id_dt
  *         required: true
  *         schema:
  *           type: number
@@ -225,5 +225,6 @@ router.get('/getByIdPlayer/:id', ValidarAutorizacion.User, assistanceController.
  *                   type: number 
  */
 router.get('/getByIdDT/:id', ValidarAutorizacion.User, assistanceController.getByID_dt);
+
 
 export default router;

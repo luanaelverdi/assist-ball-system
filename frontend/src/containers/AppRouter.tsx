@@ -34,7 +34,7 @@ const adminRoutes = [
 
 const dtRoutes = [
   {
-    path: '/jugadores-asistencias/:id_dt',
+    path: '/jugadores-asistencias/:dtId',
     element: <ProtectedRoute element={<DtPage />} />
   }
  /* {
@@ -53,8 +53,8 @@ const dtRoutes = [
 
 const playerRoutes = [
   {
-    path: '/mis-asistencias',
-    element: <h1>Asistencias</h1>
+    path: '/mis-asistencias/:playerId',
+   // element: <ProtectedRoute element={<AssistancesPage />} />
   },
   {
     path: '/mi-qr-code',

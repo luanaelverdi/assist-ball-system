@@ -38,6 +38,8 @@ const getByID_player = async (req: Request, res: Response) => {
 };
 
 const getByID_dt = async (req: Request, res: Response) => {
+    console.log("req params id asistencia: ",req.params.id)
+    console.log("req params asistencia: ",req.params)
     try {
         const assis = await assistanceService.getByID_dt(Number(req.params.id));
         ResponseOk(res, responses.OK, assis);
@@ -59,7 +61,6 @@ const getByDates = async (req: Request, res: Response) => {
 
 const add = async (req: Request, res: Response) => {
     try {
-        console.log("req asistencia: ",req.body)
         const body = {
             date: new Date(req.body.date),
             entry_time: req.body.entry_time,

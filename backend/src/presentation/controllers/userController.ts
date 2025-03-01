@@ -9,6 +9,7 @@ import ErrorArgumentoInvalido from "../../errors/ErrorArgumentoInvalido";
 import JWT from "../../helpers/JWT";
 import Postgres from "../../database/Postgres";
 import { PublicUsers, Users } from "../../database/models/Users";
+import { get } from "http";
 
 const getAll = async (req: Request, res: Response) => {
   const query = {
@@ -202,6 +203,16 @@ const getQR = async (req: Request, res: Response) => {
     ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
   }
 }
+const getPlayersByIdDt = async (req: Request, res: Response) => {
+  try {
+    const user = req.user;
+    const players = await userService.getPlayersByIdDt(user.id_user);
+    ResponseOk(res, responses.OK, players);
+  } catch (error: any) {
+    console.error(error);
+    ResponseError(res, error.statusCode || responses.INTERNAL_SERVER_ERROR, error);
+  }
+}
 
 export const userController = {
   getAll,
@@ -219,5 +230,6 @@ export const userController = {
   getDatosWithToken,
   searchUserByDNI,
   modifyDNI,
-  getQR
+  getQR,
+  getPlayersByIdDt
 };

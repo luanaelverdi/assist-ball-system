@@ -21,14 +21,14 @@ export const getByID = async (id: number) => {
 };
 
 export const getByID_player = async (id: number) => {
-    console.log("Valor de id asistencia recibido en service:", id);
+    console.log("Valor de id player recibido en service:", id);
     const assis = await assistanceRepository.getByID_Player(id);
     return assis;
 };
 
-export const getByID_dt = async (id: number) => {
-    console.log("Valor de id asistencia recibido en service:", id);
-    const assis = await assistanceRepository.getByID_dt(id);
+export const getByID_dt = async (id_dt: number) => {
+    console.log("Valor de id dta recibido en service:", id_dt);
+    const assis = await assistanceRepository.getByID_dt(id_dt);
     return assis;
 };
 

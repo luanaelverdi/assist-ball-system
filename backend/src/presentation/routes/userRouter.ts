@@ -557,4 +557,42 @@ router.get('/:id', ValidarAutorizacion.Custom(['admin', 'dt', 'player']), userCo
  */
 router.get('/qr/:id', ValidarAutorizacion.Custom(['admin', 'dt', 'player']), userController.getQR);
 
+/**
+ * @openapi
+ * /api/user/getPlayersByIdDt/{id_dt}:
+ *   get:
+ *     security:
+ *       - tokenAutorizacion: []
+ *     tags:
+ *       - Usuario
+ *     summary: Devuelve todos los jugadores de un dt
+ *     parameters:
+ *       - in: path
+ *         name: id_dt
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: ID del dt
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                          id_user:
+ *                              type: number
+ *                              example: 1
+ */
+router.get('/getPlayersByIdDt/:id_dt', ValidarAutorizacion.Custom(['admin', 'dt', 'player']), userController.getPlayersByIdDt);
+
 export default router;

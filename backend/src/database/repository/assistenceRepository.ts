@@ -74,8 +74,8 @@ export const getByID_Player = async (id: number): Promise<Array<Assistance> | nu
     return query;
 };
 
-export const getByID_dt = async (id: number): Promise<Array<Assistance> | null> => {
-    const query: Array<Assistance> = await Postgres.query()`SELECT * FROM assistance WHERE id_dt = ${id};`;
+export const getByID_dt = async (id_dt: number): Promise<Array<Assistance> | null> => {
+    const query: Array<Assistance> = await Postgres.query()`SELECT * FROM assistance WHERE id_dt = ${id_dt};`;
     return query;
 };
 

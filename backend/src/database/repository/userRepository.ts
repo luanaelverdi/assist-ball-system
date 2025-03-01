@@ -52,7 +52,7 @@ export const searchUserByDNI = async (dni: number): Promise<Users | null> => {
 export const getByID = async (id: number): Promise<Users> => {
   console.log("id obtenido en repo 1:", id);
   console.log(Promise.resolve(id));
-  console.log( Promise<Users>);
+  console.log(Promise<Users>);
   const query: Array<Users> = await Postgres.query()`SELECT * FROM users WHERE id_user = ${id};`;
   return query[0];
 }
@@ -196,6 +196,14 @@ export const getQR = async (id: number): Promise<Users> => {
   return qrCodeData;
 }
 
+export const getPlayersByIdDt = async (id_dt: number): Promise<Array<Users> | null> => {
+  const query: Array<Users> = await Postgres.query()`SELECT * FROM users u 
+                                                      JOIN dt_players dp 
+                                                      ON u.id_user = dp.id_player
+                                                      WHERE dp.id_dt = ${id_dt};`;
+  return query;
+}
+
 export const userRepository = {
   getAll,
   getByID,
@@ -211,5 +219,6 @@ export const userRepository = {
   modifyDNI,
   modifyCategory,
   deleteUser,
-  getQR
+  getQR,
+  getPlayersByIdDt
 };

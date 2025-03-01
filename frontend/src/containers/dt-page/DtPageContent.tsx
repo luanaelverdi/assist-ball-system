@@ -10,22 +10,22 @@ import { PlayerPageContent } from '../players-page/PlayerPageContent';
 
 export const DtPageContent = ({
     players,
-    assistances,
+    //assistances,
     refetchPlayers,
-    refetchAssistances
-}: { players: Users[] | null; refetchPlayers: () => void; assistances: Assistance[] | null; refetchAssistances: () => void }) => {
+    //refetchAssistances
+}: { players: Users[] | null; refetchPlayers: () => void;/* assistances: Assistance[] | null; refetchAssistances: () => void */}) => {
     const [params, setParams] = useSearchParams()
 
     const handleTabClick = (index: number) => {
         setParams({ tab: index.toString() })
 
         refetchPlayers()
-        refetchAssistances()
+        //refetchAssistances()
     }
 
     const activeTab = parseInt(params.get('tab') ?? '0')
 
-    if (players === null || assistances === null)
+    if (players === null /*|| assistances === null*/)
         return null
 
     return (
@@ -46,7 +46,7 @@ export const DtPageContent = ({
                         players={players} /> : null
                 }
                 {
-                    activeTab === 1 ? <PaginatedTable<Assistance>
+                /*    activeTab === 1 ? <PaginatedTable<Assistance>
                         columns={['ID', 'DIA', 'HORARIO']}
                         rowsPerPage={20}
                         data={assistances}
@@ -57,10 +57,10 @@ export const DtPageContent = ({
                                 <td>{assistance.entry_time}</td>
                             </tr>
                         )} >
-                    </PaginatedTable> : null
+                    </PaginatedTable> : null*/
                 }
                 {activeTab === 2 ?
-                   <ScanQrContainer />  : null
+                    <ScanQrContainer /> : null
                 }
             </div>
         </div>

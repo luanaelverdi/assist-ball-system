@@ -36,6 +36,12 @@ export interface Assistance extends Record<string, unknown> {
     entry_time: string;
 }
 
+export interface CreateAssistance extends Record<string, unknown> {
+    date: Date;
+    entry_time: string;
+    id_player: number;
+    id_dt: number;
+}
 export interface DtPlayers extends Record<string, unknown> {
     id_dt_players: number;
     id_dt: number;

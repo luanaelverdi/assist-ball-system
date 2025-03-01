@@ -197,6 +197,11 @@ export const getQR = async (id: number) => {
   return resul;
 }
 
+export const getPlayersByIdDt = async (id_dt: number) => {
+  const resul = await userRepository.getPlayersByIdDt(id_dt);
+  if (!resul) throw new ErrorRecursoNoEncontrado("Usuario no encontrado.");
+  return resul;
+}
 
 export const userService = {
   getAll,
@@ -212,5 +217,6 @@ export const userService = {
   deleteUser,
   modifyDNI,
   searchUserByDNI,
-  getQR
+  getQR,
+  getPlayersByIdDt
 };
